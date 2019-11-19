@@ -7,14 +7,21 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * Clase que representa una conexion a un cliente
+ * @author Andres
+ *
+ */
 public class ClientHandler implements Runnable {
 
     private Socket cliente;
     private BufferedReader in;
+    private TCPServer server;
     public PrintWriter out;
 
-    public ClientHandler(Socket clientSocket) throws IOException {
+    public ClientHandler(Socket clientSocket, TCPServer server) throws IOException {
         this.cliente = clientSocket;
+        this.server = server;
         in = new BufferedReader(new InputStreamReader(this.cliente.getInputStream()));
         out = new PrintWriter(cliente.getOutputStream(), true);
     }
@@ -29,6 +36,10 @@ public class ClientHandler implements Runnable {
                 if (request.contains("quit")) {
                     cliente.close();
                     break;
+                }
+                if (request.contains("send")) {
+                	String[] message = request.split(" ");
+                	this.server.sendToController(message[1]);
                 }
                 else {
                     System.out.println("[SERVER] Se recibio: " + request);
