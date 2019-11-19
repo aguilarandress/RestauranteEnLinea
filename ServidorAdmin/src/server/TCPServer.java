@@ -7,12 +7,24 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class TCPServer implements Runnable {
+import controllers.MainController;
 
-    private final int PORT = 9090;
+/**
+ * Clase contenedora del servidor TCP
+ * @author Andres
+ *
+ */
+public class TCPServer extends Thread {
+
+    private final int PORT = 3000;
     private ExecutorService pool = Executors.newFixedThreadPool(15);
     private ArrayList<ClientHandler> clients = new ArrayList<>();
-
+    private MainController mainController;
+    
+    public TCPServer(MainController controller) {
+    	this.mainController = controller;
+    }
+    
     @Override
     public void run() {
         try {
@@ -26,7 +38,7 @@ public class TCPServer implements Runnable {
                 Socket cliente = listener.accept();
                 System.out.println("[SERVER] Un cliente se ha conectado");
                 // Spawnear un client handler para la conexion
-                ClientHandler clientHandler = new ClientHandler(cliente);
+                ClientHandler clientHandler = new ClientHandler(cliente, this);
                 clients.add(clientHandler);
                 // Agregar al thread pool
                 pool.execute(clientHandler);
@@ -35,5 +47,19 @@ public class TCPServer implements Runnable {
             e.printStackTrace();
         }
 
+    }
+    
+    /**
+     * Funcion para escribir a todos los sockets conectados
+     * @param message Un string que contiene el mensaje que se desea enviar
+     */
+    public void writeToAll(String message) {
+    	for (ClientHandler aClient : clients) {
+            aClient.out.println(message);
+        }
+    }
+    
+    public void sendToController(String message) {
+    	this.mainController.setTextField(message);
     }
 }
