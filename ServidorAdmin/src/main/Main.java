@@ -1,9 +1,11 @@
 package main;
+import catalogoXML.CreadorXML;
 
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("Hola mundo");
+		CreadorXML xmlP = new CreadorXML();
+		xmlP.CrearCatalogo(null);
 	}
 
 }
