@@ -23,7 +23,7 @@ public class CreadorXML {
 	 * Crea el catalogo en el xml.
 	 * @param alimentos ArrayList de alimentos que pertenecen al catalogo.
 	 */
-	public void CrearCatalogo(ArrayList<Alimento> alimentos) {
+	public void RecrearCatalogo(ArrayList<Alimento> alimentos) {
 		try
 	    {
 	        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -43,16 +43,43 @@ public class CreadorXML {
 	        elementoCatalogo.appendChild(elementoPlatosF);
 	        elementoCatalogo.appendChild(elementoPostres);
 	        elementoCatalogo.appendChild(elementoBebidas);
+	        // Recorrer cada alimento y añadirlo a su sección correspondiente.
 	        if(alimentos != null) {
 		        for(Alimento alimento : alimentos) {
+		        	
+		        	// Crear el tag del alimento
 		        	Element nombreAlimento = documento.createElement(alimento.getNombre());
-		        	Attr atributoCodigo = documento.createAttribute("Codigo");
-		        	atributoCodigo.setNodeValue(alimento.getCodigo());
-		        	nombreAlimento.setAttributeNode(atributoCodigo);
+		        	
+		        	// Añadir la descripcion al alimento.
+		        	Attr atributoDescrip = documento.createAttribute("Descripcion");
+		        	atributoDescrip.setNodeValue(alimento.getDescripcion());
+		        	nombreAlimento.setAttributeNode(atributoDescrip);
+		        	
+		        	// Crear tag de codigo y añadirlo.
+		        	Element codElemento = documento.createElement("Codigo");
+		        	Element codigo = documento.createElement(alimento.getCodigo());
+		        	codElemento.appendChild(codigo);
+		        	nombreAlimento.appendChild(codElemento);
+		        	
+		        	// Crear tag de precio y añadirlo
+		        	Element precElement = documento.createElement("Precio");
+		        	Element precio = documento.createElement(Float.toString(alimento.getPrecio()));
+		        	precElement.appendChild(precio);
+		        	nombreAlimento.appendChild(precElement);
+		        	
+		        	// Agregar calorias al alimento.
+		        	Element caloriasElemento = documento.createElement("Calorias");
+		        	Element calorias = documento.createElement(Float.toString(alimento.getCalorias()));
+		          	caloriasElemento.appendChild(calorias);
+		          	nombreAlimento.appendChild(caloriasElemento);
+		          	
+		          	// Agregar racion al alimento.
+		          	Element racionElement = documento.createElement("Racion");
+		          	Element racion = documento.createElement(Integer.toString(alimento.getRacion()));
+		          	
+		          	
 		        }
 	        }
-
-	      
 	        // Escribir el contenido en el XML
 	        DOMSource source = new DOMSource(documento);
 	        StreamResult result = new StreamResult(new File(CreadorXML.path));
