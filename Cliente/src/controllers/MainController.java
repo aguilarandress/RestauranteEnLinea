@@ -3,30 +3,23 @@ package controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.Socket;
 
 import views.MainView;
 import connection.ServerConnection;
-
+import connection.ClientSocket;
 
 public class MainController {
 	
 	private MainView view;
-	
-	private static final String SERVER_IP = "127.0.0.1";
-	private static final int SERVER_PORT = 3000;
-	private Socket socket;
-	
-	private PrintWriter out;
-	
+	private ClientSocket clientSocket;
+
 	public MainController(MainView view) {
 		this.view = view;
 		try {
-			this.socket = new Socket(SERVER_IP, SERVER_PORT);
-			this.out = new PrintWriter(this.socket.getOutputStream(), true);
+			// Crear socket
+			this.clientSocket = new ClientSocket();
 			// Iniciar server connection
-			ServerConnection serverConnection = new ServerConnection(this.socket, this);
+			ServerConnection serverConnection = new ServerConnection(clientSocket.getSocket(), this);
 			new Thread(serverConnection).start();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -46,7 +39,7 @@ public class MainController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			out.println("send Enviadodesdemisocket");
+			clientSocket.writeMessageToServer("send Enviadodesdemisocket");
 		}
 		
 	}

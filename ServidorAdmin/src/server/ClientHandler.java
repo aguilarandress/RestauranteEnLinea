@@ -33,6 +33,7 @@ public class ClientHandler implements Runnable {
             while (true) {
                 // Obtener request del cliente
                 String request = in.readLine();
+                if (request == null) break;
                 // Obtener tokens
                 String[] message = request.split(" ");
                 // Revisar si se desea terminar la conexion
