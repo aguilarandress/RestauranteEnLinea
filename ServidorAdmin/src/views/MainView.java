@@ -10,38 +10,50 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTabbedPane;
+import javax.swing.JLabel;
+import javax.swing.JSeparator;
+import java.awt.Font;
+import javax.swing.JList;
 
 public class MainView extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JButton btnBoton = new JButton("Boton1");
+	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+	private JPanel conexionesPanel = new JPanel();
+	private JLabel bitacoraConexionesTitle = new JLabel("Bitacora de conexiones");
+	private JSeparator separator = new JSeparator();
+	private JList bitacoraConexionesList = new JList();
 	
 	/**
 	 * Create the frame.
 	 */
 	public MainView() {
+		setTitle("Aplicacion Administradora");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 680, 417);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		btnBoton.setBounds(214, 98, 89, 23);
-		contentPane.add(btnBoton);
+		tabbedPane.setBounds(0, 0, 664, 378);
+		contentPane.add(tabbedPane);
 		
-		textField = new JTextField();
-		textField.setBounds(50, 99, 86, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
-	}
-	
-	public void addBtnActionListener(ActionListener listenForBtn) {
-		this.btnBoton.addActionListener(listenForBtn);
-	}
-	
-	public void setTextField(String message) {
-		this.textField.setText(message);
+		tabbedPane.addTab("Conexiones", null, conexionesPanel, null);
+		conexionesPanel.setLayout(null);
+		
+		bitacoraConexionesTitle.setFont(new Font("Tahoma", Font.BOLD, 15));
+		bitacoraConexionesTitle.setBounds(10, 11, 209, 24);
+		conexionesPanel.add(bitacoraConexionesTitle);
+		
+		separator.setBounds(10, 46, 209, 2);
+		conexionesPanel.add(separator);
+		
+		bitacoraConexionesList.setBounds(256, 46, 334, 234);
+		conexionesPanel.add(bitacoraConexionesList);
+		
+		JPanel panel_1 = new JPanel();
+		tabbedPane.addTab("New tab", null, panel_1, null);
 	}
 }
