@@ -22,6 +22,7 @@ public class ClientHandler implements Runnable {
     public ClientHandler(Socket clientSocket, TCPServer server) throws IOException {
         this.cliente = clientSocket;
         this.server = server;
+        // Crear streams de input y output
         in = new BufferedReader(new InputStreamReader(this.cliente.getInputStream()));
         out = new PrintWriter(cliente.getOutputStream(), true);
     }
@@ -32,19 +33,21 @@ public class ClientHandler implements Runnable {
             while (true) {
                 // Obtener request del cliente
                 String request = in.readLine();
+                // Obtener tokens
+                String[] message = request.split(" ");
                 // Revisar si se desea terminar la conexion
-                if (request.contains("quit")) {
+                if (message[0].equals("quit")) {
                     cliente.close();
                     break;
                 }
-                if (request.contains("send")) {
-                	String[] message = request.split(" ");
+                else if (message[0].equals("send")) {
                 	this.server.sendToController(message[1]);
+                	this.out.println("client HelloWorld");
                 }
                 else {
                     System.out.println("[SERVER] Se recibio: " + request);
                     // Responder al cliente
-                    out.println("El servidor recivio: " + request);
+                    out.println("El servidor recibio: " + request);
                 }
             }
         } catch (IOException e) {

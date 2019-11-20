@@ -17,25 +17,27 @@ import controllers.MainController;
 public class TCPServer extends Thread {
 
     private final int PORT = 3000;
+    private ServerSocket listener;
     private ExecutorService pool = Executors.newFixedThreadPool(15);
-    private ArrayList<ClientHandler> clients = new ArrayList<>();
+    private ArrayList<ClientHandler> clients;
     private MainController mainController;
     
     public TCPServer(MainController controller) {
     	this.mainController = controller;
+    	this.clients = new ArrayList<ClientHandler>();
     }
     
     @Override
     public void run() {
         try {
             // Iniciar servidor
-            ServerSocket listener = new ServerSocket(this.PORT);
+            this.listener = new ServerSocket(this.PORT);
             System.out.println("Servidor iniciado en el puerto: " + this.PORT);
             // Esperar conexiones
             while (true) {
                 System.out.println("[SERVER] Esperando conexiones...");
                 // Crear conexion
-                Socket cliente = listener.accept();
+                Socket cliente = this.listener.accept();
                 System.out.println("[SERVER] Un cliente se ha conectado");
                 // Spawnear un client handler para la conexion
                 ClientHandler clientHandler = new ClientHandler(cliente, this);
@@ -43,6 +45,7 @@ public class TCPServer extends Thread {
                 // Agregar al thread pool
                 pool.execute(clientHandler);
             }
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,6 +60,17 @@ public class TCPServer extends Thread {
     	for (ClientHandler aClient : clients) {
             aClient.out.println(message);
         }
+    }
+    
+    /**
+     * Cierra el servidor y todas sus conexionex
+     */
+    public void closeServer() {
+    	try {
+			this.listener.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     
     public void sendToController(String message) {
