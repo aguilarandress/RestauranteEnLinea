@@ -11,7 +11,7 @@ import java.io.IOException;
 public class ClientSocket {
 
     private static final String SERVER_IP = "127.0.0.1";
-    private static final int SERVER_PORT = 3000;
+    private static final int SERVER_PORT = 5000;
     private Socket socket;
     private PrintWriter out;
 
@@ -25,7 +25,7 @@ public class ClientSocket {
      * @param message El mensaje tipo String que se desea enviar al servidor
      */
     public void writeMessageToServer(String message) {
-        this.out.println(message.getBytes());
+        this.out.println(message);
     }
 
     /**

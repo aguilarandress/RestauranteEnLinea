@@ -74,6 +74,10 @@ public class TCPServer extends Thread {
 		}
     }
     
+    public MainController getController() {
+    	return this.mainController;
+    }
+    
     public void sendToController(String message) {
     	// this.mainController.setTextField(message);
     }

@@ -3,6 +3,8 @@ package views;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -41,6 +43,14 @@ public class MainView extends JFrame {
 		
 		textPane.setBounds(90, 200, 143, 86);
 		contentPane.add(textPane);
+	}
+	
+	/**
+	 * Agregar evento para cuando la aplicacion se cierra
+	 * @param windowListener El event listener 
+	 */
+	public void addWindowBtnCloseEvent(WindowListener windowListener) {
+		this.addWindowListener(windowListener);
 	}
 	
 	public void addBtnActionListener(ActionListener listenerForBtn) {
