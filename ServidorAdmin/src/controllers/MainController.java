@@ -26,6 +26,14 @@ public class MainController {
 	
 	// public void setTextField(String message) { this.view.setTextField(message); }
 	
+	/**
+	 * Agregar una actividad nueva a la bitacora de conexiones
+	 * @param actividad La actividad de conexion nueva
+	 */
+	public void agregarActividadDeConexion(String actividad) {
+		this.view.agregarABitacoraConexiones(actividad);
+	}
+	
 	private class EventoBtn implements ActionListener {
 
 		@Override

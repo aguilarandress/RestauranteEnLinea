@@ -16,7 +16,7 @@ import controllers.MainController;
  */
 public class TCPServer extends Thread {
 
-    private final int PORT = 3000;
+    private final int PORT = 5000;
     private ServerSocket listener;
     private ExecutorService pool = Executors.newFixedThreadPool(15);
     private ArrayList<ClientHandler> clients;
@@ -39,6 +39,7 @@ public class TCPServer extends Thread {
                 // Crear conexion
                 Socket cliente = this.listener.accept();
                 System.out.println("[SERVER] Un cliente se ha conectado");
+                this.mainController.agregarActividadDeConexion("[SERVER] Un cliente se ha conectado");
                 // Spawnear un client handler para la conexion
                 ClientHandler clientHandler = new ClientHandler(cliente, this);
                 clients.add(clientHandler);

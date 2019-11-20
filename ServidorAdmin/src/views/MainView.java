@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import java.awt.Font;
 import javax.swing.JList;
+import javax.swing.DefaultListModel;
 
 public class MainView extends JFrame {
 
@@ -23,7 +24,9 @@ public class MainView extends JFrame {
 	private JPanel conexionesPanel = new JPanel();
 	private JLabel bitacoraConexionesTitle = new JLabel("Bitacora de conexiones");
 	private JSeparator separator = new JSeparator();
-	private JList bitacoraConexionesList = new JList();
+	// Bitacora de conexiones
+	private DefaultListModel<String> bitacoraConexionesListModel = new DefaultListModel<String>();
+	private JList bitacoraConexionesList = new JList(bitacoraConexionesListModel);
 	
 	/**
 	 * Create the frame.
@@ -55,5 +58,13 @@ public class MainView extends JFrame {
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("New tab", null, panel_1, null);
+	}
+	
+	/**
+	 * Agregar una actividad nueva a la bitacora de conexiones
+	 * @param actividad
+	 */
+	public void agregarABitacoraConexiones(String actividad) {
+		this.bitacoraConexionesListModel.addElement(actividad);
 	}
 }
