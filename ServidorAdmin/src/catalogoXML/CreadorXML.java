@@ -15,6 +15,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import model.alimento.Alimento;
+import model.alimento.TipoAlimento;
 
 public class CreadorXML {
 	private static final String path = "Catalogo/Catalogo.xml";
@@ -76,7 +77,18 @@ public class CreadorXML {
 		          	// Agregar racion al alimento.
 		          	Element racionElement = documento.createElement("Racion");
 		          	Element racion = documento.createElement(Integer.toString(alimento.getRacion()));
-		          	
+		          	if(alimento.getTipo() == TipoAlimento.PLATO_FUERTE) {
+		          		elementoPlatosF.appendChild(nombreAlimento);
+		          	}
+		          	else if(alimento.getTipo() == TipoAlimento.ENTRADA) {
+		          		elementoEntradas.appendChild(nombreAlimento);
+		          	}
+		          	else if(alimento.getTipo() == TipoAlimento.BEBIDA) {
+		          		elementoBebidas.appendChild(nombreAlimento);
+		          	}
+		          	else {
+		          		elementoPostres.appendChild(nombreAlimento);
+		          	}
 		          	
 		        }
 	        }
