@@ -40,7 +40,7 @@ public class ServerConnection implements Runnable {
 				// Obtener tokens
 				String[] tokens = serverResponse.split(" ");
 				if (tokens[0].equals("client")) {
-					this.controller.addTextPane(tokens[1]);
+					// this.controller.addTextPane(tokens[1]);
 				}
 			}
 		} catch (IOException e) {

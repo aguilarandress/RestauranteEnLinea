@@ -35,15 +35,15 @@ public class MainController {
 		}
 		
 		// Configurar eventos
-		this.view.addBtnActionListener(new EventoBtn());
+		// this.view.addBtnActionListener(new EventoBtn());
 		this.view.addWindowBtnCloseEvent(new CloseWindowEvent());
 		
 		this.view.setVisible(true);
 	}
 	
-	public void addTextPane(String message) {
-		this.view.addTextPane(message);
-	}
+//	public void addTextPane(String message) {
+//		this.view.addTextPane(message);
+//	}
 	
 	private class EventoBtn implements ActionListener {
 

@@ -12,13 +12,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
+import javax.swing.JTabbedPane;
 
 public class MainView extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JButton btnPresioname = new JButton("Presioname");
-	private JTextPane textPane = new JTextPane();
+	private JTabbedPane tabbedPane;
+	private JPanel menuPanel;
+	private JPanel crearPedidoPanel;
 	
 	/**
 	 * Create the frame.
@@ -32,17 +33,15 @@ public class MainView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(90, 145, 86, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(0, 0, 629, 355);
+		contentPane.add(tabbedPane);
 		
-		btnPresioname.setBounds(280, 144, 89, 23);
-		contentPane.add(btnPresioname);
+		menuPanel = new JPanel();
+		tabbedPane.addTab("Menu", null, menuPanel, null);
 		
-		
-		textPane.setBounds(90, 200, 143, 86);
-		contentPane.add(textPane);
+		crearPedidoPanel = new JPanel();
+		tabbedPane.addTab("Crear Pedido", null, crearPedidoPanel, null);
 	}
 	
 	/**
@@ -53,11 +52,11 @@ public class MainView extends JFrame {
 		this.addWindowListener(windowListener);
 	}
 	
-	public void addBtnActionListener(ActionListener listenerForBtn) {
-		this.btnPresioname.addActionListener(listenerForBtn);
-	}
-	
-	public void addTextPane(String text) {
-		this.textPane.setText(this.textPane.getText() + text);
-	}
+//	public void addBtnActionListener(ActionListener listenerForBtn) {
+//		this.btnPresioname.addActionListener(listenerForBtn);
+//	}
+//	
+//	public void addTextPane(String text) {
+//		this.textPane.setText(this.textPane.getText() + text);
+//	}
 }

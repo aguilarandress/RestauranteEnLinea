@@ -16,6 +16,8 @@ import javax.swing.JSeparator;
 import java.awt.Font;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
+import javax.swing.JTextPane;
+import java.awt.Color;
 
 public class MainView extends JFrame {
 
@@ -53,7 +55,7 @@ public class MainView extends JFrame {
 		separator.setBounds(10, 46, 209, 2);
 		conexionesPanel.add(separator);
 		
-		bitacoraConexionesList.setBounds(256, 46, 334, 234);
+		bitacoraConexionesList.setBounds(166, 59, 334, 234);
 		conexionesPanel.add(bitacoraConexionesList);
 		
 		JPanel panel_1 = new JPanel();
