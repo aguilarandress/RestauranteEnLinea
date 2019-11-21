@@ -1,4 +1,7 @@
 package main;
+import catalogoXML.CreadorXML;
+import model.alimento.*;
+
 
 import server.TCPServer;
 
@@ -11,7 +14,8 @@ import views.MainView;
 public class Main {
 
 	public static void main(String[] args) {
-        try {
+
+    try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
@@ -21,5 +25,4 @@ public class Main {
 		MainView view = new MainView();
 		MainController controller = new MainController(view);
 	}
-
 }
