@@ -19,8 +19,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import model.alimento.Alimento;
-import model.alimento.TipoAlimento;
+import models.alimento.Alimento;
+import models.alimento.TipoAlimento;
 
 public class CreadorXML {
 	private static CreadorXML creadorXML;
