@@ -1,4 +1,4 @@
-package model.pedidos;
+package models.pedidos;
 
 /**
  * 
@@ -6,6 +6,6 @@ package model.pedidos;
  * @author Fabian Vargas
  * @author Andres Aguilar
  */
-public class PedidoSitio extends Pedido{
-	private int numeroMesa;
+public class ListaPedidos {
+
 }

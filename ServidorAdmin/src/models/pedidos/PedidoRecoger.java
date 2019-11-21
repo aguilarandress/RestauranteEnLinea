@@ -1,4 +1,4 @@
-package model.pedidos;
+package models.pedidos;
 
 /**
  * 
@@ -6,7 +6,6 @@ package model.pedidos;
  * @author Fabian Vargas
  * @author Andres Aguilar
  */
-public class PedidoExpress extends Pedido{
+public class PedidoRecoger extends Pedido{
 	private int numeroCelular;
-	private String direccion;
 }

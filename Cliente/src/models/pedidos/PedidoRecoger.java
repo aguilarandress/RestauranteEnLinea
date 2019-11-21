@@ -1,4 +1,4 @@
-package model.pedidos;
+package models.pedidos;
 
 /**
  * 

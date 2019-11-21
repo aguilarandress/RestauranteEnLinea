@@ -1,4 +1,4 @@
-package model.alimento;
+package models.alimento;
 
 /**
  * 

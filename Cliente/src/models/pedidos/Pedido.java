@@ -1,9 +1,9 @@
-package model.pedidos;
+package models.pedidos;
 
 import java.util.Date;
 import java.util.HashSet;
 
-import model.alimento.Alimento;
+import models.alimento.Alimento;
 
 /**
  * 
