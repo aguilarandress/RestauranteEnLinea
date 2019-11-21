@@ -1,22 +1,33 @@
 package views;
 
+import catalogoXML.CreadorXML;
+
+import models.alimento.*;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import java.awt.Font;
 import javax.swing.JList;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JTextPane;
+import javax.swing.JTree;
+
 import java.awt.Color;
 
 public class MainView extends JFrame {
@@ -29,20 +40,20 @@ public class MainView extends JFrame {
 	// Bitacora de conexiones
 	private DefaultListModel<String> bitacoraConexionesListModel = new DefaultListModel<String>();
 	private JList bitacoraConexionesList = new JList(bitacoraConexionesListModel);
-	
+	private JTree catalogoTree;
 	/**
 	 * Create the frame.
 	 */
 	public MainView() {
 		setTitle("Aplicacion Administradora");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 680, 417);
+		setBounds(100, 100, 680, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		tabbedPane.setBounds(0, 0, 664, 378);
+		tabbedPane.setBounds(0, 0, 664, 450);
 		contentPane.add(tabbedPane);
 		
 		tabbedPane.addTab("Conexiones", null, conexionesPanel, null);
@@ -55,11 +66,25 @@ public class MainView extends JFrame {
 		separator.setBounds(10, 46, 209, 2);
 		conexionesPanel.add(separator);
 		
-		bitacoraConexionesList.setBounds(166, 59, 334, 234);
+		bitacoraConexionesList.setBounds(100, 59, 500, 300);
 		conexionesPanel.add(bitacoraConexionesList);
 		
+		catalogoTree = new JTree();
+		catalogoTree.setBounds(0, 0, 500, 450);
+		catalogoTree.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+		catalogoTree.setModel(this.CrearCatalogo());
+		
+		JScrollPane scrollPane = new JScrollPane(catalogoTree);
+		scrollPane.setViewportView(catalogoTree);
+		scrollPane.setBounds(0, 0, 650, 400);
+		scrollPane.setBorder(null);
+		
 		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_1, null);
+		panel_1.add(scrollPane);
+		panel_1.setLayout(null);
+		tabbedPane.addTab("Menu", null, panel_1, null);
+		
+
 	}
 	
 	/**
@@ -68,5 +93,75 @@ public class MainView extends JFrame {
 	 */
 	public void agregarABitacoraConexiones(String actividad) {
 		this.bitacoraConexionesListModel.addElement(actividad);
+	}
+	
+	/**
+	 * Crea el model del catalogo
+	 * @return El modelo del catalogo
+	 */
+	private DefaultTreeModel CrearCatalogo() {
+		CreadorXML catalogo = CreadorXML.getInstance();
+		
+		ArrayList<Alimento> alimentos = catalogo.ObtenerCatalogo();
+		
+		DefaultMutableTreeNode raiz = new DefaultMutableTreeNode("Catalogo");
+		
+		DefaultMutableTreeNode entradas = new DefaultMutableTreeNode("Entradas");
+		
+		DefaultMutableTreeNode platosF = new DefaultMutableTreeNode("Platos Fuertes");
+		
+		DefaultMutableTreeNode bebidas = new DefaultMutableTreeNode("Bebidas");
+		
+		DefaultMutableTreeNode postres = new DefaultMutableTreeNode("Postres");
+		for(Alimento alimento : alimentos) {
+			// Nombre de la comida
+			DefaultMutableTreeNode nombre = new DefaultMutableTreeNode(alimento.getNombre());
+			
+			// Codigo de la comida
+			DefaultMutableTreeNode codigoNode = new DefaultMutableTreeNode("Codigo");
+			DefaultMutableTreeNode codigo = new DefaultMutableTreeNode(alimento.getCodigo());
+			codigoNode.add(codigo);
+			nombre.add(codigoNode);
+			
+			// Descripcion de la comida
+			DefaultMutableTreeNode descripcionNode = new DefaultMutableTreeNode("Descripcion");
+			DefaultMutableTreeNode descripcion = new DefaultMutableTreeNode(alimento.getDescripcion());
+			descripcionNode.add(descripcion);
+			nombre.add(descripcionNode);
+			
+			// Calorias de la comida		
+			DefaultMutableTreeNode caloriasNode = new DefaultMutableTreeNode("Calorias");
+			DefaultMutableTreeNode calorias = new DefaultMutableTreeNode(Float.toString(alimento.getCalorias()));
+			caloriasNode.add(calorias);
+			nombre.add(caloriasNode);
+			
+			// Precio de la comida
+			DefaultMutableTreeNode precioNode = new DefaultMutableTreeNode("Precio");
+			DefaultMutableTreeNode precio = new DefaultMutableTreeNode(Float.toString(alimento.getPrecio()));
+			precioNode.add(precio);
+			nombre.add(precioNode);
+			
+			// Agregar segun corresponda
+			if(alimento.getTipo().equals(TipoAlimento.ENTRADA)) {
+				entradas.add(nombre);
+			}
+			else if(alimento.getTipo().equals(TipoAlimento.PLATO_FUERTE)) {
+				platosF.add(nombre);
+			}
+			else if(alimento.getTipo().equals(TipoAlimento.BEBIDA)) {
+				bebidas.add(nombre);
+			}
+			else {
+				postres.add(nombre);
+			}
+			
+		}
+		
+		raiz.add(entradas);
+		raiz.add(platosF);
+		raiz.add(bebidas);
+		raiz.add(postres);
+		DefaultTreeModel modelo = new DefaultTreeModel(raiz);
+		return modelo;
 	}
 }
