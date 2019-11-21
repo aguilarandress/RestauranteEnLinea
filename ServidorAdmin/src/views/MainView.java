@@ -72,7 +72,7 @@ public class MainView extends JFrame {
 		catalogoTree = new JTree();
 		catalogoTree.setBounds(0, 0, 500, 450);
 		catalogoTree.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-		catalogoTree.setModel(this.CrearCatalogo());
+		// catalogoTree.setModel(this.CrearCatalogo());
 		
 		JScrollPane scrollPane = new JScrollPane(catalogoTree);
 		scrollPane.setViewportView(catalogoTree);
@@ -83,8 +83,6 @@ public class MainView extends JFrame {
 		panel_1.add(scrollPane);
 		panel_1.setLayout(null);
 		tabbedPane.addTab("Menu", null, panel_1, null);
-		
-
 	}
 	
 	/**
@@ -96,14 +94,10 @@ public class MainView extends JFrame {
 	}
 	
 	/**
-	 * Crea el model del catalogo
-	 * @return El modelo del catalogo
+	 * Cargar los alimentos a la vista
+	 * @param alimentos Los alimentos que se van a cargar
 	 */
-	private DefaultTreeModel CrearCatalogo() {
-		CreadorXML catalogo = CreadorXML.getInstance();
-		
-		ArrayList<Alimento> alimentos = catalogo.ObtenerCatalogo();
-		
+	public void crearCatalogo(ArrayList<Alimento> alimentos) {
 		DefaultMutableTreeNode raiz = new DefaultMutableTreeNode("Catalogo");
 		
 		DefaultMutableTreeNode entradas = new DefaultMutableTreeNode("Entradas");
@@ -154,7 +148,6 @@ public class MainView extends JFrame {
 			else {
 				postres.add(nombre);
 			}
-			
 		}
 		
 		raiz.add(entradas);
@@ -162,6 +155,6 @@ public class MainView extends JFrame {
 		raiz.add(bebidas);
 		raiz.add(postres);
 		DefaultTreeModel modelo = new DefaultTreeModel(raiz);
-		return modelo;
+		this.catalogoTree.setModel(modelo);
 	}
 }
