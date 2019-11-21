@@ -23,8 +23,21 @@ import model.alimento.Alimento;
 import model.alimento.TipoAlimento;
 
 public class CreadorXML {
+	private static CreadorXML creadorXML;
 	private static final String path = "Catalogo/Catalogo.xml";
 	
+	private CreadorXML() {
+		
+	}
+	
+	public static CreadorXML getInstance() {
+		if(creadorXML == null) {
+			creadorXML = new CreadorXML();
+		}
+		return creadorXML;
+	}
+	
+
 	/**
 	 * Crea el catalogo en el xml.
 	 * @param alimentos ArrayList de alimentos que pertenecen al catalogo.
