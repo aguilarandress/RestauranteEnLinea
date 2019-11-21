@@ -37,7 +37,9 @@ public class ClientHandler implements Runnable {
                 // Obtener tokens
                 String[] message = request.split(" ");
                 // Revisar si se desea terminar la conexion
-                if (message[0].equals("quit")) {
+                if (request.equals("quit")) {
+                	// Desconectar cliente del servidor
+                	this.server.getController().agregarActividadDeConexion("[SERVER] Cliente desconectado...");
                     cliente.close();
                     break;
                 }
