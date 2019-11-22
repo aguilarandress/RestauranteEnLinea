@@ -113,8 +113,10 @@ public class MainController {
 				view.blanquearImagen();
 				return;
 			}
-			ArrayList<Alimento> alimentos = catalogo.getAlimentos();
-			for(Alimento alimento : alimentos) {
+			Cola<Alimento> alimentos = catalogo.getAlimentos();
+			for(int i = 0; i < catalogo.getAlimentos().getCantidad(); i++) {
+				Alimento alimento = catalogo.getAlimentos().get(i);
+				
 				if(alimento.getCodigo().equals(view.getTreeCatalogo().getSelectionPath().getLastPathComponent().toString())) {
 					System.out.println(alimento.getNombre());
 					if(view.verificarImagen(alimento.getImagenPath())) {

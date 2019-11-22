@@ -256,11 +256,11 @@ public class MainView extends JFrame {
 			Alimento actual = alimentos.get(posActual);
 			
 			// Nombre de la comida
-			DefaultMutableTreeNode codigo = new DefaultMutableTreeNode(alimento.getCodigo());
+			DefaultMutableTreeNode codigo = new DefaultMutableTreeNode(actual.getCodigo());
 			
 			// Codigo de la comida
 			DefaultMutableTreeNode nombreNode = new DefaultMutableTreeNode("Nombre");
-			DefaultMutableTreeNode nombre = new DefaultMutableTreeNode(alimento.getNombre());
+			DefaultMutableTreeNode nombre = new DefaultMutableTreeNode(actual.getNombre());
 			nombreNode.add(nombre);
 			codigo.add(nombreNode);
 			
@@ -279,13 +279,13 @@ public class MainView extends JFrame {
 			codigo.add(precioNode);
 			
 			// Agregar segun corresponda
-			if(alimento.getTipo().equals(TipoAlimento.ENTRADA)) {
+			if (actual.getTipo().equals(TipoAlimento.ENTRADA)) {
 				entradas.add(codigo);
 			}
-			else if(alimento.getTipo().equals(TipoAlimento.PLATO_FUERTE)) {
+			else if(actual.getTipo().equals(TipoAlimento.PLATO_FUERTE)) {
 				platosF.add(codigo);
 			}
-			else if(alimento.getTipo().equals(TipoAlimento.BEBIDA)) {
+			else if(actual.getTipo().equals(TipoAlimento.BEBIDA)) {
 				bebidas.add(codigo);
 			}
 			else {

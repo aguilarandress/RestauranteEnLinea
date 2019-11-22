@@ -255,14 +255,13 @@ public class CreadorXML {
 				alimento.setPrecio(precio);
 				alimento.setDescripcion(descripcion);
 				alimento.setRacion(racion);
-				alimento.setImagenPath(path);
-				alimentos.add(alimento);				
+				alimento.setImagenPath(path);	
 
 				alimentos.enqueue(alimento);				
-
+			}
 			
 			lista = documento.getElementsByTagName("Entrada");
-			for(int i =0; i<lista.getLength(); i++) {
+			for(int i = 0; i<lista.getLength(); i++) {
 				Element nodo = (Element) lista.item(i);
 				// Obtener el nombre
 				String nombre = nodo.getAttribute("Nombre").toString();
@@ -286,8 +285,7 @@ public class CreadorXML {
 				alimento.setPrecio(precio);
 				alimento.setDescripcion(descripcion);
 				alimento.setRacion(racion);
-				alimento.setImagenPath(path);
-				alimentos.add(alimento);				
+				alimento.setImagenPath(path);		
 				alimentos.enqueue(alimento);				
 			}
 			
@@ -316,8 +314,7 @@ public class CreadorXML {
 				alimento.setPrecio(precio);
 				alimento.setDescripcion(descripcion);
 				alimento.setRacion(racion);
-				alimento.setImagenPath(path);
-				alimentos.add(alimento);				
+				alimento.setImagenPath(path);				
 				alimentos.enqueue(alimento);				
 
 			}
@@ -349,8 +346,7 @@ public class CreadorXML {
 				alimento.setPrecio(precio);
 				alimento.setDescripcion(descripcion);
 				alimento.setRacion(racion);
-				alimento.setImagenPath(path);
-				alimentos.add(alimento);				
+				alimento.setImagenPath(path);			
 				alimentos.enqueue(alimento);				
 
 			}
