@@ -3,6 +3,7 @@ package views;
 import catalogoXML.CreadorXML;
 
 import models.alimento.*;
+import models.cola.Cola;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -41,6 +42,7 @@ public class MainView extends JFrame {
 	private DefaultListModel<String> bitacoraConexionesListModel = new DefaultListModel<String>();
 	private JList bitacoraConexionesList = new JList(bitacoraConexionesListModel);
 	private JTree catalogoTree;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -97,7 +99,7 @@ public class MainView extends JFrame {
 	 * Cargar los alimentos a la vista
 	 * @param alimentos Los alimentos que se van a cargar
 	 */
-	public void crearCatalogo(ArrayList<Alimento> alimentos) {
+	public void crearCatalogo(Cola<Alimento> alimentos) {
 		DefaultMutableTreeNode raiz = new DefaultMutableTreeNode("Catalogo");
 		
 		DefaultMutableTreeNode entradas = new DefaultMutableTreeNode("Entradas");
@@ -107,42 +109,46 @@ public class MainView extends JFrame {
 		DefaultMutableTreeNode bebidas = new DefaultMutableTreeNode("Bebidas");
 		
 		DefaultMutableTreeNode postres = new DefaultMutableTreeNode("Postres");
-		for(Alimento alimento : alimentos) {
+		for(int posActual = 0; posActual < alimentos.getCantidad(); posActual++) {
+			Alimento actual = alimentos.get(posActual);
+			
 			// Nombre de la comida
-			DefaultMutableTreeNode nombre = new DefaultMutableTreeNode(alimento.getNombre());
+			DefaultMutableTreeNode nombre = new DefaultMutableTreeNode(actual.getNombre());
 			
 			// Codigo de la comida
 			DefaultMutableTreeNode codigoNode = new DefaultMutableTreeNode("Codigo");
-			DefaultMutableTreeNode codigo = new DefaultMutableTreeNode(alimento.getCodigo());
+			DefaultMutableTreeNode codigo = new DefaultMutableTreeNode(actual.getCodigo());
 			codigoNode.add(codigo);
 			nombre.add(codigoNode);
 			
 			// Descripcion de la comida
 			DefaultMutableTreeNode descripcionNode = new DefaultMutableTreeNode("Descripcion");
-			DefaultMutableTreeNode descripcion = new DefaultMutableTreeNode(alimento.getDescripcion());
+			DefaultMutableTreeNode descripcion = new DefaultMutableTreeNode(actual.getDescripcion());
 			descripcionNode.add(descripcion);
 			nombre.add(descripcionNode);
 			
 			// Calorias de la comida		
 			DefaultMutableTreeNode caloriasNode = new DefaultMutableTreeNode("Calorias");
-			DefaultMutableTreeNode calorias = new DefaultMutableTreeNode(Float.toString(alimento.getCalorias()));
+			DefaultMutableTreeNode calorias = new DefaultMutableTreeNode(Float.toString(
+					actual.getCalorias()));
 			caloriasNode.add(calorias);
 			nombre.add(caloriasNode);
 			
 			// Precio de la comida
 			DefaultMutableTreeNode precioNode = new DefaultMutableTreeNode("Precio");
-			DefaultMutableTreeNode precio = new DefaultMutableTreeNode(Float.toString(alimento.getPrecio()));
+			DefaultMutableTreeNode precio = new DefaultMutableTreeNode(Float.toString(
+					actual.getPrecio()));
 			precioNode.add(precio);
 			nombre.add(precioNode);
 			
 			// Agregar segun corresponda
-			if(alimento.getTipo().equals(TipoAlimento.ENTRADA)) {
+			if(actual.getTipo().equals(TipoAlimento.ENTRADA)) {
 				entradas.add(nombre);
 			}
-			else if(alimento.getTipo().equals(TipoAlimento.PLATO_FUERTE)) {
+			else if(actual.getTipo().equals(TipoAlimento.PLATO_FUERTE)) {
 				platosF.add(nombre);
 			}
-			else if(alimento.getTipo().equals(TipoAlimento.BEBIDA)) {
+			else if(actual.getTipo().equals(TipoAlimento.BEBIDA)) {
 				bebidas.add(nombre);
 			}
 			else {

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import catalogoXML.CreadorXML;
 import models.alimento.Alimento;
+import models.cola.Cola;
 import server.TCPServer;
 
 public class MainController {
@@ -37,7 +38,7 @@ public class MainController {
 	public void cargarCatalogo() {
 		// Obtener alimentos guardados en el xml
 		CreadorXML catalogo = CreadorXML.getInstance();
-		ArrayList<Alimento> alimentos = catalogo.ObtenerCatalogo();
+		Cola<Alimento> alimentos = catalogo.ObtenerCatalogo();
 		this.view.crearCatalogo(alimentos);
 	}
 	

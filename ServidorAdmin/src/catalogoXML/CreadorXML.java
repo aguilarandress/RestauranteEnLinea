@@ -21,6 +21,7 @@ import org.xml.sax.SAXException;
 
 import models.alimento.Alimento;
 import models.alimento.TipoAlimento;
+import models.cola.Cola;
 
 public class CreadorXML {
 	private static CreadorXML creadorXML;
@@ -217,8 +218,8 @@ public class CreadorXML {
 	 * Lee el catalogo de alimentos y los añade a un ArrayList de Alimento
 	 * @return Un ArrayList de alimento
 	 */
-	public ArrayList<Alimento> ObtenerCatalogo(){
-		ArrayList<Alimento> alimentos = new ArrayList<Alimento>();
+	public Cola<Alimento> ObtenerCatalogo(){
+		Cola<Alimento> alimentos = new Cola<Alimento>();
 		try {
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -254,7 +255,7 @@ public class CreadorXML {
 				alimento.setPrecio(precio);
 				alimento.setDescripcion(descripcion);
 				alimento.setRacion(racion);
-				alimentos.add(alimento);				
+				alimentos.enqueue(alimento);				
 			}
 			
 			lista = documento.getElementsByTagName("Entrada");
@@ -282,7 +283,7 @@ public class CreadorXML {
 				alimento.setPrecio(precio);
 				alimento.setDescripcion(descripcion);
 				alimento.setRacion(racion);
-				alimentos.add(alimento);				
+				alimentos.enqueue(alimento);				
 			}
 			
 			lista = documento.getElementsByTagName("Plato_Fuerte");
@@ -310,7 +311,7 @@ public class CreadorXML {
 				alimento.setPrecio(precio);
 				alimento.setDescripcion(descripcion);
 				alimento.setRacion(racion);
-				alimentos.add(alimento);				
+				alimentos.enqueue(alimento);				
 			}
 			
 			lista = documento.getElementsByTagName("Postre");
@@ -338,7 +339,7 @@ public class CreadorXML {
 				alimento.setPrecio(precio);
 				alimento.setDescripcion(descripcion);
 				alimento.setRacion(racion);
-				alimentos.add(alimento);				
+				alimentos.enqueue(alimento);				
 			}
 		}
 		catch(Exception ex) {
