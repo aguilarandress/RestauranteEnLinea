@@ -66,7 +66,9 @@ public class Catalogo {
 	 * @param alimentos Configura la nueva lista de alimentos
 	 */
 	public void setAlimentos(ArrayList<Alimento> alimentos) {
-		this.alimentos = alimentos;
+		for (Alimento alimentoActual : alimentos) {
+			this.agregarAlimento(alimentoActual);
+		}
 	}
 	
 	/**

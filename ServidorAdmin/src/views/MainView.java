@@ -41,6 +41,8 @@ public class MainView extends JFrame {
 	private DefaultListModel<String> bitacoraConexionesListModel = new DefaultListModel<String>();
 	private JList bitacoraConexionesList = new JList(bitacoraConexionesListModel);
 	private JTree catalogoTree;
+	private JTextField montoExpressInput;
+	private JTextField montoEmpaqueInput;
 	/**
 	 * Create the frame.
 	 */
@@ -83,6 +85,57 @@ public class MainView extends JFrame {
 		panel_1.add(scrollPane);
 		panel_1.setLayout(null);
 		tabbedPane.addTab("Menu", null, panel_1, null);
+		
+		JPanel montosPanel = new JPanel();
+		tabbedPane.addTab("Montos", null, montosPanel, null);
+		montosPanel.setLayout(null);
+		
+		JLabel montosMenuTituloLabel = new JLabel("Montos del menu");
+		montosMenuTituloLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		montosMenuTituloLabel.setBounds(10, 11, 134, 25);
+		montosPanel.add(montosMenuTituloLabel);
+		
+		JSeparator montosMenuSeparator = new JSeparator();
+		montosMenuSeparator.setBounds(10, 45, 134, 2);
+		montosPanel.add(montosMenuSeparator);
+		
+		JLabel lblMontoExpress = new JLabel("Monto Express:");
+		lblMontoExpress.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblMontoExpress.setBounds(94, 70, 190, 14);
+		montosPanel.add(lblMontoExpress);
+		
+		JLabel montoExpressLabel = new JLabel("");
+		montoExpressLabel.setBounds(94, 95, 190, 14);
+		montosPanel.add(montoExpressLabel);
+		
+		montoExpressInput = new JTextField();
+		montoExpressInput.setToolTipText("");
+		montoExpressInput.setBounds(94, 136, 190, 20);
+		montosPanel.add(montoExpressInput);
+		montoExpressInput.setColumns(10);
+		
+		JLabel lblMontoEmpaque = new JLabel("Monto Empaque:");
+		lblMontoEmpaque.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblMontoEmpaque.setBounds(361, 70, 190, 14);
+		montosPanel.add(lblMontoEmpaque);
+		
+		JLabel montoEmpaqueLabel = new JLabel("");
+		montoEmpaqueLabel.setBounds(361, 95, 190, 14);
+		montosPanel.add(montoEmpaqueLabel);
+		
+		montoEmpaqueInput = new JTextField();
+		montoEmpaqueInput.setToolTipText("");
+		montoEmpaqueInput.setColumns(10);
+		montoEmpaqueInput.setBounds(361, 136, 190, 20);
+		montosPanel.add(montoEmpaqueInput);
+		
+		JButton montoExpressBtn = new JButton("Actualizar monto express");
+		montoExpressBtn.setBounds(94, 194, 190, 23);
+		montosPanel.add(montoExpressBtn);
+		
+		JButton montoEmpaqueBtn = new JButton("Actualizar monto empaque");
+		montoEmpaqueBtn.setBounds(361, 194, 190, 23);
+		montosPanel.add(montoEmpaqueBtn);
 	}
 	
 	/**
