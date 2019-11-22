@@ -29,6 +29,9 @@ public class MainController {
 		this.mainServer = new TCPServer(this);
 		mainServer.start();
 		
+		// Agregar eventos a los componentes
+		this.view.agregaActionListenerMontoExpressBtn(new EventoMontoExpressBtn());
+		
 		// Cargar alimentos del catalogo
 		this.cargarCatalogo();
 		view.setVisible(true);
@@ -56,13 +59,24 @@ public class MainController {
 		this.view.agregarABitacoraConexiones(actividad);
 	}
 	
-	private class EventoBtn implements ActionListener {
-
+	private class EventoMontoExpressBtn implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			mainServer.writeToAll("Hello clients...");
+			try {
+				// Obtener monto ingresado
+				String montoIngresado = view.getMontoExpressInput().getText();
+				float montoExpress = Float.parseFloat(montoIngresado);
+				// Guardar en el modelo
+				Catalogo.setMontoExpress(montoExpress);
+				view.getMontoExpressLabel().setText(montoIngresado);
+				
+				// TODO: Modificar en el XML
+				view.getMontoExpressInput().setText("");
+				view.displayMessage(true, "Monto express modificado");
+			} catch (Exception parseExpcetion) {
+				view.displayMessage(false, "Por favor ingrese un valor valido");
+			}
 		}
-		
 	}
 	
 }

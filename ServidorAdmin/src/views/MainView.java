@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import java.awt.Font;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JTextPane;
@@ -41,8 +42,15 @@ public class MainView extends JFrame {
 	private DefaultListModel<String> bitacoraConexionesListModel = new DefaultListModel<String>();
 	private JList bitacoraConexionesList = new JList(bitacoraConexionesListModel);
 	private JTree catalogoTree;
+
+	// Montos
+	private JLabel montoExpressLabel = new JLabel("");
+	private JLabel montoEmpaqueLabel = new JLabel("");
 	private JTextField montoExpressInput;
 	private JTextField montoEmpaqueInput;
+	private JButton montoExpressBtn = new JButton("Actualizar monto express");
+	private JButton montoEmpaqueBtn = new JButton("Actualizar monto empaque");
+	
 	/**
 	 * Create the frame.
 	 */
@@ -104,7 +112,6 @@ public class MainView extends JFrame {
 		lblMontoExpress.setBounds(94, 70, 190, 14);
 		montosPanel.add(lblMontoExpress);
 		
-		JLabel montoExpressLabel = new JLabel("");
 		montoExpressLabel.setBounds(94, 95, 190, 14);
 		montosPanel.add(montoExpressLabel);
 		
@@ -119,7 +126,6 @@ public class MainView extends JFrame {
 		lblMontoEmpaque.setBounds(361, 70, 190, 14);
 		montosPanel.add(lblMontoEmpaque);
 		
-		JLabel montoEmpaqueLabel = new JLabel("");
 		montoEmpaqueLabel.setBounds(361, 95, 190, 14);
 		montosPanel.add(montoEmpaqueLabel);
 		
@@ -129,21 +135,68 @@ public class MainView extends JFrame {
 		montoEmpaqueInput.setBounds(361, 136, 190, 20);
 		montosPanel.add(montoEmpaqueInput);
 		
-		JButton montoExpressBtn = new JButton("Actualizar monto express");
 		montoExpressBtn.setBounds(94, 194, 190, 23);
 		montosPanel.add(montoExpressBtn);
 		
-		JButton montoEmpaqueBtn = new JButton("Actualizar monto empaque");
 		montoEmpaqueBtn.setBounds(361, 194, 190, 23);
 		montosPanel.add(montoEmpaqueBtn);
 	}
 	
+	public JLabel getMontoExpressLabel() {
+		return montoExpressLabel;
+	}
+
+	public JLabel getMontoEmpaqueLabel() {
+		return montoEmpaqueLabel;
+	}
+
+	public JTextField getMontoExpressInput() {
+		return montoExpressInput;
+	}
+
+	public JTextField getMontoEmpaqueInput() {
+		return montoEmpaqueInput;
+	}
+
+	public JButton getMontoExpressBtn() {
+		return montoExpressBtn;
+	}
+
+	public JButton getMontoEmpaqueBtn() {
+		return montoEmpaqueBtn;
+	}
+
 	/**
 	 * Agregar una actividad nueva a la bitacora de conexiones
 	 * @param actividad
 	 */
 	public void agregarABitacoraConexiones(String actividad) {
 		this.bitacoraConexionesListModel.addElement(actividad);
+	}
+	
+	/**
+	 * Agrega el action listener para el boton de monto express
+	 * @param listener El listener del boton de monto express
+	 */
+	public void agregaActionListenerMontoExpressBtn(ActionListener listener) {
+		this.montoExpressBtn.addActionListener(listener);
+	}
+	
+	/**
+	 * Agrega el action listener para el boton de monto empaque
+	 * @param listener El listener del boton de monto empaque
+	 */
+	public void agregarActionListenerMontoEmpaqueBtn(ActionListener listener) {
+		this.montoEmpaqueBtn.addActionListener(listener);
+	}
+	
+	/**
+	 * Despliega un mensaje en pantalla con un dialog
+	 * @param success Si el mensaje es de exito o no
+	 * @param message El mensaje que se desea desplegar
+	 */
+	public void displayMessage(boolean success, String message) {
+		JOptionPane.showMessageDialog(this, message, "Mensaje", success ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
 	}
 	
 	/**
