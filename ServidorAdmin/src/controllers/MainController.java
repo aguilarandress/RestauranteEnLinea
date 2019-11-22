@@ -31,6 +31,7 @@ public class MainController {
 		
 		// Agregar eventos a los componentes
 		this.view.agregaActionListenerMontoExpressBtn(new EventoMontoExpressBtn());
+		this.view.agregarActionListenerMontoEmpaqueBtn(new EventoMontoEmpaqueBtn());
 		
 		// Cargar alimentos del catalogo
 		this.cargarCatalogo();
@@ -73,6 +74,26 @@ public class MainController {
 				// TODO: Modificar en el XML
 				view.getMontoExpressInput().setText("");
 				view.displayMessage(true, "Monto express modificado");
+			} catch (Exception parseExpcetion) {
+				view.displayMessage(false, "Por favor ingrese un valor valido");
+			}
+		}
+	}
+	
+	private class EventoMontoEmpaqueBtn implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				// Obtener monto ingresado
+				String montoIngresado = view.getMontoEmpaqueInput().getText();
+				float montoEmpaque = Float.parseFloat(montoIngresado);
+				// Guardar en el modelo
+				Catalogo.setMontoEmpaque(montoEmpaque);
+				view.getMontoEmpaqueLabel().setText(montoIngresado);
+				
+				// TODO: Modificar en el XML
+				view.getMontoEmpaqueInput().setText("");
+				view.displayMessage(true, "Monto de empaque modificado");
 			} catch (Exception parseExpcetion) {
 				view.displayMessage(false, "Por favor ingrese un valor valido");
 			}
