@@ -10,6 +10,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import catalogoXML.CreadorXML;
 import models.alimento.Alimento;
+import models.cola.Cola;
 import models.catalogo.Catalogo;
 import views.MainView;
 import server.TCPServer;
@@ -50,10 +51,9 @@ public class MainController {
 		
 		// Obtener alimentos guardados en el xml
 		CreadorXML catalogo = CreadorXML.getInstance();
-		// Cargar alimentos en el modelo
-		ArrayList<Alimento> alimentos = catalogo.ObtenerCatalogo();
+		Cola<Alimento> alimentos = catalogo.ObtenerCatalogo();
 		this.catalogo.setAlimentos(alimentos);
-		this.view.crearCatalogo(this.catalogo.getAlimentos());
+		this.view.crearCatalogo(alimentos);
 	}
 	
 	/**

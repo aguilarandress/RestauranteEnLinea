@@ -3,6 +3,7 @@ package views;
 import catalogoXML.CreadorXML;
 
 import models.alimento.*;
+import models.cola.Cola;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -241,7 +242,7 @@ public class MainView extends JFrame {
 	 * Cargar los alimentos a la vista
 	 * @param alimentos Los alimentos que se van a cargar
 	 */
-	public void crearCatalogo(ArrayList<Alimento> alimentos) {
+	public void crearCatalogo(Cola<Alimento> alimentos) {
 		DefaultMutableTreeNode raiz = new DefaultMutableTreeNode("Catalogo");
 		
 		DefaultMutableTreeNode entradas = new DefaultMutableTreeNode("Entradas");
@@ -251,7 +252,9 @@ public class MainView extends JFrame {
 		DefaultMutableTreeNode bebidas = new DefaultMutableTreeNode("Bebidas");
 		
 		DefaultMutableTreeNode postres = new DefaultMutableTreeNode("Postres");
-		for(Alimento alimento : alimentos) {
+		for(int posActual = 0; posActual < alimentos.getCantidad(); posActual++) {
+			Alimento actual = alimentos.get(posActual);
+			
 			// Nombre de la comida
 			DefaultMutableTreeNode codigo = new DefaultMutableTreeNode(alimento.getCodigo());
 			
@@ -263,13 +266,15 @@ public class MainView extends JFrame {
 			
 			// Calorias de la comida		
 			DefaultMutableTreeNode caloriasNode = new DefaultMutableTreeNode("Calorias");
-			DefaultMutableTreeNode calorias = new DefaultMutableTreeNode(Float.toString(alimento.getCalorias()));
+			DefaultMutableTreeNode calorias = new DefaultMutableTreeNode(Float.toString(
+					actual.getCalorias()));
 			caloriasNode.add(calorias);
 			codigo.add(caloriasNode);
 			
 			// Precio de la comida
 			DefaultMutableTreeNode precioNode = new DefaultMutableTreeNode("Precio");
-			DefaultMutableTreeNode precio = new DefaultMutableTreeNode(Float.toString(alimento.getPrecio()));
+			DefaultMutableTreeNode precio = new DefaultMutableTreeNode(Float.toString(
+					actual.getPrecio()));
 			precioNode.add(precio);
 			codigo.add(precioNode);
 			
