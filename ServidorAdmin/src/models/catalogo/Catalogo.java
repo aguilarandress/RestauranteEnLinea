@@ -3,6 +3,7 @@ package models.catalogo;
 import java.util.ArrayList;
 
 import models.alimento.Alimento;
+import models.cola.Cola;
 
 /**
  * Clase que representa el catalogo de comidas
@@ -13,12 +14,12 @@ public class Catalogo {
 	
 	private static float montoExpress;
 	private static float montoEmpaque;
-	private ArrayList<Alimento> alimentos;
+	private Cola<Alimento> alimentos;
 	
 	public Catalogo() {
 		this.montoExpress = 0;
 		this.montoEmpaque = 0;
-		this.alimentos = new ArrayList<Alimento>();
+		this.alimentos = new Cola<Alimento>();
 	}
 	
 	/**
@@ -57,7 +58,7 @@ public class Catalogo {
 	 * Obtiene la lista de alimentos del catalogo
 	 * @return La lista de alimentos del catalogo
 	 */
-	public ArrayList<Alimento> getAlimentos() {
+	public Cola<Alimento> getAlimentos() {
 		return alimentos;
 	}
 
@@ -65,9 +66,9 @@ public class Catalogo {
 	 * Configura la nueva lista de alimentos
 	 * @param alimentos Configura la nueva lista de alimentos
 	 */
-	public void setAlimentos(ArrayList<Alimento> alimentos) {
-		for (Alimento alimentoActual : alimentos) {
-			this.agregarAlimento(alimentoActual);
+	public void setAlimentos(Cola<Alimento> alimentos) {
+		for (int posActual = 0; posActual < alimentos.getCantidad(); posActual++) {
+			this.agregarAlimento(alimentos.get(posActual));
 		}
 	}
 	
@@ -77,11 +78,13 @@ public class Catalogo {
 	 * @return true si el alimento ya existe, false de lo contrario
 	 */
 	public boolean revisarSiAlimentoExiste(String codigoAlimento) {
-		for (Alimento alimentoActual : alimentos) {
-			if (alimentoActual.getCodigo() == codigoAlimento) {
+		for (int posActual = 0; posActual < alimentos.getCantidad(); posActual++) {
+			Alimento actual = alimentos.get(posActual);
+			if (actual.getCodigo() == codigoAlimento) {
 				return true;
 			}
 		}
+		
 		return false;
 	}
 	
@@ -91,7 +94,7 @@ public class Catalogo {
 	 */
 	public void agregarAlimento(Alimento alimentoNuevo) {
 		if (!this.revisarSiAlimentoExiste(alimentoNuevo.getCodigo())) {
-			this.alimentos.add(alimentoNuevo);
+			this.alimentos.enqueue(alimentoNuevo);
 		}
 	}
 }
