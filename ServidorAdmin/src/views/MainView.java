@@ -17,16 +17,24 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
 import javax.swing.JTree;
 
@@ -42,8 +50,14 @@ public class MainView extends JFrame {
 	// Bitacora de conexiones
 	private DefaultListModel<String> bitacoraConexionesListModel = new DefaultListModel<String>();
 	private JList bitacoraConexionesList = new JList(bitacoraConexionesListModel);
+	
+	// Menu
 	private JTree catalogoTree;
-
+	private JLabel imagenLabel;
+	private JTextArea descripLabel;
+	private JPanel imagenPanel;
+	private  JScrollPane scrollPaneDescrip;
+	
 	// Montos
 	private JLabel montoExpressLabel = new JLabel("");
 	private JLabel montoEmpaqueLabel = new JLabel("");
@@ -51,6 +65,7 @@ public class MainView extends JFrame {
 	private JTextField montoEmpaqueInput;
 	private JButton montoExpressBtn = new JButton("Actualizar monto express");
 	private JButton montoEmpaqueBtn = new JButton("Actualizar monto empaque");
+	
 	
 	/**
 	 * Create the frame.
@@ -77,23 +92,44 @@ public class MainView extends JFrame {
 		separator.setBounds(10, 46, 209, 2);
 		conexionesPanel.add(separator);
 		
-		bitacoraConexionesList.setBounds(100, 59, 500, 300);
+		bitacoraConexionesList.setBounds(65, 59, 535, 331);
 		conexionesPanel.add(bitacoraConexionesList);
 		
+		// Menu
 		catalogoTree = new JTree();
-		catalogoTree.setBounds(0, 0, 500, 450);
+		catalogoTree.setBounds(0, 0, 200, 450);
 		catalogoTree.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-		// catalogoTree.setModel(this.CrearCatalogo());
 		
 		JScrollPane scrollPane = new JScrollPane(catalogoTree);
 		scrollPane.setViewportView(catalogoTree);
-		scrollPane.setBounds(0, 0, 650, 400);
+		scrollPane.setBounds(0, 0, 250, 400);
 		scrollPane.setBorder(null);
+		
+		imagenPanel = new JPanel();
+		
+		imagenLabel = new JLabel();
+		imagenLabel.setBounds(0,50,400,400);
+		
+		imagenPanel.setBounds(262, 0, 385, 300);
+		imagenPanel.add(imagenLabel);
+		
+		scrollPaneDescrip = new JScrollPane();
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.add(scrollPane);
+		panel_1.add(imagenPanel);
+		
 		panel_1.setLayout(null);
 		tabbedPane.addTab("Menu", null, panel_1, null);
+		scrollPaneDescrip.setBounds(262, 313, 385, 94);
+		
+		panel_1.add(scrollPaneDescrip);
+		descripLabel = new JTextArea();
+		scrollPaneDescrip.setColumnHeaderView(descripLabel);
+		
+		descripLabel.setLineWrap(true);
+		descripLabel.setWrapStyleWord(true);
+		descripLabel.setEditable(false);
 		
 		JPanel montosPanel = new JPanel();
 		tabbedPane.addTab("Montos", null, montosPanel, null);
@@ -141,6 +177,8 @@ public class MainView extends JFrame {
 		
 		montoEmpaqueBtn.setBounds(361, 194, 190, 23);
 		montosPanel.add(montoEmpaqueBtn);
+		
+		blanquearImagen();
 	}
 	
 	public JLabel getMontoExpressLabel() {
@@ -218,46 +256,40 @@ public class MainView extends JFrame {
 			Alimento actual = alimentos.get(posActual);
 			
 			// Nombre de la comida
-			DefaultMutableTreeNode nombre = new DefaultMutableTreeNode(actual.getNombre());
+			DefaultMutableTreeNode codigo = new DefaultMutableTreeNode(alimento.getCodigo());
 			
 			// Codigo de la comida
-			DefaultMutableTreeNode codigoNode = new DefaultMutableTreeNode("Codigo");
-			DefaultMutableTreeNode codigo = new DefaultMutableTreeNode(actual.getCodigo());
-			codigoNode.add(codigo);
-			nombre.add(codigoNode);
-			
-			// Descripcion de la comida
-			DefaultMutableTreeNode descripcionNode = new DefaultMutableTreeNode("Descripcion");
-			DefaultMutableTreeNode descripcion = new DefaultMutableTreeNode(actual.getDescripcion());
-			descripcionNode.add(descripcion);
-			nombre.add(descripcionNode);
+			DefaultMutableTreeNode nombreNode = new DefaultMutableTreeNode("Nombre");
+			DefaultMutableTreeNode nombre = new DefaultMutableTreeNode(alimento.getNombre());
+			nombreNode.add(nombre);
+			codigo.add(nombreNode);
 			
 			// Calorias de la comida		
 			DefaultMutableTreeNode caloriasNode = new DefaultMutableTreeNode("Calorias");
 			DefaultMutableTreeNode calorias = new DefaultMutableTreeNode(Float.toString(
 					actual.getCalorias()));
 			caloriasNode.add(calorias);
-			nombre.add(caloriasNode);
+			codigo.add(caloriasNode);
 			
 			// Precio de la comida
 			DefaultMutableTreeNode precioNode = new DefaultMutableTreeNode("Precio");
 			DefaultMutableTreeNode precio = new DefaultMutableTreeNode(Float.toString(
 					actual.getPrecio()));
 			precioNode.add(precio);
-			nombre.add(precioNode);
+			codigo.add(precioNode);
 			
 			// Agregar segun corresponda
-			if(actual.getTipo().equals(TipoAlimento.ENTRADA)) {
-				entradas.add(nombre);
+			if(alimento.getTipo().equals(TipoAlimento.ENTRADA)) {
+				entradas.add(codigo);
 			}
-			else if(actual.getTipo().equals(TipoAlimento.PLATO_FUERTE)) {
-				platosF.add(nombre);
+			else if(alimento.getTipo().equals(TipoAlimento.PLATO_FUERTE)) {
+				platosF.add(codigo);
 			}
-			else if(actual.getTipo().equals(TipoAlimento.BEBIDA)) {
-				bebidas.add(nombre);
+			else if(alimento.getTipo().equals(TipoAlimento.BEBIDA)) {
+				bebidas.add(codigo);
 			}
 			else {
-				postres.add(nombre);
+				postres.add(codigo);
 			}
 		}
 		
@@ -267,5 +299,48 @@ public class MainView extends JFrame {
 		raiz.add(postres);
 		DefaultTreeModel modelo = new DefaultTreeModel(raiz);
 		this.catalogoTree.setModel(modelo);
+	}
+	
+	public JTree getTreeCatalogo() {
+		return this.catalogoTree;
+	}
+	
+
+	public boolean verificarImagen(String path) {
+        String filepath = path;
+        try {
+            BufferedImage image = ImageIO.read(new File(filepath));
+            if (image == null) {
+                return false;
+            }
+            return true;
+        } catch(IOException ex) {
+            return false;
+       }
+	}
+	
+	public void cargarImagen(Alimento alimento) {
+		descripLabel.setEditable(true);
+        ImageIcon imageIcon = new ImageIcon(alimento.getImagenPath());
+        Image copiaImage = imageIcon.getImage();
+        Image resizedImage = copiaImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(resizedImage);
+        this.imagenLabel.setIcon(imageIcon);
+        this.descripLabel.setText(alimento.getDescripcion());
+        descripLabel.setEditable(false);
+	}
+	
+	public void blanquearImagen() {
+		descripLabel.setEditable(true);
+		if(verificarImagen("../Imagenes/menu.jpg")) {
+	        ImageIcon imageIcon = new ImageIcon("../Imagenes/menu.jpg");
+	        Image copiaImage = imageIcon.getImage();
+	        Image resizedImage = copiaImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+	        imageIcon = new ImageIcon(resizedImage);
+	        this.imagenLabel.setIcon(imageIcon);
+	        this.descripLabel.setText("");
+	        descripLabel.setEditable(false);
+		}
+
 	}
 }

@@ -6,6 +6,7 @@
         <Precio>500.0</Precio>
         <Racion>1</Racion>
         <Calorias>150.0</Calorias>
+	<Imagen>../Imagenes/cafeTaza.jpg</Imagen>
     </Bebida>
     <Bebida Nombre="Chocolate Caliente">
         <Descripcion>Chocolate puro con poca azucar</Descripcion>
@@ -13,6 +14,7 @@
         <Precio>650.0</Precio>
         <Racion>1</Racion>
         <Calorias>132.0</Calorias>
+	<Imagen>../Imagenes/chocolateBebida.jpg</Imagen>
     </Bebida>
     <Entrada Nombre="Ceviche">
         <Descripcion>Pescado en trozos, tortillas y salsas</Descripcion>
@@ -20,6 +22,7 @@
         <Precio>2500.0</Precio>
         <Racion>1</Racion>
         <Calorias>254.0</Calorias>
+	<Imagen>../Imagenes/ceviche.jpg</Imagen>
     </Entrada>
     <Entrada Nombre="Sopa de Mariscos">
         <Descripcion>Variedad de sopas que se preparan cociendo combinaciones distintas de mariscos en caldo, condimentadas con jitomate o chile.</Descripcion>
@@ -27,6 +30,7 @@
         <Precio>2500.0</Precio>
         <Racion>1</Racion>
         <Calorias>300.0</Calorias>
+	<Imagen>../Imagenes/sopaMariscos.jpg</Imagen>
     </Entrada>
     <Plato_Fuerte Nombre="Lasaña Boloñesa">
         <Descripcion>Un plato que tiene pasta en láminas intercaladas con carne y bechamel llamado lasaña al horno</Descripcion>
@@ -34,6 +38,7 @@
         <Precio>3200.0</Precio>
         <Racion>1</Racion>
         <Calorias>500.0</Calorias>
+	<Imagen>../Imagenes/lasagnaBolonesa.jpg</Imagen>
     </Plato_Fuerte>
     <Plato_Fuerte Nombre="Arroz con camarón">
         <Descripcion>Arroz con olores y camarones acompañado con papas fritas o ensalada</Descripcion>
@@ -41,6 +46,7 @@
         <Precio>3000.0</Precio>
         <Racion>1</Racion>
         <Calorias>543.0</Calorias>
+	<Imagen>../Imagenes/arrozCamarones.jpg</Imagen>
     </Plato_Fuerte>
     <Postre Nombre="Queque de chocolate">
         <Descripcion>Queque cubierto de chocolate</Descripcion>
@@ -48,12 +54,14 @@
         <Precio>1000.0</Precio>
         <Racion>1</Racion>
         <Calorias>789.0</Calorias>
+	<Imagen>../Imagenes/quequeChocolate.jpg</Imagen>
     </Postre>
-<Postre Nombre="Queque de fresa">
+    <Postre Nombre="Queque de fresa">
         <Descripcion>Queque cubierto con crema de fresa </Descripcion>
         <Codigo>PTR-002</Codigo>
         <Precio>1000.0</Precio>
         <Racion>1</Racion>
         <Calorias>800.0</Calorias>
+	<Imagen>../Imagenes/quequeFresa.jpg</Imagen>
     </Postre>
 </Catalogo>
