@@ -244,7 +244,7 @@ public class CreadorXML {
 				Float calorias = Float.parseFloat(nodo.getElementsByTagName("Calorias").item(0).getTextContent());
 				//Obtener racion
 				int racion = Integer.parseInt(nodo.getElementsByTagName("Racion").item(0).getTextContent());
-				
+				String path = nodo.getElementsByTagName("Imagen").item(0).getTextContent();
 				// Setear cada atributo
 				Alimento alimento = new Alimento(0);
 				alimento.setCalorias(calorias);
@@ -254,6 +254,7 @@ public class CreadorXML {
 				alimento.setPrecio(precio);
 				alimento.setDescripcion(descripcion);
 				alimento.setRacion(racion);
+				alimento.setImagenPath(path);
 				alimentos.add(alimento);				
 			}
 			
@@ -272,7 +273,7 @@ public class CreadorXML {
 				Float calorias = Float.parseFloat(nodo.getElementsByTagName("Calorias").item(0).getTextContent());
 				//Obtener racion
 				int racion = Integer.parseInt(nodo.getElementsByTagName("Racion").item(0).getTextContent());
-				
+				String path = nodo.getElementsByTagName("Imagen").item(0).getTextContent();
 				// Setear cada atributo
 				Alimento alimento = new Alimento(1);
 				alimento.setCalorias(calorias);
@@ -282,6 +283,7 @@ public class CreadorXML {
 				alimento.setPrecio(precio);
 				alimento.setDescripcion(descripcion);
 				alimento.setRacion(racion);
+				alimento.setImagenPath(path);
 				alimentos.add(alimento);				
 			}
 			
@@ -300,7 +302,7 @@ public class CreadorXML {
 				Float calorias = Float.parseFloat(nodo.getElementsByTagName("Calorias").item(0).getTextContent());
 				//Obtener racion
 				int racion = Integer.parseInt(nodo.getElementsByTagName("Racion").item(0).getTextContent());
-				
+				String path = nodo.getElementsByTagName("Imagen").item(0).getTextContent();
 				// Setear cada atributo
 				Alimento alimento = new Alimento(2);
 				alimento.setCalorias(calorias);
@@ -310,6 +312,7 @@ public class CreadorXML {
 				alimento.setPrecio(precio);
 				alimento.setDescripcion(descripcion);
 				alimento.setRacion(racion);
+				alimento.setImagenPath(path);
 				alimentos.add(alimento);				
 			}
 			
@@ -329,6 +332,8 @@ public class CreadorXML {
 				//Obtener racion
 				int racion = Integer.parseInt(nodo.getElementsByTagName("Racion").item(0).getTextContent());
 				
+				String path = nodo.getElementsByTagName("Imagen").item(0).getTextContent();
+				
 				// Setear cada atributo
 				Alimento alimento = new Alimento(3);
 				alimento.setCalorias(calorias);
@@ -338,6 +343,7 @@ public class CreadorXML {
 				alimento.setPrecio(precio);
 				alimento.setDescripcion(descripcion);
 				alimento.setRacion(racion);
+				alimento.setImagenPath(path);
 				alimentos.add(alimento);				
 			}
 		}

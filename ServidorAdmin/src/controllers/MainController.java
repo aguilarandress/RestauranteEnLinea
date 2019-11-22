@@ -4,6 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+
 import catalogoXML.CreadorXML;
 import models.alimento.Alimento;
 import models.catalogo.Catalogo;
@@ -32,7 +36,7 @@ public class MainController {
 		// Agregar eventos a los componentes
 		this.view.agregaActionListenerMontoExpressBtn(new EventoMontoExpressBtn());
 		this.view.agregarActionListenerMontoEmpaqueBtn(new EventoMontoEmpaqueBtn());
-		
+		this.view.getTreeCatalogo().addTreeSelectionListener(new EventoSeleccionarCodigoTree());
 		// Cargar alimentos del catalogo
 		this.cargarCatalogo();
 		view.setVisible(true);
@@ -98,6 +102,29 @@ public class MainController {
 				view.displayMessage(false, "Por favor ingrese un valor valido");
 			}
 		}
+	}
+	
+	private class EventoSeleccionarCodigoTree implements TreeSelectionListener {
+
+		@Override
+		public void valueChanged(TreeSelectionEvent e) {
+			if(view.getTreeCatalogo().getSelectionPath() == null) {
+				System.out.println("Nada");
+				view.blanquearImagen();
+				return;
+			}
+			ArrayList<Alimento> alimentos = catalogo.getAlimentos();
+			for(Alimento alimento : alimentos) {
+				if(alimento.getCodigo().equals(view.getTreeCatalogo().getSelectionPath().getLastPathComponent().toString())) {
+					System.out.println(alimento.getNombre());
+					if(view.verificarImagen(alimento.getImagenPath())) {
+						view.cargarImagen(alimento);
+					}
+				}
+			}
+			
+		}
+		
 	}
 	
 }

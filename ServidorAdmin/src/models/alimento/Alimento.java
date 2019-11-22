@@ -11,7 +11,7 @@ public class Alimento implements IConstants{
 	private static final TipoAlimento[] TIPOS = {TipoAlimento.BEBIDA, TipoAlimento.ENTRADA, 
 			TipoAlimento.PLATO_FUERTE, TipoAlimento.POSTRE};
 	
-	private String codigo, nombre, descripcion;
+	private String codigo, nombre, descripcion,ImagenPath;
 	private int racion;
 	private float calorias, precio;
 	private boolean habilitado;
@@ -153,5 +153,20 @@ public class Alimento implements IConstants{
 		this.tipo = tipo;
 	}
 	
+	/**
+	 * Cambiar el path de imagen del alimento
+	 * @param Imagenpath Nuevo path
+	 */
+	public void setImagenPath(String Imagenpath) {
+		this.ImagenPath = Imagenpath;
+	}
+	
+	/**
+	 * Retorna el path de la imagen
+	 * @return Un String con el path de la imagen
+	 */
+	public String getImagenPath() {
+		return this.ImagenPath;
+	}
 	
 }
