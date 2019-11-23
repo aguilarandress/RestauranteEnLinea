@@ -23,6 +23,7 @@ import models.alimento.Alimento;
 import models.alimento.TipoAlimento;
 import models.cola.Cola;
 import models.catalogo.Catalogo;
+import views.AgregarAlimentoView;
 import views.EditarView;
 import views.MainView;
 import server.TCPServer;
@@ -53,6 +54,7 @@ public class MainController {
 		this.view.getMontoEmpaqueBtn().addActionListener(new EventoMontoEmpaqueBtn());
 		this.view.getTreeCatalogo().addTreeSelectionListener(new EventoSeleccionarCodigoTree());
 		this.view.getEditarBtn().addActionListener(new EventoEditarPlatillo(this));
+		this.view.getAgregarBtn().addActionListener(new EventoAgregarAlimento(this));
 		
 		// Pone la imagen por defecto
 		this.blanquearImagen();
@@ -306,8 +308,32 @@ public class MainController {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			EditarController editarView = new EditarController(alimentoSelected, controller);
+			EditarController editarController = new EditarController(alimentoSelected, controller);
 		}
 	}
 	
+	
+	/**
+	 * Evento que muestra la ventana para agregar un platillo
+	 * @author Kenneth Sanchez
+	 *
+	 */
+	private class EventoAgregarAlimento implements ActionListener {
+		
+		MainController controller;
+		
+		/**
+		 * Constructor
+		 * @param pMainController
+		 */
+		public EventoAgregarAlimento(MainController pMainController) {
+			controller = pMainController;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			AgregarAlimentoController agregarController = new AgregarAlimentoController(controller);
+		}
+		
+	}
 }

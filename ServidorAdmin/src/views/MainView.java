@@ -219,6 +219,10 @@ public class MainView extends JFrame {
 		return montoEmpaqueBtn;
 	}
 
+	public JButton getAgregarBtn() {
+		return agregarBtn;
+	}
+
 	/**
 	 * Agregar una actividad nueva a la bitacora de conexiones
 	 * @param actividad
