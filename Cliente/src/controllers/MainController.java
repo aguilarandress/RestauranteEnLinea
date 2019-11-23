@@ -7,6 +7,9 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 
+import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import views.MainView;
 import connection.ServerConnection;
@@ -35,21 +38,21 @@ public class MainController {
 		}
 		
 		// Configurar eventos
-		// this.view.addBtnActionListener(new EventoBtn());
 		this.view.addWindowBtnCloseEvent(new CloseWindowEvent());
+		this.view.getTabbedPane().addChangeListener(new TabbedPaneChangeListener());
 		
 		this.view.setVisible(true);
 	}
 	
-//	public void addTextPane(String message) {
-//		this.view.addTextPane(message);
-//	}
-	
-	private class EventoBtn implements ActionListener {
+	private class TabbedPaneChangeListener implements ChangeListener {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			clientSocket.writeMessageToServer("send Enviadodesdemisocket");
+		public void stateChanged(ChangeEvent e) {
+			// Revisar si es el pane del menu
+			JTabbedPane pane = (JTabbedPane) e.getSource();
+			if (pane.getSelectedIndex() == 1) {
+				// TODO: Solicitar objetos
+			}
 		}
 		
 	}
