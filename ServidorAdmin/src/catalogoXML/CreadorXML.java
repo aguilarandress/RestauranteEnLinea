@@ -43,7 +43,7 @@ public class CreadorXML {
 	 * Crea el catalogo en el xml.
 	 * @param alimentos ArrayList de alimentos que pertenecen al catalogo.
 	 */
-	public void RecrearCatalogo(ArrayList<Alimento> alimentos) {
+	public void RecrearCatalogo(Cola<Alimento> alimentos) {
 		try
 	    {
 	        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -54,8 +54,10 @@ public class CreadorXML {
 	        documento.appendChild(elementoCatalogo);
    
 	        // Recorrer cada alimento y añadirlo a su sección correspondiente.
-	        if(alimentos != null) {
-		        for(Alimento alimento : alimentos) {
+	        if(!alimentos.isEmpty()) {
+		        for(int i = 0; i < alimentos.getCantidad(); i++) {
+		        	Alimento alimento = alimentos.get(i);
+		        	
 		          	if(alimento.getTipo() == TipoAlimento.PLATO_FUERTE) {
 		          		 Element elementoPlatosF = documento.createElement("Plato_Fuerte");
 		          		 elementoCatalogo.appendChild(elementoPlatosF);
@@ -90,6 +92,10 @@ public class CreadorXML {
 		          		 caloriasEle.appendChild(documento.createTextNode(Float.toString(alimento.getCalorias())));
 		          		 elementoPlatosF.appendChild(caloriasEle);
 		          		 
+		          		 // Elemento Imagen 
+		          		 Element imagenEle = documento.createElement("Imagen");
+		          		 imagenEle.appendChild(documento.createTextNode(alimento.getImagenPath()));
+		          		 elementoPlatosF.appendChild(imagenEle);
 		          	}
 		          	else if(alimento.getTipo() == TipoAlimento.ENTRADA) {
 		          		Element elementoEntradas = documento.createElement("Entrada");
@@ -124,6 +130,11 @@ public class CreadorXML {
 		          		 Element caloriasEle = documento.createElement("Calorias");
 		          		 caloriasEle.appendChild(documento.createTextNode(Float.toString(alimento.getCalorias())));
 		          		elementoEntradas.appendChild(caloriasEle);
+		          		
+		          		// Elemento imagen
+		          		 Element imagenEle = documento.createElement("Imagen");
+		          		 imagenEle.appendChild(documento.createTextNode(alimento.getImagenPath()));
+		          		 elementoEntradas.appendChild(imagenEle);
 
 		          	}
 		          	else if(alimento.getTipo() == TipoAlimento.BEBIDA) {
@@ -159,6 +170,11 @@ public class CreadorXML {
 		          		 Element caloriasEle = documento.createElement("Calorias");
 		          		 caloriasEle.appendChild(documento.createTextNode(Float.toString(alimento.getCalorias())));
 		          		elementoBebidas.appendChild(caloriasEle);
+		          		
+		          		// Elemento imagen
+		          		 Element imagenEle = documento.createElement("Imagen");
+		          		 imagenEle.appendChild(documento.createTextNode(alimento.getImagenPath()));
+		          		 elementoBebidas.appendChild(imagenEle);		          		
 		          	}
 		          	else {
 		          		Element elementoPostres = documento.createElement("Postre");
@@ -193,6 +209,12 @@ public class CreadorXML {
 		          		Element caloriasEle = documento.createElement("Calorias");
 		          		caloriasEle.appendChild(documento.createTextNode(Float.toString(alimento.getCalorias())));
 		          		elementoPostres.appendChild(caloriasEle);
+		          		
+		          		// Elemento imagen
+		          		 Element imagenEle = documento.createElement("Imagen");
+		          		 imagenEle.appendChild(documento.createTextNode(alimento.getImagenPath()));
+		          		 elementoPostres.appendChild(imagenEle);
+
 		           	}
 		          	
 		        }

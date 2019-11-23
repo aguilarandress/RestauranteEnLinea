@@ -189,8 +189,6 @@ public class MainView extends JFrame {
 		
 		montoEmpaqueBtn.setBounds(361, 194, 190, 23);
 		montosPanel.add(montoEmpaqueBtn);
-		
-		blanquearImagen();
 	}
 	
 	public JButton getEditarBtn() {
@@ -229,21 +227,6 @@ public class MainView extends JFrame {
 		this.bitacoraConexionesListModel.addElement(actividad);
 	}
 	
-	/**
-	 * Agrega el action listener para el boton de monto express
-	 * @param listener El listener del boton de monto express
-	 */
-	public void agregaActionListenerMontoExpressBtn(ActionListener listener) {
-		this.montoExpressBtn.addActionListener(listener);
-	}
-	
-	/**
-	 * Agrega el action listener para el boton de monto empaque
-	 * @param listener El listener del boton de monto empaque
-	 */
-	public void agregarActionListenerMontoEmpaqueBtn(ActionListener listener) {
-		this.montoEmpaqueBtn.addActionListener(listener);
-	}
 	
 	/**
 	 * Despliega un mensaje en pantalla con un dialog
@@ -254,109 +237,31 @@ public class MainView extends JFrame {
 		JOptionPane.showMessageDialog(this, message, "Mensaje", success ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
 	}
 	
-	/**
-	 * Cargar los alimentos a la vista
-	 * @param alimentos Los alimentos que se van a cargar
-	 */
-	public void crearCatalogo(Cola<Alimento> alimentos) {
-		DefaultMutableTreeNode raiz = new DefaultMutableTreeNode("Catalogo");
-		
-		DefaultMutableTreeNode entradas = new DefaultMutableTreeNode("Entradas");
-		
-		DefaultMutableTreeNode platosF = new DefaultMutableTreeNode("Platos Fuertes");
-		
-		DefaultMutableTreeNode bebidas = new DefaultMutableTreeNode("Bebidas");
-		
-		DefaultMutableTreeNode postres = new DefaultMutableTreeNode("Postres");
-		for(int posActual = 0; posActual < alimentos.getCantidad(); posActual++) {
-			Alimento actual = alimentos.get(posActual);
-			
-			// Nombre de la comida
-			DefaultMutableTreeNode codigo = new DefaultMutableTreeNode(actual.getCodigo());
-			
-			// Codigo de la comida
-			DefaultMutableTreeNode nombreNode = new DefaultMutableTreeNode("Nombre");
-			DefaultMutableTreeNode nombre = new DefaultMutableTreeNode(actual.getNombre());
-			nombreNode.add(nombre);
-			codigo.add(nombreNode);
-			
-			// Calorias de la comida		
-			DefaultMutableTreeNode caloriasNode = new DefaultMutableTreeNode("Calorias");
-			DefaultMutableTreeNode calorias = new DefaultMutableTreeNode(Float.toString(
-					actual.getCalorias()));
-			caloriasNode.add(calorias);
-			codigo.add(caloriasNode);
-			
-			// Precio de la comida
-			DefaultMutableTreeNode precioNode = new DefaultMutableTreeNode("Precio");
-			DefaultMutableTreeNode precio = new DefaultMutableTreeNode(Float.toString(
-					actual.getPrecio()));
-			precioNode.add(precio);
-			codigo.add(precioNode);
-			
-			// Agregar segun corresponda
-			if (actual.getTipo().equals(TipoAlimento.ENTRADA)) {
-				entradas.add(codigo);
-			}
-			else if(actual.getTipo().equals(TipoAlimento.PLATO_FUERTE)) {
-				platosF.add(codigo);
-			}
-			else if(actual.getTipo().equals(TipoAlimento.BEBIDA)) {
-				bebidas.add(codigo);
-			}
-			else {
-				postres.add(codigo);
-			}
-		}
-		
-		raiz.add(entradas);
-		raiz.add(platosF);
-		raiz.add(bebidas);
-		raiz.add(postres);
-		DefaultTreeModel modelo = new DefaultTreeModel(raiz);
-		this.catalogoTree.setModel(modelo);
-	}
 	
+	/**
+	 * Obtiene el JTree con el catalogo
+	 * @return JTree
+	 */
 	public JTree getTreeCatalogo() {
 		return this.catalogoTree;
 	}
 	
+	/**
+	 * Obtiene el input para la descripcion
+	 * @return JTextArea
+	 */
+	public JTextArea getDescripLabel() {
+		return descripLabel;
+	}
 
-	public boolean verificarImagen(String path) {
-        String filepath = path;
-        try {
-            BufferedImage image = ImageIO.read(new File(filepath));
-            if (image == null) {
-                return false;
-            }
-            return true;
-        } catch(IOException ex) {
-            return false;
-       }
-	}
 	
-	public void cargarImagen(Alimento alimento) {
-		descripLabel.setEditable(true);
-        ImageIcon imageIcon = new ImageIcon(alimento.getImagenPath());
-        Image copiaImage = imageIcon.getImage();
-        Image resizedImage = copiaImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
-        imageIcon = new ImageIcon(resizedImage);
-        this.imagenLabel.setIcon(imageIcon);
-        this.descripLabel.setText(alimento.getDescripcion());
-        descripLabel.setEditable(false);
+	/**
+	 * Obtiene el label en el que se carga la imagen
+	 * @return JLabel
+	 */
+	public JLabel getImagenLabel() {
+		return imagenLabel;
 	}
-	
-	public void blanquearImagen() {
-		descripLabel.setEditable(true);
-		if(verificarImagen("../Imagenes/menu.jpg")) {
-	        ImageIcon imageIcon = new ImageIcon("../Imagenes/menu.jpg");
-	        Image copiaImage = imageIcon.getImage();
-	        Image resizedImage = copiaImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
-	        imageIcon = new ImageIcon(resizedImage);
-	        this.imagenLabel.setIcon(imageIcon);
-	        this.descripLabel.setText("");
-	        descripLabel.setEditable(false);
-		}
 
-	}
+	
 }

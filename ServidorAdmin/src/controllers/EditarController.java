@@ -5,8 +5,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import catalogoXML.CreadorXML;
 import models.alimento.Alimento;
 import views.EditarView;
+import views.MainView;
 
 /**
  * Controlador para editar un platillo
@@ -53,15 +55,36 @@ public class EditarController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
-			if (vista.getNombreInput().equals("") || vista.getCaloriasInput().equals("") ||
-					vista.getPrecioInput().equals("") || vista.getImagenInput().equals("") ||
-					vista.getDescripcionInput().equals("")) {
+			String nuevoNombre = vista.getNombreInput().getText().trim();
+			String nuevasCalorias = vista.getCaloriasInput().getText().trim();
+			String nuevoPrecio = vista.getPrecioInput().getText().trim();
+			String nuevaImagen = vista.getImagenInput().getText().trim();
+			String nuevaDescripcion = vista.getDescripcionInput().getText().trim();
+			
+			// Validacion
+			if (nuevoNombre.equals("") || nuevasCalorias.equals("") ||
+					nuevoPrecio.equals("") || nuevaImagen.equals("") ||
+					nuevaDescripcion.equals("")) {
 				JOptionPane.showMessageDialog(null, "Todos los campos deben estar llenos");
 				return;
 			}
-		
-		}
-		
+			
+			// Validacion de imagen
+			if (!mainController.verificarImagen(nuevaImagen)) {
+				JOptionPane.showMessageDialog(null, "Imagen invalida");
+				return;
+			}
+			
+			// Cambios al alimento
+			alimentoSelected.setNombre(nuevoNombre);
+			alimentoSelected.setCalorias(Float.valueOf(nuevasCalorias));
+			alimentoSelected.setPrecio(Float.valueOf(nuevoPrecio));
+			alimentoSelected.setImagenPath(nuevaImagen);
+			alimentoSelected.setDescripcion(nuevaDescripcion);
+			
+			// Actualizacion de vista principal y XML
+			CreadorXML.getInstance().RecrearCatalogo(mainController.getCatalogo().getAlimentos());
+			mainController.crearCatalogo(mainController.getCatalogo().getAlimentos());
+		}	
 	}
-
 }
