@@ -43,7 +43,7 @@ public class AgregarAlimentoController {
 		public void keyPressed(KeyEvent ke) {
             String value = vista.getCodigoInput().getText().trim();
             int l = value.length();
-            if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') {
+            if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyCode() == 8) {
                vista.getCodigoInput().setEditable(true);
             } else {
                vista.getCodigoInput().setEditable(false);

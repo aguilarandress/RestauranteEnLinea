@@ -21,7 +21,8 @@ public class EditarView extends JFrame {
 	
 	private JLabel codigoLabel;
 	
-	private JTextField nombreInput, caloriasInput, precioInput, imagenInput;
+	private JTextField nombreInput, caloriasInput, precioInput, imagenInput,
+						codigoInput;
 	
 	private JTextArea descripcionInput;
 	
@@ -42,8 +43,12 @@ public class EditarView extends JFrame {
 		this.add(codigoPHLabel);
 		
 		codigoLabel = new JLabel("");
-		codigoLabel.setBounds(120, 10, 300, 25);
+		codigoLabel.setBounds(120, 10, 70, 25);
 		this.add(codigoLabel);
+		
+		codigoInput = new JTextField("");
+		codigoInput.setBounds(145, 10, 325, 25);
+		this.add(codigoInput);
 		
 		// NOMBRE
 		nombrePHLabel = new JLabel("Nombre: ");
@@ -108,6 +113,14 @@ public class EditarView extends JFrame {
 		return imagenInput;
 	}
 
+	
+	/**
+	 * Retorna el textfield de codigo
+	 * @return JTextField
+	 */
+	public JTextField getCodigoInput() {
+		return codigoInput;
+	}
 
 
 	/**
