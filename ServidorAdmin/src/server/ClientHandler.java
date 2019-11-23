@@ -41,33 +41,11 @@ public class ClientHandler implements Runnable {
             			cliente.close();
             			break;
             		}
+            		// Enviar alimentos
             		else if (inputRecibido.equals("alimentos")) {
-            			
+            			this.enviarAlimentos();
             		}
             	}
-            	
-            	
-                // Obtener request del cliente
-//                String request = in.readLine();
-//                if (request == null) break;
-//                // Obtener tokens
-//                String[] message = request.split(" ");
-//                // Revisar si se desea terminar la conexion
-//                if (request.equals("quit")) {
-//                	// Desconectar cliente del servidor
-//                	this.server.getController().agregarActividadDeConexion("[SERVER] Cliente desconectado...");
-//                    cliente.close();
-//                    break;
-//                }
-//                else if (message[0].equals("send")) {
-//                	this.server.sendToController(message[1]);
-//                	this.out.println("client HelloWorld");
-//                }
-//                else {
-//                    System.out.println("[SERVER] Se recibio: " + request);
-//                    // Responder al cliente
-//                    out.println("El servidor recibio: " + request);
-//                }
             }
         } catch (IOException e) {
             e.getStackTrace();
@@ -83,5 +61,9 @@ public class ClientHandler implements Runnable {
                 e.printStackTrace();
             }
         }
+    }
+    
+    public void enviarAlimentos() {
+    	
     }
 }

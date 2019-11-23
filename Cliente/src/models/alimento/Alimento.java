@@ -1,17 +1,20 @@
 package models.alimento;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Kenneth Sanchez
  * @author Fabian Vargas
  * @author Andres Aguilar
  */
-public class Alimento implements IConstants{
+public class Alimento implements IConstants, Serializable {
 	
 	private static final TipoAlimento[] TIPOS = {TipoAlimento.BEBIDA, TipoAlimento.ENTRADA, 
 			TipoAlimento.PLATO_FUERTE, TipoAlimento.POSTRE};
 	
 	private String codigo, nombre, descripcion;
+	private byte contenidoImagen[];
 	private int racion;
 	private float calorias, precio;
 	private boolean habilitado;
@@ -151,6 +154,14 @@ public class Alimento implements IConstants{
 	 */
 	public void setTipo(TipoAlimento tipo) {
 		this.tipo = tipo;
+	}
+
+	public byte[] getContenidoImagen() {
+		return contenidoImagen;
+	}
+
+	public void setContenidoImagen(byte contenidoImagen[]) {
+		this.contenidoImagen = contenidoImagen;
 	}
 	
 	
