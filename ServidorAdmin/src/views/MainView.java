@@ -57,6 +57,8 @@ public class MainView extends JFrame {
 	private JTextArea descripLabel;
 	private JPanel imagenPanel;
 	private  JScrollPane scrollPaneDescrip;
+	private JButton editarBtn;
+	private JButton agregarBtn;
 	
 	// Montos
 	private JLabel montoExpressLabel = new JLabel("");
@@ -73,13 +75,13 @@ public class MainView extends JFrame {
 	public MainView() {
 		setTitle("Aplicacion Administradora");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 680, 500);
+		setBounds(100, 100, 700, 520);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		tabbedPane.setBounds(0, 0, 664, 450);
+		tabbedPane.setBounds(0, 0, 684, 470);
 		contentPane.add(tabbedPane);
 		
 		tabbedPane.addTab("Conexiones", null, conexionesPanel, null);
@@ -100,6 +102,13 @@ public class MainView extends JFrame {
 		catalogoTree.setBounds(0, 0, 200, 450);
 		catalogoTree.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 		
+		editarBtn = new JButton("Editar");
+		editarBtn.setBounds(150, 410, 100, 25);
+		editarBtn.setEnabled(false);
+		
+		agregarBtn = new JButton("Agregar");
+		agregarBtn.setBounds(0, 410, 100, 25);
+		
 		JScrollPane scrollPane = new JScrollPane(catalogoTree);
 		scrollPane.setViewportView(catalogoTree);
 		scrollPane.setBounds(0, 0, 250, 400);
@@ -118,6 +127,8 @@ public class MainView extends JFrame {
 		JPanel panel_1 = new JPanel();
 		panel_1.add(scrollPane);
 		panel_1.add(imagenPanel);
+		panel_1.add(editarBtn);
+		panel_1.add(agregarBtn);
 		
 		panel_1.setLayout(null);
 		tabbedPane.addTab("Menu", null, panel_1, null);
@@ -131,6 +142,7 @@ public class MainView extends JFrame {
 		descripLabel.setWrapStyleWord(true);
 		descripLabel.setEditable(false);
 		
+		// Montos
 		JPanel montosPanel = new JPanel();
 		tabbedPane.addTab("Montos", null, montosPanel, null);
 		montosPanel.setLayout(null);
@@ -181,6 +193,10 @@ public class MainView extends JFrame {
 		blanquearImagen();
 	}
 	
+	public JButton getEditarBtn() {
+		return editarBtn;
+	}
+
 	public JLabel getMontoExpressLabel() {
 		return montoExpressLabel;
 	}

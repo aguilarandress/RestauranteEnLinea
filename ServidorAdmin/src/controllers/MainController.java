@@ -2,6 +2,9 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.event.TreeSelectionEvent;
@@ -12,6 +15,7 @@ import catalogoXML.CreadorXML;
 import models.alimento.Alimento;
 import models.cola.Cola;
 import models.catalogo.Catalogo;
+import views.EditarView;
 import views.MainView;
 import server.TCPServer;
 
@@ -26,6 +30,8 @@ public class MainController {
 	private TCPServer mainServer;
 	private Catalogo catalogo;
 	
+	private Alimento alimentoSelected;
+	
 	public MainController(MainView view, Catalogo catalogo) {
 		this.view = view;
 		this.catalogo = catalogo;
@@ -38,6 +44,8 @@ public class MainController {
 		this.view.agregaActionListenerMontoExpressBtn(new EventoMontoExpressBtn());
 		this.view.agregarActionListenerMontoEmpaqueBtn(new EventoMontoEmpaqueBtn());
 		this.view.getTreeCatalogo().addTreeSelectionListener(new EventoSeleccionarCodigoTree());
+		this.view.getEditarBtn().addActionListener(new EventoEditarPlatillo());
+		
 		// Cargar alimentos del catalogo
 		this.cargarCatalogo();
 		view.setVisible(true);
@@ -118,15 +126,29 @@ public class MainController {
 				Alimento alimento = catalogo.getAlimentos().get(i);
 				
 				if(alimento.getCodigo().equals(view.getTreeCatalogo().getSelectionPath().getLastPathComponent().toString())) {
-					System.out.println(alimento.getNombre());
+					
+					alimentoSelected = alimento;
+					
 					if(view.verificarImagen(alimento.getImagenPath())) {
 						view.cargarImagen(alimento);
+						view.getEditarBtn().setEnabled(true);
+					} else {
+						view.getEditarBtn().setEnabled(false);
 					}
+					
 				}
 			}
 			
 		}
 		
+	}
+	
+	private class EventoEditarPlatillo implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			EditarController editarView = new EditarController(alimentoSelected);
+		}
 	}
 	
 }
