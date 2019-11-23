@@ -44,7 +44,7 @@ public class MainController {
 		this.view.agregaActionListenerMontoExpressBtn(new EventoMontoExpressBtn());
 		this.view.agregarActionListenerMontoEmpaqueBtn(new EventoMontoEmpaqueBtn());
 		this.view.getTreeCatalogo().addTreeSelectionListener(new EventoSeleccionarCodigoTree());
-		this.view.getEditarBtn().addActionListener(new EventoEditarPlatillo());
+		this.view.getEditarBtn().addActionListener(new EventoEditarPlatillo(this));
 		
 		// Cargar alimentos del catalogo
 		this.cargarCatalogo();
@@ -143,11 +143,28 @@ public class MainController {
 		
 	}
 	
+	/**
+	 * Evento para poder editar la informacion de un platillo
+	 * @author Kenneth Sanchez
+	 *
+	 */
 	private class EventoEditarPlatillo implements ActionListener {
-
+		MainController controller;
+		
+		/**
+		 * Constructor
+		 * @param pMainController
+		 */
+		public EventoEditarPlatillo(MainController pMainController) {
+			controller = pMainController;
+		}
+		
+		/**
+		 * Se activa cada vez que hay un evento
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			EditarController editarView = new EditarController(alimentoSelected);
+			EditarController editarView = new EditarController(alimentoSelected, controller);
 		}
 	}
 	
