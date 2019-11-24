@@ -272,7 +272,6 @@ public class MainController {
 		@Override
 		public void valueChanged(TreeSelectionEvent e) {
 			if(view.getTreeCatalogo().getSelectionPath() == null) {
-				System.out.println("Nada");
 				blanquearImagen();
 				return;
 			}

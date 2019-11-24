@@ -19,6 +19,7 @@ public class ClientSocket {
     public ClientSocket() throws IOException {
         this.socket = new Socket(SERVER_IP, SERVER_PORT);
         this.out = new ObjectOutputStream(this.socket.getOutputStream());
+        writeMessageToServer("alimentos");
     }
 
     /**
