@@ -35,7 +35,7 @@ public class ServerConnection implements Runnable {
 	public void run() {
 		try {
 			while (true) {
-				Object inputRecibido = (Object) this.objectInputStream.readObject();
+				Object inputRecibido = (Object) this.objectInputStream.readUnshared();
 				if (inputRecibido instanceof String) {
 					
 				}

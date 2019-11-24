@@ -41,7 +41,7 @@ public class ClientHandler implements Runnable {
     public void run() {
         try {
             while (true) {
-            	Object inputRecibido = (Object) this.inputObject.readObject();
+            	Object inputRecibido = (Object) this.inputObject.readUnshared();
             	// Es un mensaje tipo string
             	if (inputRecibido instanceof String) {
             		// El cliente desea salir
@@ -52,7 +52,6 @@ public class ClientHandler implements Runnable {
             		}
             		// Enviar alimentos
             		else if (inputRecibido.equals("alimentos")) {
-            			System.out.println("Alimentos solicitados...");
             			Cola<Alimento> colaAlimentos = this.controller.getCatalogo().getAlimentos();
             			this.enviarAlimentos(colaAlimentos);
             		}
@@ -78,6 +77,7 @@ public class ClientHandler implements Runnable {
     	ArrayList<Alimento> alimentos = new ArrayList<Alimento>();
     	while (!colaAlimentos.isEmpty()) {
     		Alimento alimentoActual = colaAlimentos.dequeue();
+    		System.out.println(alimentoActual.getNombre());
     		alimentoActual.cargarContenidoImagen();
     		alimentos.add(alimentoActual);
     	}
@@ -86,7 +86,8 @@ public class ClientHandler implements Runnable {
     		colaAlimentos.enqueue(alimentoActual);
     	}
     	try {
-			this.outputObject.writeObject(alimentos);
+    		this.outputObject.reset();
+			this.outputObject.writeUnshared(alimentos);
 			this.outputObject.flush();
 		} catch (IOException e) {
 			System.out.println("**ERROR** Al enviar objeto");

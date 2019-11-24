@@ -27,7 +27,7 @@ public class ClientSocket {
      */
     public void writeMessageToServer(String message) {
         try {
-			this.out.writeObject(message);
+			this.out.writeUnshared(message);
 		} catch (IOException e) {
 			System.out.println("**ERROR**: Write Object");
 			e.printStackTrace();

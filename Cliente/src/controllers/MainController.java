@@ -62,6 +62,7 @@ public class MainController {
 	public void setAlimentosMenu (ArrayList<Alimento> alimentos) {
 		this.view.getAlimentosListModel().clear();
 		for (Alimento alimentoActual : alimentos) {
+			System.out.println(alimentoActual.getNombre());
 			this.view.getAlimentosListModel().addElement(alimentoActual);
 		}
 	}
