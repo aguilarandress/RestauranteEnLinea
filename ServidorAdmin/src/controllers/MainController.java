@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -28,6 +29,7 @@ import catalogoXML.CreadorXML;
 import models.alimento.Alimento;
 import models.alimento.TipoAlimento;
 import models.cola.Cola;
+import models.cola.Nodo;
 import models.pedidos.ListaPedidos;
 import models.catalogo.Catalogo;
 import views.AgregarAlimentoView;
@@ -68,10 +70,13 @@ public class MainController {
 		// Agregar eventos a los componentes
 		this.view.getMontoExpressBtn().addActionListener(new EventoMontoExpressBtn());
 		this.view.getMontoEmpaqueBtn().addActionListener(new EventoMontoEmpaqueBtn());
+		
 		this.view.getTreeCatalogo().addTreeSelectionListener(new EventoSeleccionarCodigoTree());
 		this.view.getEditarBtn().addActionListener(new EventoEditarPlatillo(this));
 		this.view.getAgregarBtn().addActionListener(new EventoAgregarAlimento(this));
+		
 		this.view.getVerGraficoBtn().addActionListener(new EventoMostrarChart());
+		this.view.getActualizarPedidosBtn().addActionListener(new EventoActualizarPedidos());
 		
 		// Pone la imagen por defecto
 		this.blanquearImagen();
@@ -396,6 +401,59 @@ public class MainController {
 			// Muestra el chart
 			PiePlot plot = (PiePlot) chart.getPlot();
 			PedidosGraficoView graficoView = new PedidosGraficoView("Grafico de Pedidos", chart);
+		}
+	}
+	
+	/**
+	 * Evento para actualizar la informacion de los pedidos
+	 * @author Kenneth Sanchez
+	 *
+	 */
+	private class EventoActualizarPedidos implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			DefaultListModel<Alimento> nuncaPedidosModel = new DefaultListModel<Alimento>();
+			DefaultListModel<Alimento> topPedidosModel = new DefaultListModel<Alimento>();
+			
+			// Itera por todos los nodos
+			for (int i = 0; i < catalogo.getAlimentos().getCantidad(); i++) {
+				Nodo<Alimento> actual = catalogo.getAlimentos().getNodo(i);
+				
+				// Revisa la prioridad del nodo
+				if (actual.getPrioridad() == Integer.MIN_VALUE) {
+					nuncaPedidosModel.addElement(actual.getValue());
+				}
+			}
+			
+			// Itera por los primeros 10 nodos
+			for (int i = 0; i < 10; i++) {
+				Nodo<Alimento> actual = catalogo.getAlimentos().getNodo(i);
+				
+				// Revisa la prioridad del nodo
+				if (actual.getPrioridad() == Integer.MIN_VALUE) break;
+				
+				topPedidosModel.addElement(actual.getValue());
+			}
+			
+			
+			view.getListaNuncaPedidos().setModel(nuncaPedidosModel);
+			view.getListaTopPedidos().setModel(topPedidosModel);
+		}
+		
+	}
+	
+	/**
+	 * Evento para mostrar la informacion de pedidos en una tabla
+	 * @author Kenneth Sanchez
+	 *
+	 */
+	private class EventoVerTabla implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
 		}
 		
 	}
