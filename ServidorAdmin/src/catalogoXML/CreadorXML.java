@@ -538,6 +538,17 @@ public class CreadorXML {
          		 Element caloriasEle = documento.createElement("Calorias");
          		 caloriasEle.appendChild(documento.createTextNode(Float.toString(alimento.getCalorias())));
          		elementoBebidas.appendChild(caloriasEle);
+         		
+         		// Elemento imagen
+        		 Element imagenEle = documento.createElement("Imagen");
+        		 imagenEle.appendChild(documento.createTextNode(alimento.getImagenPath()));
+        		 elementoBebidas.appendChild(imagenEle);
+        		 
+        		 // Elemento Habilitado
+        		 Element habilitadoEle = documento.createElement("Habilitado");
+        		 habilitadoEle.appendChild(documento.createTextNode(
+        				 String.valueOf(alimento.isHabilitado())));
+        		 elementoBebidas.appendChild(habilitadoEle);
          	}
          	else {
          		Element elementoPostres = documento.createElement("Postre");

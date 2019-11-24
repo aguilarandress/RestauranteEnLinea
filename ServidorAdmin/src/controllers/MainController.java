@@ -107,6 +107,8 @@ public class MainController {
 	 * @param alimentos Los alimentos que se van a cargar
 	 */
 	public void crearCatalogo(Cola<Alimento> alimentos) {
+		this.catalogo.setAlimentos(alimentos);
+		
 		DefaultMutableTreeNode raiz = new DefaultMutableTreeNode("Catalogo");
 		
 		DefaultMutableTreeNode entradas = new DefaultMutableTreeNode("Entradas");

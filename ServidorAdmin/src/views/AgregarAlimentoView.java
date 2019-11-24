@@ -101,7 +101,7 @@ public class AgregarAlimentoView extends JFrame {
 		this.add(descripcionInput);
 		
 		// Actualizar
-		actualizarBtn = new JButton("Actualizar");
+		actualizarBtn = new JButton("Agregar");
 		actualizarBtn.setBounds(10, 370, 460, 25);
 		this.add(actualizarBtn);
 		

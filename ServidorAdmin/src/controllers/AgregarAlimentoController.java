@@ -67,6 +67,8 @@ public class AgregarAlimentoController {
 			String descripcion = vista.getDescripcionInput().getText().trim();
 			String numeroCodigo = vista.getCodigoInput().getText().trim();
 			
+			System.out.println(descripcion);
+			
 			// Validacion
 			if (nombre.isEmpty() || pathImagen.isEmpty() || calorias.isEmpty()
 					|| precio.isEmpty() || descripcion.isEmpty() ||
@@ -129,6 +131,7 @@ public class AgregarAlimentoController {
 			nuevoAlimento.setCalorias(Float.valueOf(calorias));
 			nuevoAlimento.setPrecio(Float.valueOf(precio));
 			nuevoAlimento.setCodigo(codigo);
+			nuevoAlimento.setDescripcion(descripcion);
 			nuevoAlimento.setImagenPath(pathImagen);
 			
 			// Se agrega el alimento al catalogo
