@@ -1,12 +1,20 @@
 package models.alimento;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
+
+import javax.imageio.ImageIO;
+
 /**
  * 
  * @author Kenneth Sanchez
  * @author Fabian Vargas
  * @author Andres Aguilar
  */
-public class Alimento implements IConstants{
+public class Alimento implements IConstants, Serializable {
 	
 	private static final TipoAlimento[] TIPOS = {TipoAlimento.BEBIDA, TipoAlimento.ENTRADA, 
 			TipoAlimento.PLATO_FUERTE, TipoAlimento.POSTRE};
@@ -16,6 +24,28 @@ public class Alimento implements IConstants{
 	private float calorias, precio;
 	private boolean habilitado;
 	private TipoAlimento tipo;
+	private byte contenidoImagen[];
+	
+	/**
+	 * Carga el contenido de la imagen
+	 */
+	public void cargarContenidoImagen() {
+		if (this.ImagenPath != null) {
+			try {
+				BufferedImage bImage = ImageIO.read(new File(this.ImagenPath));
+				ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
+				ImageIO.write(bImage, "jpg", byteOutputStream);
+				this.contenidoImagen = byteOutputStream.toByteArray();
+			} catch (IOException e) {
+				System.out.println("**ERROR** Cargar imagen");
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public String toString() {
+		return this.nombre + " - " + this.precio;
+	}
 	
 	/**
 	 * Crea un nuevo alimento de acuerdo al tipo

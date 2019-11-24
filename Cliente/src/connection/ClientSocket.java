@@ -27,7 +27,6 @@ public class ClientSocket {
      */
     public void writeMessageToServer(String message) {
         try {
-        	System.out.println("Escribiendo al server...");
 			this.out.writeObject(message);
 		} catch (IOException e) {
 			System.out.println("**ERROR**: Write Object");

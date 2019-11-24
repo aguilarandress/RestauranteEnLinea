@@ -9,7 +9,11 @@ import java.awt.event.WindowListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import models.alimento.Alimento;
+
 import javax.swing.JTextField;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
 import javax.swing.JTabbedPane;
@@ -21,6 +25,8 @@ public class MainView extends JFrame {
 
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+	private JList<Alimento> menuList = new JList<Alimento>();
+	private DefaultListModel<Alimento> alimentosListModel = new DefaultListModel<Alimento>();
 	
 	/**
 	 * Create the frame.
@@ -51,8 +57,8 @@ public class MainView extends JFrame {
 		tabbedPane.addTab("Menu", null, menuPanel, null);
 		menuPanel.setLayout(null);
 		
-		JList menuList = new JList();
 		menuList.setBounds(27, 26, 279, 360);
+		menuList.setModel(this.alimentosListModel);
 		menuPanel.add(menuList);
 	}
 	
@@ -62,6 +68,22 @@ public class MainView extends JFrame {
 	 */
 	public void addWindowBtnCloseEvent(WindowListener windowListener) {
 		this.addWindowListener(windowListener);
+	}
+	
+	public JList<Alimento> getMenuList() {
+		return menuList;
+	}
+
+	public void setMenuList(JList<Alimento> menuList) {
+		this.menuList = menuList;
+	}
+
+	public DefaultListModel<Alimento> getAlimentosListModel() {
+		return alimentosListModel;
+	}
+
+	public void setAlimentosListModel(DefaultListModel<Alimento> alimentosListModel) {
+		this.alimentosListModel = alimentosListModel;
 	}
 	
 	public JTabbedPane getTabbedPane() {

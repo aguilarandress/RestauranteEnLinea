@@ -41,7 +41,7 @@ public class TCPServer extends Thread {
                 System.out.println("[SERVER] Un cliente se ha conectado");
                 this.mainController.agregarActividadDeConexion("[SERVER] Un cliente se ha conectado");
                 // Spawnear un client handler para la conexion
-                ClientHandler clientHandler = new ClientHandler(cliente, this);
+                ClientHandler clientHandler = new ClientHandler(cliente, this.mainController, this);
                 clients.add(clientHandler);
                 // Agregar al thread pool
                 pool.execute(clientHandler);

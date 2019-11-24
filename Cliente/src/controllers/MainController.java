@@ -6,6 +6,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
@@ -13,6 +14,7 @@ import javax.swing.event.ChangeListener;
 
 import views.MainView;
 import connection.ServerConnection;
+import models.alimento.Alimento;
 import connection.ClientSocket;
 
 /**
@@ -51,10 +53,17 @@ public class MainController {
 			// Revisar si es el pane del menu
 			JTabbedPane pane = (JTabbedPane) e.getSource();
 			if (pane.getSelectedIndex() == 1) {
-				// TODO: Solicitar objetos
+				clientSocket.writeMessageToServer("alimentos");
 			}
 		}
 		
+	}
+	
+	public void setAlimentosMenu (ArrayList<Alimento> alimentos) {
+		this.view.getAlimentosListModel().clear();
+		for (Alimento alimentoActual : alimentos) {
+			this.view.getAlimentosListModel().addElement(alimentoActual);
+		}
 	}
 	
 	private class CloseWindowEvent implements WindowListener {
