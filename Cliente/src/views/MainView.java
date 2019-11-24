@@ -8,40 +8,37 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-
-import models.alimento.Alimento;
-
-import javax.swing.JTextField;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JTextPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JList;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class MainView extends JFrame {
 
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	private JList<Alimento> menuList = new JList<Alimento>();
-	private DefaultListModel<Alimento> alimentosListModel = new DefaultListModel<Alimento>();
-	
+	private JTree menuTree;
+	private JLabel imagenLabel;
+	private JTextArea areaDescrip;
 	/**
 	 * Create the frame.
 	 */
 	public MainView() {
 		setTitle("Aplicacion Cliente");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 788, 489);
+		setBounds(100, 100, 828, 559);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		
-		tabbedPane.setBounds(0, 0, 772, 450);
+		tabbedPane.setBounds(0, 0, 798, 500);
 		contentPane.add(tabbedPane);
 		
 		JPanel bienvenidaPanel = new JPanel();
@@ -57,9 +54,28 @@ public class MainView extends JFrame {
 		tabbedPane.addTab("Menu", null, menuPanel, null);
 		menuPanel.setLayout(null);
 		
-		menuList.setBounds(27, 26, 279, 360);
-		menuList.setModel(this.alimentosListModel);
-		menuPanel.add(menuList);
+		menuTree = new JTree();
+		menuTree.setModel(new DefaultTreeModel(
+			new DefaultMutableTreeNode("Catalogo") {
+				{
+				}
+			}
+		));
+		menuTree.setBounds(31, 29, 339, 416);
+		menuPanel.add(menuTree);
+		
+		JScrollPane descripPane = new JScrollPane();
+		menuPanel.add(descripPane);
+		
+		imagenLabel = new JLabel();
+		menuPanel.add(imagenLabel);
+		imagenLabel.setBounds(443, 13, 300, 300);
+		areaDescrip = new JTextArea();
+		descripPane.setColumnHeaderView(areaDescrip);
+		descripPane.setBounds(426, 352, 334, 105);
+		areaDescrip.setLineWrap(true);
+		areaDescrip.setWrapStyleWord(true);
+		areaDescrip.setEditable(false);
 	}
 	
 	/**
@@ -70,23 +86,32 @@ public class MainView extends JFrame {
 		this.addWindowListener(windowListener);
 	}
 	
-	public JList<Alimento> getMenuList() {
-		return menuList;
+	public JTree getMenuList() {
+		return menuTree;
 	}
 
-	public void setMenuList(JList<Alimento> menuList) {
-		this.menuList = menuList;
-	}
-
-	public DefaultListModel<Alimento> getAlimentosListModel() {
-		return alimentosListModel;
-	}
-
-	public void setAlimentosListModel(DefaultListModel<Alimento> alimentosListModel) {
-		this.alimentosListModel = alimentosListModel;
+	public void setMenuList(JTree menuTree) {
+		this.menuTree = menuTree;
 	}
 	
 	public JTabbedPane getTabbedPane() {
 		return this.tabbedPane;
 	}
+
+	public JLabel getImagenLabel() {
+		return imagenLabel;
+	}
+
+	public void setImagenLabel(JLabel imagenLabel) {
+		this.imagenLabel = imagenLabel;
+	}
+
+	public JTextArea getAreaDescrip() {
+		return areaDescrip;
+	}
+
+	public void setAreaDescrip(JTextArea areaDescrip) {
+		this.areaDescrip = areaDescrip;
+	}
+	
 }

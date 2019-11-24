@@ -1,20 +1,32 @@
 package controllers;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 import views.MainView;
 import connection.ServerConnection;
 import models.alimento.Alimento;
+import models.alimento.TipoAlimento;
 import connection.ClientSocket;
 
 /**
@@ -26,7 +38,9 @@ public class MainController {
 	
 	private MainView view;
 	private ClientSocket clientSocket;
-
+	private ArrayList<Alimento> alimentos;
+	private Alimento alimentoSelected;
+	
 	public MainController(MainView view) {
 		this.view = view;
 		try {
@@ -42,8 +56,11 @@ public class MainController {
 		// Configurar eventos
 		this.view.addWindowBtnCloseEvent(new CloseWindowEvent());
 		this.view.getTabbedPane().addChangeListener(new TabbedPaneChangeListener());
-		
+		this.view.getMenuList().addMouseListener(new EventoTreeSelection(this));
+		this.view.getMenuList().addTreeSelectionListener(new CargarImagenEvento());
 		this.view.setVisible(true);
+		this.alimentos = new ArrayList<Alimento>();
+		blanquearImagen();
 	}
 	
 	private class TabbedPaneChangeListener implements ChangeListener {
@@ -59,12 +76,81 @@ public class MainController {
 		
 	}
 	
-	public void setAlimentosMenu (ArrayList<Alimento> alimentos) {
-		this.view.getAlimentosListModel().clear();
-		for (Alimento alimentoActual : alimentos) {
-			System.out.println(alimentoActual.getNombre());
-			this.view.getAlimentosListModel().addElement(alimentoActual);
+	private class EventoTreeSelection implements MouseListener{
+		MainController controller;
+		public EventoTreeSelection(MainController controller) {
+			this.controller = controller;
 		}
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(e.getClickCount() == 2 ) {
+				if(view.getMenuList().getSelectionPath() == null) {
+					blanquearImagen();
+					return;
+				}
+				for(Alimento alimento : alimentos) {
+					if(view.getMenuList().getSelectionPath().getLastPathComponent().toString() == alimento.getNombre()) {
+						alimentoSelected = alimento;
+						this.ventanaPlatillo();
+					}
+				}
+
+			}
+		}
+		
+		public void ventanaPlatillo() {
+			AbrirPlatilloController abrirController= new AbrirPlatilloController(controller);
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			// TODO Auto-generated method stub	
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			// TODO Auto-generated method stub		
+		}	
+	}
+	
+	public void setAlimentosMenu (ArrayList<Alimento> alimentos) {
+		DefaultMutableTreeNode catalogo = new DefaultMutableTreeNode("Catalogo");
+		DefaultMutableTreeNode entradas = new DefaultMutableTreeNode("Entradas");
+		DefaultMutableTreeNode platosF = new DefaultMutableTreeNode("Platos Fuertes");
+		DefaultMutableTreeNode bebidas = new DefaultMutableTreeNode("Bebidas");
+		DefaultMutableTreeNode postres = new DefaultMutableTreeNode("Postres");
+		for (Alimento alimentoActual : alimentos) {
+			DefaultMutableTreeNode nombre = new DefaultMutableTreeNode(alimentoActual.getNombre());
+			if(alimentoActual.getTipo() == TipoAlimento.BEBIDA) {
+				bebidas.add(nombre);
+			}
+			else if(alimentoActual.getTipo() == TipoAlimento.PLATO_FUERTE) {
+				platosF.add(nombre);
+			}
+			else if(alimentoActual.getTipo() == TipoAlimento.ENTRADA) {
+				entradas.add(nombre);
+			}
+			else {
+				postres.add(nombre);
+			}
+		}
+		catalogo.add(entradas);
+		catalogo.add(platosF);
+		catalogo.add(bebidas);
+		catalogo.add(postres);
+		DefaultTreeModel modelo = new DefaultTreeModel(catalogo);
+		view.getMenuList().setModel(modelo);
+		this.alimentos = alimentos;
 	}
 	
 	private class CloseWindowEvent implements WindowListener {
@@ -109,4 +195,62 @@ public class MainController {
 		}
 	}
 	
+	public Alimento getAlimentoSelected() {
+		return this.alimentoSelected;
+	}
+	
+	private class CargarImagenEvento implements TreeSelectionListener{
+
+		@Override
+		public void valueChanged(TreeSelectionEvent arg0) {
+			if(view.getMenuList().getSelectionPath() == null) {
+				blanquearImagen();
+				return;
+			}
+			for(Alimento alimento : alimentos) {
+				if(view.getMenuList().getSelectionPath().getLastPathComponent().toString() == alimento.getNombre()) {
+					if(verificarImagen(alimento.getImagenPath()))
+						cargarImagen(alimento);
+				}
+			}
+		}
+		
+	}
+	public boolean verificarImagen(String path) {
+        String filepath = path;
+        try {
+            BufferedImage image = ImageIO.read(new File(filepath));
+            if (image == null) {
+                return false;
+            }
+            return true;
+        } catch(IOException ex) {
+            return false;
+       }
+	}
+	
+	public void cargarImagen(Alimento alimento) {
+		view.getAreaDescrip().setEditable(true);
+        ImageIcon imageIcon = new ImageIcon(alimento.getImagenPath());
+        Image copiaImage = imageIcon.getImage();
+        Image resizedImage = copiaImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(resizedImage);
+        view.getImagenLabel().setIcon(imageIcon);
+        System.out.println(alimento.getDescripcion());
+        view.getAreaDescrip().setText(alimento.getDescripcion());
+        view.getAreaDescrip().setEditable(false);
+	}
+	
+	public void blanquearImagen() {
+		view.getAreaDescrip().setEditable(true);
+		if(verificarImagen("../Imagenes/menu.jpg")) {
+	        ImageIcon imageIcon = new ImageIcon("../Imagenes/menu.jpg");
+	        Image copiaImage = imageIcon.getImage();
+	        Image resizedImage = copiaImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+	        imageIcon = new ImageIcon(resizedImage);
+	        view.getImagenLabel().setIcon(imageIcon);
+	        view.getAreaDescrip().setText("");
+	        view.getAreaDescrip().setEditable(false);
+		}
+	}
 }
