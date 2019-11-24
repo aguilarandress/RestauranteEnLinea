@@ -100,9 +100,6 @@ public class MainView extends JFrame {
 		JLabel lblCantidadSeleccionada = new JLabel("Cantidad Seleccionada:");
 		lblCantidadSeleccionada.setBounds(453, 25, 134, 16);
 		panelCarrito.add(lblCantidadSeleccionada);
-		String[] p1 = {"Arroz con camarones","10"};
-		modeloTabla.addRow(p1);
-		modeloTabla.setValueAt("6", 0, 1);
 	}
 	
 	/**
