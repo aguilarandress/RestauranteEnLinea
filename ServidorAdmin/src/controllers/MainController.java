@@ -18,14 +18,22 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.data.general.DefaultPieDataset;
+
 import catalogoXML.CreadorXML;
 import models.alimento.Alimento;
 import models.alimento.TipoAlimento;
 import models.cola.Cola;
+import models.pedidos.ListaPedidos;
 import models.catalogo.Catalogo;
 import views.AgregarAlimentoView;
 import views.EditarView;
 import views.MainView;
+import views.PedidosGraficoView;
 import server.TCPServer;
 
 /**
@@ -40,10 +48,18 @@ public class MainController {
 	private Catalogo catalogo;
 	
 	private Alimento alimentoSelected;
+	private ListaPedidos pedidos;
 	
+	/**
+	 * Metodo Constructor
+	 * @param view
+	 * @param catalogo
+	 */
 	public MainController(MainView view, Catalogo catalogo) {
 		this.view = view;
 		this.catalogo = catalogo;
+		
+		this.pedidos = new ListaPedidos();
 		
 		// Iniciar servidor
 		this.mainServer = new TCPServer(this);
@@ -55,6 +71,7 @@ public class MainController {
 		this.view.getTreeCatalogo().addTreeSelectionListener(new EventoSeleccionarCodigoTree());
 		this.view.getEditarBtn().addActionListener(new EventoEditarPlatillo(this));
 		this.view.getAgregarBtn().addActionListener(new EventoAgregarAlimento(this));
+		this.view.getVerGraficoBtn().addActionListener(new EventoMostrarChart());
 		
 		// Pone la imagen por defecto
 		this.blanquearImagen();
@@ -343,6 +360,42 @@ public class MainController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			AgregarAlimentoController agregarController = new AgregarAlimentoController(controller);
+		}
+		
+	}
+	
+	/**
+	 * Evento encargado de mostrar la informacion en un grafico
+	 * @author Kenneth Sanchez
+	 *
+	 */
+	private class EventoMostrarChart implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			// Crea el dataset
+			DefaultPieDataset dataTest = new DefaultPieDataset();
+			dataTest.setValue("Pedidos en Sitio: " + 
+					String.valueOf(pedidos.getCantidadEnSitio()), 
+					pedidos.getCantidadEnSitio());
+			
+			dataTest.setValue("Pedidos Express:" + 
+					String.valueOf(pedidos.getCantidadExpress()),
+					pedidos.getCantidadExpress());
+			
+			dataTest.setValue("Pedidos para Recoger: " + 
+					String.valueOf(pedidos.getCantidadRecoger()),
+					pedidos.getCantidadEnSitio());
+			
+			// Crea el chart
+			JFreeChart chart = ChartFactory.createPieChart("Pedidos Totales: " + 
+					pedidos.getPedidos().size(), 
+					dataTest);
+			
+			// Muestra el chart
+			PiePlot plot = (PiePlot) chart.getPlot();
+			PedidosGraficoView graficoView = new PedidosGraficoView("Grafico de Pedidos", chart);
 		}
 		
 	}

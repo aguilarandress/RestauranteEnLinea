@@ -14,6 +14,13 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.data.general.DefaultPieDataset;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
@@ -47,6 +54,7 @@ public class MainView extends JFrame {
 	private JPanel conexionesPanel = new JPanel();
 	private JLabel bitacoraConexionesTitle = new JLabel("Bitacora de conexiones");
 	private JSeparator separator = new JSeparator();
+	
 	// Bitacora de conexiones
 	private DefaultListModel<String> bitacoraConexionesListModel = new DefaultListModel<String>();
 	private JList bitacoraConexionesList = new JList(bitacoraConexionesListModel);
@@ -57,8 +65,7 @@ public class MainView extends JFrame {
 	private JTextArea descripLabel;
 	private JPanel imagenPanel;
 	private  JScrollPane scrollPaneDescrip;
-	private JButton editarBtn;
-	private JButton agregarBtn;
+	private JButton editarBtn, agregarBtn;
 	
 	// Montos
 	private JLabel montoExpressLabel = new JLabel("");
@@ -68,6 +75,10 @@ public class MainView extends JFrame {
 	private JButton montoExpressBtn = new JButton("Actualizar monto express");
 	private JButton montoEmpaqueBtn = new JButton("Actualizar monto empaque");
 	
+	// Pedidos 
+	private JLabel topPedidosLabel, nuncaPedidosLabel;
+	private JButton verGraficoBtn, verTablaBtn, actualizarPedidosBtn;
+	private JList listaTopPedidos, listaNuncaPedidos;
 	
 	/**
 	 * Create the frame.
@@ -76,6 +87,7 @@ public class MainView extends JFrame {
 		setTitle("Aplicacion Administradora");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 520);
+		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -97,7 +109,9 @@ public class MainView extends JFrame {
 		bitacoraConexionesList.setBounds(65, 59, 535, 331);
 		conexionesPanel.add(bitacoraConexionesList);
 		
-		// Menu
+		/*
+		 * MENU
+		 */
 		catalogoTree = new JTree();
 		catalogoTree.setBounds(0, 0, 200, 450);
 		catalogoTree.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
@@ -142,7 +156,9 @@ public class MainView extends JFrame {
 		descripLabel.setWrapStyleWord(true);
 		descripLabel.setEditable(false);
 		
-		// Montos
+		/*
+		 * MONTOS
+		 */
 		JPanel montosPanel = new JPanel();
 		tabbedPane.addTab("Montos", null, montosPanel, null);
 		montosPanel.setLayout(null);
@@ -189,36 +205,147 @@ public class MainView extends JFrame {
 		
 		montoEmpaqueBtn.setBounds(361, 194, 190, 23);
 		montosPanel.add(montoEmpaqueBtn);
+		
+		/*
+		 * ESTADISTICAS
+		 */
+		JPanel estadisticasPanel = new JPanel();
+		tabbedPane.addTab("Estadisticas", null, estadisticasPanel, null);
+		estadisticasPanel.setLayout(null);
+		
+		topPedidosLabel = new JLabel("TOP 10:");
+		topPedidosLabel.setBounds(30, 5, 150, 25);
+		estadisticasPanel.add(topPedidosLabel);
+		
+		listaTopPedidos = new JList();
+		listaTopPedidos.setBounds(30, 30, 150, 400);
+		listaTopPedidos.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		estadisticasPanel.add(listaTopPedidos);
+		
+		nuncaPedidosLabel = new JLabel("Nunca Pedidos:");
+		nuncaPedidosLabel.setBounds(210, 5, 150, 25);
+		estadisticasPanel.add(nuncaPedidosLabel);
+		
+		listaNuncaPedidos = new JList();
+		listaNuncaPedidos.setBounds(210, 30, 150, 400);
+		listaNuncaPedidos.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		estadisticasPanel.add(listaNuncaPedidos);
+		
+		verGraficoBtn = new JButton("Grafico de Pedidos");
+		verGraficoBtn.setBounds(380, 30, 275, 30);
+		estadisticasPanel.add(verGraficoBtn);
+		
+		verTablaBtn = new JButton("Tabla de Pedidos");
+		verTablaBtn.setBounds(380, 70, 275, 30);
+		estadisticasPanel.add(verTablaBtn);
+		
+		actualizarPedidosBtn = new JButton("Actualizar Pedidos");
+		actualizarPedidosBtn.setBounds(380, 110, 275, 30);
+		estadisticasPanel.add(actualizarPedidosBtn);
+	}	
+	
+	/**
+	 * Obtiene el boton de actualizar pedidos
+	 * @return JButton
+	 */
+	public JButton getActualizarPedidosBtn() {
+		return actualizarPedidosBtn;
+	}
+
+
+
+	/**
+	 * Retorna el boton para ver el grafico
+	 * @return
+	 */
+	public JButton getVerGraficoBtn() {
+		return verGraficoBtn;
+	}
+
+	/**
+	 * Retorna el boton para ver la table
+	 * @return JButton
+	 */
+	public JButton getVerTablaBtn() {
+		return verTablaBtn;
 	}
 	
+	/**
+	 * Retorna la lista de los mas pedidos
+	 * @return JList
+	 */
+	public JList getListaTopPedidos() {
+		return listaTopPedidos;
+	}
+	
+	/**
+	 * Retorna la lista de nunca pedidos
+	 * @return JList
+	 */
+	public JList getListaNuncaPedidos() {
+		return listaNuncaPedidos;
+	}
+
+	/**
+	 * Obtiene el boton de editar
+	 * @return JButton
+	 */
 	public JButton getEditarBtn() {
 		return editarBtn;
 	}
 
+	/**
+	 * Obtiene el label donde se encuentra el monto express
+	 * @return JLabel
+	 */
 	public JLabel getMontoExpressLabel() {
 		return montoExpressLabel;
 	}
-
+	
+	/**
+	 * Obtiene el label donde se encuentra el monto de empaque
+	 * @return
+	 */
 	public JLabel getMontoEmpaqueLabel() {
 		return montoEmpaqueLabel;
 	}
 
+	/**
+	 * Obtiene el text field del nuevo monto
+	 * @return JTextField
+	 */
 	public JTextField getMontoExpressInput() {
 		return montoExpressInput;
 	}
-
+	
+	/**
+	 * Obtiene el text field del nuevo monto
+	 * @return JTextfield
+	 */
 	public JTextField getMontoEmpaqueInput() {
 		return montoEmpaqueInput;
 	}
 
+	/**
+	 * Obtiene el boton de actualizar monto express
+	 * @return JButton
+	 */
 	public JButton getMontoExpressBtn() {
 		return montoExpressBtn;
 	}
-
+	
+	/**
+	 * Obtiene el boton de actualizar monto empaque
+	 * @return JButton
+	 */
 	public JButton getMontoEmpaqueBtn() {
 		return montoEmpaqueBtn;
 	}
-
+	
+	/**
+	 * Obtiene le boton de agregar un nuevo platillo
+	 * @return JButton
+	 */
 	public JButton getAgregarBtn() {
 		return agregarBtn;
 	}
@@ -266,6 +393,4 @@ public class MainView extends JFrame {
 	public JLabel getImagenLabel() {
 		return imagenLabel;
 	}
-
-	
 }
