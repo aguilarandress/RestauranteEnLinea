@@ -34,6 +34,7 @@ public class EditarController {
 		// Eventos
 		vista.getActualizarBtn().addActionListener(new EventoActualizar());
 		vista.getCodigoInput().addKeyListener(new EventoSoloNumeros());
+		vista.getEliminarBtn().addActionListener(new EventoEliminar());
 		
 		// Parte el codigo del alimento
 		String[] codigo = alimentoSelected.getCodigo().split("-");
@@ -46,9 +47,10 @@ public class EditarController {
 		vista.getPrecioInput().setText(String.valueOf(alimentoSelected.getPrecio()));
 		vista.getImagenInput().setText(alimentoSelected.getImagenPath());
 		vista.getDescripcionInput().setText(alimentoSelected.getDescripcion());
+		vista.getHabilitadoCheck().setSelected(alimentoSelected.isHabilitado());
 	}
-
 	
+
 	/**
 	 * Clase evento que ejecuta la accion de actualizar informacion
 	 * @author Kenneth Sanchez
@@ -68,6 +70,8 @@ public class EditarController {
 			String nuevaImagen = vista.getImagenInput().getText().trim();
 			String nuevaDescripcion = vista.getDescripcionInput().getText().trim();
 			String numCodigo = vista.getCodigoInput().getText().trim();
+			
+			boolean estadoHabilitado = vista.getHabilitadoCheck().isSelected();
 			
 			// Validacion
 			if (nuevoNombre.equals("") || nuevasCalorias.equals("") ||
@@ -117,6 +121,7 @@ public class EditarController {
 			alimentoSelected.setImagenPath(nuevaImagen);
 			alimentoSelected.setDescripcion(nuevaDescripcion);
 			alimentoSelected.setCodigo(nuevoCodigo);
+			alimentoSelected.setHabilitado(estadoHabilitado);
 			
 			// Actualizacion de vista principal y XML
 			CreadorXML.getInstance().RecrearCatalogo(mainController.getCatalogo().getAlimentos());
@@ -125,7 +130,26 @@ public class EditarController {
 		}	
 	}
 	
+	/**
+	 * Evento para eliminar un platillo del catalogo
+	 * @author Kenneth Sanchez 
+	 *
+	 */
+	private class EventoEliminar implements ActionListener {
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// Elimina el alimento del catalogo
+			mainController.getCatalogo().getAlimentos().remove(alimentoSelected);
+			
+			// Actualiza la vista y XML
+			CreadorXML.getInstance().RecrearCatalogo(mainController.getCatalogo().getAlimentos());
+			mainController.crearCatalogo(mainController.getCatalogo().getAlimentos());
+			vista.dispose();
+		}
+		
+	}
+	
 	/**
 	 * Evento para solo aceptar numeros como input
 	 * @author Kenneth Sanchez

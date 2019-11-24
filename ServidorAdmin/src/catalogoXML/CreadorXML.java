@@ -96,6 +96,13 @@ public class CreadorXML {
 		          		 Element imagenEle = documento.createElement("Imagen");
 		          		 imagenEle.appendChild(documento.createTextNode(alimento.getImagenPath()));
 		          		 elementoPlatosF.appendChild(imagenEle);
+		          		 
+		          		 // Elemento Habilitado
+		          		 Element habilitadoEle = documento.createElement("Habilitado");
+		          		 habilitadoEle.appendChild(documento.createTextNode(
+		          				 String.valueOf(alimento.isHabilitado())));
+		          		 elementoPlatosF.appendChild(habilitadoEle);
+		          		 
 		          	}
 		          	else if(alimento.getTipo() == TipoAlimento.ENTRADA) {
 		          		Element elementoEntradas = documento.createElement("Entrada");
@@ -135,7 +142,12 @@ public class CreadorXML {
 		          		 Element imagenEle = documento.createElement("Imagen");
 		          		 imagenEle.appendChild(documento.createTextNode(alimento.getImagenPath()));
 		          		 elementoEntradas.appendChild(imagenEle);
-
+		          		 
+		          		 // Elemento Habilitado
+		          		 Element habilitadoEle = documento.createElement("Habilitado");
+		          		 habilitadoEle.appendChild(documento.createTextNode(
+		          				 String.valueOf(alimento.isHabilitado())));
+		          		 elementoEntradas.appendChild(habilitadoEle);
 		          	}
 		          	else if(alimento.getTipo() == TipoAlimento.BEBIDA) {
 		          		Element elementoBebidas = documento.createElement("Bebida");
@@ -174,7 +186,13 @@ public class CreadorXML {
 		          		// Elemento imagen
 		          		 Element imagenEle = documento.createElement("Imagen");
 		          		 imagenEle.appendChild(documento.createTextNode(alimento.getImagenPath()));
-		          		 elementoBebidas.appendChild(imagenEle);		          		
+		          		 elementoBebidas.appendChild(imagenEle);		
+		          		 
+		          		 // Elemento Habilitado
+		          		 Element habilitadoEle = documento.createElement("Habilitado");
+		          		 habilitadoEle.appendChild(documento.createTextNode(
+		          				 String.valueOf(alimento.isHabilitado())));
+		          		 elementoBebidas.appendChild(habilitadoEle);
 		          	}
 		          	else {
 		          		Element elementoPostres = documento.createElement("Postre");
@@ -214,7 +232,12 @@ public class CreadorXML {
 		          		 Element imagenEle = documento.createElement("Imagen");
 		          		 imagenEle.appendChild(documento.createTextNode(alimento.getImagenPath()));
 		          		 elementoPostres.appendChild(imagenEle);
-
+		          		 
+		          		 // Elemento Habilitado
+		          		 Element habilitadoEle = documento.createElement("Habilitado");
+		          		 habilitadoEle.appendChild(documento.createTextNode(
+		          				 String.valueOf(alimento.isHabilitado())));
+		          		 elementoPostres.appendChild(habilitadoEle);
 		           	}
 		          	
 		        }
@@ -272,7 +295,6 @@ public class CreadorXML {
 				Alimento alimento = new Alimento(0);
 				alimento.setCalorias(calorias);
 				alimento.setCodigo(codigo);
-				alimento.setHabilitado(true);
 				alimento.setNombre(nombre);
 				alimento.setPrecio(precio);
 				alimento.setDescripcion(descripcion);
@@ -302,7 +324,6 @@ public class CreadorXML {
 				Alimento alimento = new Alimento(1);
 				alimento.setCalorias(calorias);
 				alimento.setCodigo(codigo);
-				alimento.setHabilitado(true);
 				alimento.setNombre(nombre);
 				alimento.setPrecio(precio);
 				alimento.setDescripcion(descripcion);
@@ -331,7 +352,6 @@ public class CreadorXML {
 				Alimento alimento = new Alimento(2);
 				alimento.setCalorias(calorias);
 				alimento.setCodigo(codigo);
-				alimento.setHabilitado(true);
 				alimento.setNombre(nombre);
 				alimento.setPrecio(precio);
 				alimento.setDescripcion(descripcion);
@@ -363,7 +383,6 @@ public class CreadorXML {
 				Alimento alimento = new Alimento(3);
 				alimento.setCalorias(calorias);
 				alimento.setCodigo(codigo);
-				alimento.setHabilitado(true);
 				alimento.setNombre(nombre);
 				alimento.setPrecio(precio);
 				alimento.setDescripcion(descripcion);
@@ -429,6 +448,16 @@ public class CreadorXML {
          		 caloriasEle.appendChild(documento.createTextNode(Float.toString(alimento.getCalorias())));
          		 elementoPlatosF.appendChild(caloriasEle);
          		 
+         		// Elemento imagen
+          		 Element imagenEle = documento.createElement("Imagen");
+          		 imagenEle.appendChild(documento.createTextNode(alimento.getImagenPath()));
+          		 elementoPlatosF.appendChild(imagenEle);
+          		 
+          		 // Elemento Habilitado
+          		 Element habilitadoEle = documento.createElement("Habilitado");
+          		 habilitadoEle.appendChild(documento.createTextNode(
+          				 String.valueOf(alimento.isHabilitado())));
+          		 elementoPlatosF.appendChild(habilitadoEle);
          	}
          	else if(alimento.getTipo() == TipoAlimento.ENTRADA) {
          		Element elementoEntradas = documento.createElement("Entrada");
@@ -463,6 +492,17 @@ public class CreadorXML {
          		 Element caloriasEle = documento.createElement("Calorias");
          		 caloriasEle.appendChild(documento.createTextNode(Float.toString(alimento.getCalorias())));
          		elementoEntradas.appendChild(caloriasEle);
+         		
+         		// Elemento imagen
+         		 Element imagenEle = documento.createElement("Imagen");
+         		 imagenEle.appendChild(documento.createTextNode(alimento.getImagenPath()));
+         		 elementoEntradas.appendChild(imagenEle);
+         		 
+         		 // Elemento Habilitado
+         		 Element habilitadoEle = documento.createElement("Habilitado");
+         		 habilitadoEle.appendChild(documento.createTextNode(
+         				 String.valueOf(alimento.isHabilitado())));
+         		 elementoEntradas.appendChild(habilitadoEle);
 
          	}
          	else if(alimento.getTipo() == TipoAlimento.BEBIDA) {
@@ -532,6 +572,17 @@ public class CreadorXML {
          		Element caloriasEle = documento.createElement("Calorias");
          		caloriasEle.appendChild(documento.createTextNode(Float.toString(alimento.getCalorias())));
          		elementoPostres.appendChild(caloriasEle);
+         		
+         		// Elemento imagen
+         		 Element imagenEle = documento.createElement("Imagen");
+         		 imagenEle.appendChild(documento.createTextNode(alimento.getImagenPath()));
+         		 elementoPostres.appendChild(imagenEle);
+         		 
+         		 // Elemento Habilitado
+         		 Element habilitadoEle = documento.createElement("Habilitado");
+         		 habilitadoEle.appendChild(documento.createTextNode(
+         				 String.valueOf(alimento.isHabilitado())));
+         		 elementoPostres.appendChild(habilitadoEle);
           	}
 			
 	        DOMSource source = new DOMSource(documento);

@@ -23,6 +23,7 @@ public class Alimento implements IConstants{
 	 */
 	public Alimento(int pTipoConstant) {
 		tipo = TIPOS[pTipoConstant];
+		habilitado = true;
 	}
 
 	/**

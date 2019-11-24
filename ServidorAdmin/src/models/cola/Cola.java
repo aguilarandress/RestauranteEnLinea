@@ -111,7 +111,8 @@ public class Cola<T> extends Lista<T>{
 		a.cambiarPrioridad("A", 8);
 		a.cambiarPrioridad("D", 3);
 		
-		
+		a.remove("C");
+
 		
 		a.showAll();
 	}

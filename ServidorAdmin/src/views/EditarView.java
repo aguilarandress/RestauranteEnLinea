@@ -4,8 +4,10 @@ import java.awt.Color;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -26,13 +28,15 @@ public class EditarView extends JFrame {
 	
 	private JTextArea descripcionInput;
 	
-	private JButton actualizarBtn;
+	private JButton actualizarBtn, eliminarBtn;
+	
+	private JCheckBox habilitadoCheck;
 	
 	/**
 	 * Metodo constructor
 	 */
 	public EditarView() {
-		this.setSize(500, 455);
+		this.setSize(500, 475);
 		this.setLayout(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -92,18 +96,54 @@ public class EditarView extends JFrame {
 		this.add(descripcionPHLabel);
 		
 		descripcionInput = new JTextArea("");
+		descripcionInput.setLineWrap(true);
+		descripcionInput.setWrapStyleWord(true);
 		descripcionInput.setBounds(120, 160, 350, 200);
 		descripcionInput.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		this.add(descripcionInput);
+
+		// HABILITAR
+		habilitadoCheck = new JCheckBox("HABILITADO");
+		habilitadoCheck.setBounds(10, 365, 100, 25);
+		this.add(habilitadoCheck);
 		
-		// Actualizar
+		// Separador
+		JSeparator separador = new JSeparator();
+		separador.setBounds(10, 395, 460, 10);
+		this.add(separador);
+		
+		// ACTUALIZAR
 		actualizarBtn = new JButton("Actualizar");
-		actualizarBtn.setBounds(10, 370, 460, 25);
+		actualizarBtn.setBounds(10, 405, 210, 25);
 		this.add(actualizarBtn);
+		
+		// ELIMINAR
+		eliminarBtn = new JButton("Eliminar");
+		eliminarBtn.setBounds(230, 405, 240, 25);
+		this.add(eliminarBtn);
+		
 		
 		this.setVisible(true);
 	}
 	
+
+	/**
+	 * Retorna el checkbox para habilitar el alimento
+	 * @return JCheckBox
+	 */
+	public JCheckBox getHabilitadoCheck() {
+		return habilitadoCheck;
+	}
+
+
+	/**
+	 * Retorna el boton de eliminar
+	 * @return JButton
+	 */
+	public JButton getEliminarBtn() {
+		return eliminarBtn;
+	}
+
 	
 	/**
 	 * Retorna el textfield de imagen

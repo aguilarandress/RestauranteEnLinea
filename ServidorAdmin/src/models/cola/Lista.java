@@ -91,16 +91,17 @@ public class Lista<T> {
 			if (actual.getSiguiente().getValue() == pValor) {
 				
 				valor = actual.getSiguiente().getValue();
-				Nodo<T> nodoBorrar = actual.getSiguiente();
-				actual.setSiguiente(actual.getSiguiente().getSiguiente());
-				actual.getSiguiente().setSiguiente(null);
+				Nodo<T> borrar = actual.getSiguiente();
+				actual.setSiguiente(borrar.getSiguiente());
+				borrar.setSiguiente(null);
+				
+				this.cantidad -= 1;
 				
 				break;
+			} else {
+				actual = actual.getSiguiente();
 			}
-			
-			actual = actual.getSiguiente();
 		}
-		this.setCantidad(this.getCantidad() - 1);
 		return valor;
 	}
 	
