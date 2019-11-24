@@ -78,6 +78,15 @@ public class MainController {
 	}
 	
 	
+	
+	/**
+	 * Retorna el alimento seleccionado
+	 * @return Alimento
+	 */
+	public Alimento getAlimentoSelected() {
+		return alimentoSelected;
+	}
+
 	/**
 	 * Obtiene el catalogo
 	 * @return Catalogo
@@ -310,7 +319,7 @@ public class MainController {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			EditarController editarController = new EditarController(alimentoSelected, controller);
+			EditarController editarController = new EditarController(controller);
 		}
 	}
 	

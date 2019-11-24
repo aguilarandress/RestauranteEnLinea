@@ -26,10 +26,10 @@ public class EditarController {
 	/**
 	 * Metodo constructor
 	 */
-	public EditarController(Alimento pAlimentoSelected, MainController pMainController) {
+	public EditarController(MainController pMainController) {
 		vista = new EditarView();
-		alimentoSelected = pAlimentoSelected;
 		mainController = pMainController;
+		alimentoSelected = mainController.getAlimentoSelected();
 		
 		// Eventos
 		vista.getActualizarBtn().addActionListener(new EventoActualizar());
