@@ -53,6 +53,7 @@ public class Alimento implements IConstants, Serializable {
 	 */
 	public Alimento(int pTipoConstant) {
 		tipo = TIPOS[pTipoConstant];
+		habilitado = true;
 	}
 
 	/**
