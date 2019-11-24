@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
@@ -17,6 +18,7 @@ import java.awt.Font;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.JTable;
 
 public class MainView extends JFrame {
 
@@ -25,6 +27,8 @@ public class MainView extends JFrame {
 	private JTree menuTree;
 	private JLabel imagenLabel;
 	private JTextArea areaDescrip;
+	private JTable carrito;
+	private DefaultTableModel modeloTabla;
 	/**
 	 * Create the frame.
 	 */
@@ -76,6 +80,29 @@ public class MainView extends JFrame {
 		areaDescrip.setLineWrap(true);
 		areaDescrip.setWrapStyleWord(true);
 		areaDescrip.setEditable(false);
+		
+		JPanel panelCarrito = new JPanel();
+		panelCarrito.setLayout(null);
+		tabbedPane.addTab("Carrito",null, panelCarrito,null);
+		carrito = new JTable();
+		carrito.setBounds(162, 54, 500, 403);
+		panelCarrito.add(carrito);
+		modeloTabla = new DefaultTableModel();
+		
+		modeloTabla.addColumn("Nombre");
+		modeloTabla.addColumn("Cantidad");
+		carrito.setModel(modeloTabla);
+		
+		JLabel lblNombrePlatillo = new JLabel("Nombre Platillo:");
+		lblNombrePlatillo.setBounds(216, 25, 117, 16);
+		panelCarrito.add(lblNombrePlatillo);
+		
+		JLabel lblCantidadSeleccionada = new JLabel("Cantidad Seleccionada:");
+		lblCantidadSeleccionada.setBounds(453, 25, 134, 16);
+		panelCarrito.add(lblCantidadSeleccionada);
+		String[] p1 = {"Arroz con camarones","10"};
+		modeloTabla.addRow(p1);
+		modeloTabla.setValueAt("6", 0, 1);
 	}
 	
 	/**
@@ -114,4 +141,7 @@ public class MainView extends JFrame {
 		this.areaDescrip = areaDescrip;
 	}
 	
+	public DefaultTableModel getCarritoModel() {
+		return this.modeloTabla;
+	}
 }

@@ -40,7 +40,7 @@ public class MainController {
 	private ClientSocket clientSocket;
 	private ArrayList<Alimento> alimentos;
 	private Alimento alimentoSelected;
-	
+	private ArrayList<Alimento> alimentosPedidos;
 	public MainController(MainView view) {
 		this.view = view;
 		try {
@@ -60,7 +60,9 @@ public class MainController {
 		this.view.getMenuList().addTreeSelectionListener(new CargarImagenEvento());
 		this.view.setVisible(true);
 		this.alimentos = new ArrayList<Alimento>();
+		this.alimentosPedidos = new ArrayList<Alimento>();
 		blanquearImagen();
+		
 	}
 	
 	private class TabbedPaneChangeListener implements ChangeListener {
@@ -75,7 +77,11 @@ public class MainController {
 		}
 		
 	}
-	
+	/**
+	 * Evento para abrir ventana del alimento seleccionado
+	 * @author fabia
+	 *
+	 */
 	private class EventoTreeSelection implements MouseListener{
 		MainController controller;
 		public EventoTreeSelection(MainController controller) {
@@ -123,6 +129,10 @@ public class MainController {
 		}	
 	}
 	
+	/**
+	 * Colocar los alimentos en el JTree
+	 * @param alimentos
+	 */
 	public void setAlimentosMenu (ArrayList<Alimento> alimentos) {
 		DefaultMutableTreeNode catalogo = new DefaultMutableTreeNode("Catalogo");
 		DefaultMutableTreeNode entradas = new DefaultMutableTreeNode("Entradas");
@@ -194,11 +204,19 @@ public class MainController {
 			// TODO Auto-generated method stub	
 		}
 	}
-	
+	/**
+	 * Obtener el alimento seleccionado
+	 * @return
+	 */
 	public Alimento getAlimentoSelected() {
 		return this.alimentoSelected;
 	}
 	
+	/**
+	 * Evento para cargar una imagen
+	 * @author fabia
+	 *
+	 */
 	private class CargarImagenEvento implements TreeSelectionListener{
 
 		@Override
@@ -216,6 +234,12 @@ public class MainController {
 		}
 		
 	}
+	
+	/**
+	 * Verifica que la imagen exista
+	 * @param path
+	 * @return
+	 */
 	public boolean verificarImagen(String path) {
         String filepath = path;
         try {
@@ -229,6 +253,10 @@ public class MainController {
        }
 	}
 	
+	/**
+	 * Carga la imagen del alimento seleccionado
+	 * @param alimento
+	 */
 	public void cargarImagen(Alimento alimento) {
 		view.getAreaDescrip().setEditable(true);
         ImageIcon imageIcon = new ImageIcon(alimento.getImagenPath());
@@ -241,6 +269,9 @@ public class MainController {
         view.getAreaDescrip().setEditable(false);
 	}
 	
+	/**
+	 * Blanquea la imagen
+	 */
 	public void blanquearImagen() {
 		view.getAreaDescrip().setEditable(true);
 		if(verificarImagen("../Imagenes/menu.jpg")) {
@@ -252,5 +283,14 @@ public class MainController {
 	        view.getAreaDescrip().setText("");
 	        view.getAreaDescrip().setEditable(false);
 		}
+	}
+	
+	public ArrayList<Alimento> getAlimentosPedidos(){
+		return this.alimentosPedidos;
+	}
+	
+	public void agregarTablaCarrito(String nombre, String cantidad) {
+		String[] parametro = {nombre,cantidad};
+		view.getCarritoModel().addRow(parametro);
 	}
 }
