@@ -208,4 +208,13 @@ public class Alimento implements IConstants, Serializable {
 		return this.ImagenPath;
 	}
 	
+	/**
+	 * Revista si ambos alimentos tienen el mismo codigo
+	 * @param pAlimento
+	 * @return true, si lo tienen. false de lo contrario
+	 */
+	public boolean equals(Alimento pAlimento) {
+		if (this.getCodigo() == pAlimento.getCodigo()) return true;
+		return false;
+	}
 }

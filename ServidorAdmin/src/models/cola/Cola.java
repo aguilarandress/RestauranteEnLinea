@@ -9,7 +9,7 @@ package models.cola;
  */
 public class Cola<T> extends Lista<T>{
 	
-	private int menorPrioridad = Integer.MIN_VALUE;
+	private int menorPrioridad = 0;
 	
 	/**
 	 * Encola un elemento con la menor prioridad posible por defecto

@@ -62,7 +62,7 @@ public class MainController {
 		this.view = view;
 		this.catalogo = catalogo;
 		
-		this.pedidos = new ListaPedidos();
+		this.pedidos = new ListaPedidos(catalogo);
 		
 		// Iniciar servidor
 		this.mainServer = new TCPServer(this);
@@ -102,15 +102,23 @@ public class MainController {
 	}
 	
 	
-	
+	/**
+	 * Obtiene la lista de pedidos
+	 * @return ListaPedidos
+	 */
 	public ListaPedidos getPedidos() {
 		return pedidos;
 	}
-
+	
+	/**
+	 * Cambia la lista de pedidos
+	 * @param pedidos
+	 */
 	public void setPedidos(ListaPedidos pedidos) {
 		this.pedidos = pedidos;
 	}
-
+	
+	
 	/**
 	 * Obtiene la instancia actual del servidor	
 	 * @return El servidor TCP de la aplicacion
@@ -443,12 +451,14 @@ public class MainController {
 			DefaultListModel<Alimento> nuncaPedidosModel = new DefaultListModel<Alimento>();
 			DefaultListModel<Alimento> topPedidosModel = new DefaultListModel<Alimento>();
 			
+			
+			
 			// Itera por todos los nodos
 			for (int i = 0; i < catalogo.getAlimentos().getCantidad(); i++) {
 				Nodo<Alimento> actual = catalogo.getAlimentos().getNodo(i);
 				
 				// Revisa la prioridad del nodo
-				if (actual.getPrioridad() == Integer.MIN_VALUE) {
+				if (actual.getPrioridad() == 0) {
 					nuncaPedidosModel.addElement(actual.getValue());
 				}
 			}
@@ -458,7 +468,7 @@ public class MainController {
 				Nodo<Alimento> actual = catalogo.getAlimentos().getNodo(i);
 				
 				// Revisa la prioridad del nodo
-				if (actual.getPrioridad() == Integer.MIN_VALUE) break;
+				if (actual.getPrioridad() == 0) break;
 				
 				topPedidosModel.addElement(actual.getValue());
 			}

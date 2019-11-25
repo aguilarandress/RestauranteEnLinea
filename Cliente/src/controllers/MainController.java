@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -128,7 +129,7 @@ public class MainController {
 			pedidoSitio.setNombrePersona(view.getNombreVisitaInput().getText());
 			pedidoSitio.setFecha(new Date());
 			pedidoSitio.setNumeroMesa(((int)(Math.random()*((20-1)+1))+1));
-			pedidoSitio.setAlimentos(new HashSet<Alimento>(alimentosPedidos));
+			pedidoSitio.setAlimentos(new LinkedList<Alimento>(alimentosPedidos));
 			
 			view.displayMessage(true, "Pedido enviado");
 			view.getNombreVisitaInput().setText("");
@@ -166,7 +167,7 @@ public class MainController {
 			pedidoExpress.setFecha(new Date());
 			pedidoExpress.setNumeroCelular(Integer.parseInt(view.getNumeroTelefonoExpressInput().getText()));
 			pedidoExpress.setDireccion(view.getDireccionPedidoExpressInput().getText());
-			pedidoExpress.setAlimentos(new HashSet<Alimento>(alimentosPedidos));
+			pedidoExpress.setAlimentos(new LinkedList<Alimento>(alimentosPedidos));
 			
 			view.displayMessage(true, "Pedido enviado");
 			view.getNombrePedidoExpressInput().setText("");
@@ -206,7 +207,7 @@ public class MainController {
 			pedidoRecoger.setNombrePersona(view.getNombrePedidoRecogerInput().getText());
 			pedidoRecoger.setFecha(new Date());
 			pedidoRecoger.setNumeroCelular(Integer.parseInt(view.getTelefonoPedidoRecogerInput().getText()));
-			pedidoRecoger.setAlimentos(new HashSet<Alimento>(alimentosPedidos));
+			pedidoRecoger.setAlimentos(new LinkedList<Alimento>(alimentosPedidos));
 			
 			view.displayMessage(true, "Pedido enviado");
 			

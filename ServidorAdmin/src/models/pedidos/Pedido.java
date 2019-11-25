@@ -3,6 +3,7 @@ package models.pedidos;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 import models.alimento.Alimento;
 
@@ -17,7 +18,7 @@ public abstract class Pedido implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private HashSet<Alimento> alimentos;
+	private LinkedList<Alimento> alimentos;
 	private String nombrePersona;
 	private Date fecha;
 	
@@ -39,9 +40,9 @@ public abstract class Pedido implements Serializable {
 	
 	/**
 	 * Obtiene los alimentos del pedido
-	 * @return HashSet<Alimento>
+	 * @return LinkedList<Alimento>
 	 */
-	public HashSet<Alimento> getAlimentos() {
+	public LinkedList<Alimento> getAlimentos() {
 		return alimentos;
 	}
 	
@@ -49,7 +50,7 @@ public abstract class Pedido implements Serializable {
 	 * Cambia el set de alimentos del pedido
 	 * @param alimentos
 	 */
-	public void setAlimentos(HashSet<Alimento> alimentos) {
+	public void setAlimentos(LinkedList<Alimento> alimentos) {
 		this.alimentos = alimentos;
 	}
 	
