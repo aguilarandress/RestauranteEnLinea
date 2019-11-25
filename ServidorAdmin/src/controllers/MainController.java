@@ -153,6 +153,14 @@ public class MainController {
 	}
 	
 	/**
+	 * Agrega una actividad nueva al historial de pedidos
+	 * @param pedido Un pedido nuevo realizado
+	 */
+	public void agregarActividadPedido(String pedido) {
+		this.view.agregarAHistorialDePedidos(pedido);
+	}
+	
+	/**
 	 * Cargar los alimentos a la vista
 	 * @param alimentos Los alimentos que se van a cargar
 	 */

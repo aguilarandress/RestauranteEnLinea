@@ -8,6 +8,9 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;  
+import java.util.Date;  
+import java.util.Locale; 
 
 import controllers.MainController;
 import models.alimento.Alimento;
@@ -59,8 +62,40 @@ public class ClientHandler implements Runnable {
             	}
             	if (inputRecibido instanceof Pedido) {
             		Pedido pedidoNuevo = (Pedido) inputRecibido;
+            		// Agregar al menu
+            		this.controller.getPedidos().getPedidos().add(pedidoNuevo);
+            		// Obtener el tipo de pedido
+            		String tipoPedido = "";
+            		if (pedidoNuevo instanceof PedidoExpress) tipoPedido += "pedido express";
+            		if (pedidoNuevo instanceof PedidoSitio) tipoPedido += "pedido en sitio";
+            		if (pedidoNuevo instanceof PedidoRecoger) tipoPedido += "pedido para recoger";
+            		// Agregar fecha
+            		String actividadNueva = pedidoNuevo.getNombrePersona() + " solicito un " + tipoPedido;
+            		SimpleDateFormat formatter = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+            		String fecha = formatter.format(pedidoNuevo.getFecha());
+            		actividadNueva += " a las " + fecha;
+            		this.controller.agregarActividadPedido(actividadNueva);
+            		
+            		// TODO: Arreglar costo (Montos y cantidad de alimentos)
+            		float costoTotal = 0;
             		for (Alimento unAlimento : pedidoNuevo.getAlimentos()) {
-            			System.out.println("** SE OBTUVO EN EL PEDIDO** " + unAlimento.getNombre());
+            			costoTotal += unAlimento.getPrecio();
+            		}
+            		// Agregar monto dependiendo del tipo de pedido
+            		if (pedidoNuevo instanceof PedidoExpress) {
+            			costoTotal += this.controller.getCatalogo().getMontoExpress();
+            		}
+            		else if (pedidoNuevo instanceof PedidoRecoger) {
+            			costoTotal += this.controller.getCatalogo().getMontoEmpaque();
+            		}
+            		
+            		try {
+                		this.outputObject.reset();
+            			this.outputObject.writeUnshared("costo " + String.valueOf(costoTotal));
+            			this.outputObject.flush();
+            		} catch (IOException e) {
+            			System.out.println("**ERROR** Al enviar el costo");
+            			e.printStackTrace();
             		}
             	}
             }

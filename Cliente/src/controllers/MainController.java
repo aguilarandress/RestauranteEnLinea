@@ -91,6 +91,12 @@ public class MainController {
 			clientSocket.enviarPedido(pedidoSitio);
 			
 			view.displayMessage(true, "Pedido enviado");
+			alimentosPedidos.clear();
+			// Limpiar carrito
+			while(view.getCarritoModel().getRowCount() > 0)
+			{
+				view.getCarritoModel().removeRow(0);
+			}
 		}
 		
 	}
@@ -157,6 +163,14 @@ public class MainController {
 		public void mouseReleased(MouseEvent arg0) {
 			// TODO Auto-generated method stub		
 		}	
+	}
+	
+	/**
+	 * Despliega el costo total en la interfaz
+	 * @param costo Un String con el costo del pedido realizado
+	 */
+	public void desplegarCosto(String costo) {
+		this.view.displayMessage(true, "El costo de su pedido es de " + costo);
 	}
 	
 	/**
