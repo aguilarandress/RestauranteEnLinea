@@ -33,8 +33,16 @@ public class MainView extends JFrame {
 	private JTextArea areaDescrip;
 	private JTable carrito;
 	private DefaultTableModel modeloTabla;
+	// Pedido en sitio
 	private JTextField nombreVisitaInput;
 	private JButton realizarPedidoVisitaBtn = new JButton("Realizar pedido");
+	// Pedido Express
+	private JTextField nombrePedidoExpressInput;
+	private JTextField numeroTelefonoExpressInput;
+	private JTextField direccionPedidoExpressInput;
+	private JButton pedidoExpressBtn = new JButton("RealizarPedido");
+	private JTextField nombrePedidoRecogerInput;
+	private JTextField telefonoPedidoRecogerInput;
 	
 	/**
 	 * Create the frame.
@@ -123,15 +131,133 @@ public class MainView extends JFrame {
 		nombreVisitaInput.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(29, 88, 46, 14);
+		lblNombre.setBounds(29, 82, 148, 20);
 		pedidoVisitaPanel.add(lblNombre);
 		
 		realizarPedidoVisitaBtn.setBounds(29, 171, 232, 23);
 		pedidoVisitaPanel.add(realizarPedidoVisitaBtn);
+		
+		JPanel pedidoExpressPanel = new JPanel();
+		tabbedPane.addTab("Pedido Express", null, pedidoExpressPanel, null);
+		pedidoExpressPanel.setLayout(null);
+		
+		JLabel lblPedidoExpress = new JLabel("Pedido Express");
+		lblPedidoExpress.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblPedidoExpress.setBounds(39, 11, 206, 34);
+		pedidoExpressPanel.add(lblPedidoExpress);
+		
+		JLabel lblNombre_1 = new JLabel("Nombre:");
+		lblNombre_1.setBounds(39, 56, 104, 24);
+		pedidoExpressPanel.add(lblNombre_1);
+		
+		nombrePedidoExpressInput = new JTextField();
+		nombrePedidoExpressInput.setBounds(39, 91, 206, 20);
+		pedidoExpressPanel.add(nombrePedidoExpressInput);
+		nombrePedidoExpressInput.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Numero de telefono: ");
+		lblNewLabel.setBounds(39, 139, 151, 14);
+		pedidoExpressPanel.add(lblNewLabel);
+		
+		numeroTelefonoExpressInput = new JTextField();
+		numeroTelefonoExpressInput.setBounds(39, 164, 206, 20);
+		pedidoExpressPanel.add(numeroTelefonoExpressInput);
+		numeroTelefonoExpressInput.setColumns(10);
+		
+		JLabel lblDireccion = new JLabel("Direccion:");
+		lblDireccion.setBounds(39, 214, 104, 14);
+		pedidoExpressPanel.add(lblDireccion);
+		
+		direccionPedidoExpressInput = new JTextField();
+		direccionPedidoExpressInput.setBounds(39, 239, 206, 20);
+		pedidoExpressPanel.add(direccionPedidoExpressInput);
+		direccionPedidoExpressInput.setColumns(10);
+		
+		pedidoExpressBtn.setBounds(39, 285, 206, 23);
+		pedidoExpressPanel.add(pedidoExpressBtn);
+		
+		JPanel pedidoRecogerPanel = new JPanel();
+		tabbedPane.addTab("PedidoRecoger", null, pedidoRecogerPanel, null);
+		pedidoRecogerPanel.setLayout(null);
+		
+		JLabel lblPedidoParaRecoger = new JLabel("Pedido para recoger");
+		lblPedidoParaRecoger.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblPedidoParaRecoger.setBounds(21, 22, 296, 25);
+		pedidoRecogerPanel.add(lblPedidoParaRecoger);
+		
+		JLabel lblNombre_2 = new JLabel("Nombre:");
+		lblNombre_2.setBounds(21, 77, 60, 14);
+		pedidoRecogerPanel.add(lblNombre_2);
+		
+		nombrePedidoRecogerInput = new JTextField();
+		nombrePedidoRecogerInput.setBounds(21, 102, 241, 20);
+		pedidoRecogerPanel.add(nombrePedidoRecogerInput);
+		nombrePedidoRecogerInput.setColumns(10);
+		
+		JLabel lblNumeroDeTelefono = new JLabel("Numero de telefono:");
+		lblNumeroDeTelefono.setBounds(21, 149, 125, 14);
+		pedidoRecogerPanel.add(lblNumeroDeTelefono);
+		
+		telefonoPedidoRecogerInput = new JTextField();
+		telefonoPedidoRecogerInput.setBounds(21, 174, 241, 20);
+		pedidoRecogerPanel.add(telefonoPedidoRecogerInput);
+		telefonoPedidoRecogerInput.setColumns(10);
+		
+		JButton pedidoRecogerBtn = new JButton("Realizar Pedido");
+		pedidoRecogerBtn.setBounds(21, 224, 241, 23);
+		pedidoRecogerPanel.add(pedidoRecogerBtn);
 	}
 	
 	
 	
+	public JTextField getNombrePedidoExpressInput() {
+		return nombrePedidoExpressInput;
+	}
+
+
+
+	public void setNombrePedidoExpressInput(JTextField nombrePedidoExpressInput) {
+		this.nombrePedidoExpressInput = nombrePedidoExpressInput;
+	}
+
+
+
+	public JTextField getNumeroTelefonoExpressInput() {
+		return numeroTelefonoExpressInput;
+	}
+
+
+
+	public void setNumeroTelefonoExpressInput(JTextField numeroTelefonoExpressInput) {
+		this.numeroTelefonoExpressInput = numeroTelefonoExpressInput;
+	}
+
+
+
+	public JTextField getDireccionPedidoExpressInput() {
+		return direccionPedidoExpressInput;
+	}
+
+
+
+	public void setDireccionPedidoExpressInput(JTextField direccionPedidoExpressInput) {
+		this.direccionPedidoExpressInput = direccionPedidoExpressInput;
+	}
+
+
+
+	public JButton getPedidoExpressBtn() {
+		return pedidoExpressBtn;
+	}
+
+
+
+	public void setPedidoExpressBtn(JButton pedidoExpressBtn) {
+		this.pedidoExpressBtn = pedidoExpressBtn;
+	}
+
+
+
 	public JTextField getNombreVisitaInput() {
 		return nombreVisitaInput;
 	}
