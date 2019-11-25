@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import controllers.MainController;
 import models.alimento.Alimento;
 import models.cola.*;
+import models.pedidos.*;
 
 /**
  * Clase que representa una conexion a un cliente
@@ -54,6 +55,12 @@ public class ClientHandler implements Runnable {
             		else if (inputRecibido.equals("alimentos")) {
             			Cola<Alimento> colaAlimentos = this.controller.getCatalogo().getAlimentos();
             			this.enviarAlimentos(colaAlimentos);
+            		}
+            	}
+            	if (inputRecibido instanceof Pedido) {
+            		Pedido pedidoNuevo = (Pedido) inputRecibido;
+            		for (Alimento unAlimento : pedidoNuevo.getAlimentos()) {
+            			System.out.println("** SE OBTUVO EN EL PEDIDO** " + unAlimento.getNombre());
             		}
             	}
             }

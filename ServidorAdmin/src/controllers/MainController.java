@@ -101,6 +101,16 @@ public class MainController {
 		this.crearCatalogo(alimentos);
 	}
 	
+	
+	
+	public ListaPedidos getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(ListaPedidos pedidos) {
+		this.pedidos = pedidos;
+	}
+
 	/**
 	 * Obtiene la instancia actual del servidor	
 	 * @return El servidor TCP de la aplicacion

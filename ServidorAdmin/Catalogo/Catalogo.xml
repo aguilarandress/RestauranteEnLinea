@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Catalogo>
-    <Entrada Nombre="Sopa de Mariscos">
-        <Descripcion>Variedad de sopas que se preparan cociendo combinaciones distintas de mariscos en caldo, condimentadas con jitomate o chile.</Descripcion>
-        <Codigo>ENT-002</Codigo>
-        <Precio>2500.0</Precio>
-        <Racion>1</Racion>
-        <Calorias>300.0</Calorias>
-        <Imagen>../Imagenes/sopaMariscos.jpg</Imagen>
+    <Bebida Nombre="Bebida pichuda">
+        <Descripcion>Mi bebida..</Descripcion>
+        <Codigo>BEB-1234</Codigo>
+        <Precio>8000.0</Precio>
+        <Racion>0</Racion>
+        <Calorias>5000.0</Calorias>
+        <Imagen>../Imagenes/quequeChocolate.jpg</Imagen>
         <Habilitado>true</Habilitado>
-    </Entrada>
+    </Bebida>
     <Entrada Nombre="holamundo">
         <Descripcion>xdxd</Descripcion>
         <Codigo>ENT-9000</Codigo>
@@ -16,7 +16,16 @@
         <Racion>0</Racion>
         <Calorias>90.0</Calorias>
         <Imagen>../Imagenes/quequeChocolate.jpg</Imagen>
-        <Habilitado>false</Habilitado>
+        <Habilitado>true</Habilitado>
+    </Entrada>
+    <Entrada Nombre="MiEntradaXD">
+        <Descripcion>Mi entrada perfecta...</Descripcion>
+        <Codigo>ENT-540</Codigo>
+        <Precio>8000.0</Precio>
+        <Racion>0</Racion>
+        <Calorias>500.0</Calorias>
+        <Imagen>../Imagenes/quequeChocolate.jpg</Imagen>
+        <Habilitado>true</Habilitado>
     </Entrada>
     <Plato_Fuerte Nombre="Lasaña Boloñesa">
         <Descripcion>Un plato que tiene pasta en láminas intercaladas con carne y bechamel llamado lasaña al horno</Descripcion>
@@ -54,13 +63,4 @@
         <Imagen>../Imagenes/quequeFresa.jpg</Imagen>
         <Habilitado>true</Habilitado>
     </Postre>
-    <Entrada Nombre="MiEntradaXD">
-        <Descripcion>Mi entrada perfecta...</Descripcion>
-        <Codigo>ENT-540</Codigo>
-        <Precio>8000.0</Precio>
-        <Racion>0</Racion>
-        <Calorias>500.0</Calorias>
-        <Imagen>../Imagenes/quequeChocolate.jpg</Imagen>
-        <Habilitado>true</Habilitado>
-    </Entrada>
 </Catalogo>

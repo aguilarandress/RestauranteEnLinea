@@ -12,6 +12,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -28,6 +30,7 @@ import connection.ServerConnection;
 import models.alimento.Alimento;
 import models.alimento.TipoAlimento;
 import connection.ClientSocket;
+import models.pedidos.*;
 
 /**
  * Controlador principal de la aplicacion
@@ -58,10 +61,37 @@ public class MainController {
 		this.view.getTabbedPane().addChangeListener(new TabbedPaneChangeListener());
 		this.view.getMenuList().addMouseListener(new EventoTreeSelection(this));
 		this.view.getMenuList().addTreeSelectionListener(new CargarImagenEvento());
+		this.view.getRealizarPedidoVisitaBtn().addActionListener(new RealizarPedidoVisitaListener());
+		
 		this.view.setVisible(true);
 		this.alimentos = new ArrayList<Alimento>();
 		this.alimentosPedidos = new ArrayList<Alimento>();
 		blanquearImagen();
+		
+	}
+	
+	private class RealizarPedidoVisitaListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// Revisar si se ingreso el nombre
+			if (view.getNombreVisitaInput() == null) {
+				view.displayMessage(false, "Por favor ingrese su nombre");
+				return;
+			}
+			// Crear pedido
+			PedidoFactory pedidoFactory = new PedidoFactory();
+			Pedido pedidoNuevo = pedidoFactory.crearPedido(2);
+			PedidoSitio pedidoSitio = (PedidoSitio) pedidoNuevo;
+			// Configurar datos
+			pedidoSitio.setNombrePersona(view.getNombreVisitaInput().getText());
+			pedidoSitio.setFecha(new Date());
+			pedidoSitio.setNumeroMesa(((int)(Math.random()*((20-1)+1))+1));
+			pedidoSitio.setAlimentos(new HashSet<Alimento>(alimentosPedidos));
+			clientSocket.enviarPedido(pedidoSitio);
+			
+			view.displayMessage(true, "Pedido enviado");
+		}
 		
 	}
 	

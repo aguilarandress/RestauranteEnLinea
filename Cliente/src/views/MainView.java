@@ -14,11 +14,15 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.JButton;
 
 public class MainView extends JFrame {
 
@@ -29,6 +33,8 @@ public class MainView extends JFrame {
 	private JTextArea areaDescrip;
 	private JTable carrito;
 	private DefaultTableModel modeloTabla;
+	private JTextField nombreVisitaInput;
+	private JButton realizarPedidoVisitaBtn = new JButton("Realizar pedido");
 	
 	/**
 	 * Create the frame.
@@ -101,8 +107,56 @@ public class MainView extends JFrame {
 		JLabel lblCantidadSeleccionada = new JLabel("Cantidad Seleccionada:");
 		lblCantidadSeleccionada.setBounds(453, 25, 134, 16);
 		panelCarrito.add(lblCantidadSeleccionada);
+		
+		JPanel pedidoVisitaPanel = new JPanel();
+		tabbedPane.addTab("Pedido de visita", null, pedidoVisitaPanel, null);
+		pedidoVisitaPanel.setLayout(null);
+		
+		JLabel lblVisitaAlRestaurante = new JLabel("Visita al restaurante");
+		lblVisitaAlRestaurante.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblVisitaAlRestaurante.setBounds(29, 31, 237, 25);
+		pedidoVisitaPanel.add(lblVisitaAlRestaurante);
+		
+		nombreVisitaInput = new JTextField();
+		nombreVisitaInput.setBounds(29, 113, 232, 20);
+		pedidoVisitaPanel.add(nombreVisitaInput);
+		nombreVisitaInput.setColumns(10);
+		
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setBounds(29, 88, 46, 14);
+		pedidoVisitaPanel.add(lblNombre);
+		
+		realizarPedidoVisitaBtn.setBounds(29, 171, 232, 23);
+		pedidoVisitaPanel.add(realizarPedidoVisitaBtn);
 	}
 	
+	
+	
+	public JTextField getNombreVisitaInput() {
+		return nombreVisitaInput;
+	}
+
+
+
+	public void setNombreVisitaInput(JTextField nombreVisitaInput) {
+		this.nombreVisitaInput = nombreVisitaInput;
+	}
+
+
+
+	public JButton getRealizarPedidoVisitaBtn() {
+		return realizarPedidoVisitaBtn;
+	}
+
+	/**
+	 * Despliega un mensaje en pantalla con un dialog
+	 * @param success Si el mensaje es de exito o no
+	 * @param message El mensaje que se desea desplegar
+	 */
+	public void displayMessage(boolean success, String message) {
+		JOptionPane.showMessageDialog(this, message, "Mensaje", success ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
+	}
+
 	/**
 	 * Agregar evento para cuando la aplicacion se cierra
 	 * @param windowListener El event listener 

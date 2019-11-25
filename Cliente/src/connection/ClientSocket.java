@@ -5,6 +5,8 @@ import java.net.Socket;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import models.pedidos.Pedido;
+
 /**
  * Clase para controlar la comunicacion de cliente --> servidor
  * @author Andres
@@ -19,7 +21,6 @@ public class ClientSocket {
     public ClientSocket() throws IOException {
         this.socket = new Socket(SERVER_IP, SERVER_PORT);
         this.out = new ObjectOutputStream(this.socket.getOutputStream());
-        writeMessageToServer("alimentos");
     }
 
     /**
@@ -28,11 +29,24 @@ public class ClientSocket {
      */
     public void writeMessageToServer(String message) {
         try {
+        	this.out.reset();
 			this.out.writeUnshared(message);
+			this.out.flush();
 		} catch (IOException e) {
 			System.out.println("**ERROR**: Write Object");
 			e.printStackTrace();
 		}
+    }
+    
+    public void enviarPedido(Pedido pedidoAEnviar) {
+    	 try {
+         	this.out.reset();
+ 			this.out.writeUnshared(pedidoAEnviar);
+ 			this.out.flush();
+ 		} catch (IOException e) {
+ 			System.out.println("**ERROR**: Write Pedido");
+ 			e.printStackTrace();
+ 		}
     }
 
     /**
