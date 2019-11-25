@@ -63,7 +63,7 @@ public class ClientHandler implements Runnable {
             	if (inputRecibido instanceof Pedido) {
             		Pedido pedidoNuevo = (Pedido) inputRecibido;
             		// Agregar al menu
-            		this.controller.getPedidos().getPedidos().add(pedidoNuevo);
+            		this.controller.getPedidos().agregarPedido(pedidoNuevo);
             		// Obtener el tipo de pedido
             		String tipoPedido = "";
             		if (pedidoNuevo instanceof PedidoExpress) tipoPedido += "pedido express";

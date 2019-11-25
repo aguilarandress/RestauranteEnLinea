@@ -41,8 +41,10 @@ public class MainView extends JFrame {
 	private JTextField numeroTelefonoExpressInput;
 	private JTextField direccionPedidoExpressInput;
 	private JButton pedidoExpressBtn = new JButton("RealizarPedido");
+	// Pedido para recoger
 	private JTextField nombrePedidoRecogerInput;
 	private JTextField telefonoPedidoRecogerInput;
+	private JButton pedidoRecogerBtn = new JButton("Realizar Pedido");
 	
 	/**
 	 * Create the frame.
@@ -203,13 +205,47 @@ public class MainView extends JFrame {
 		pedidoRecogerPanel.add(telefonoPedidoRecogerInput);
 		telefonoPedidoRecogerInput.setColumns(10);
 		
-		JButton pedidoRecogerBtn = new JButton("Realizar Pedido");
 		pedidoRecogerBtn.setBounds(21, 224, 241, 23);
 		pedidoRecogerPanel.add(pedidoRecogerBtn);
 	}
 	
 	
-	
+	public JTextField getNombrePedidoRecogerInput() {
+		return nombrePedidoRecogerInput;
+	}
+
+
+
+	public void setNombrePedidoRecogerInput(JTextField nombrePedidoRecogerInput) {
+		this.nombrePedidoRecogerInput = nombrePedidoRecogerInput;
+	}
+
+
+
+	public JTextField getTelefonoPedidoRecogerInput() {
+		return telefonoPedidoRecogerInput;
+	}
+
+
+
+	public void setTelefonoPedidoRecogerInput(JTextField telefonoPedidoRecogerInput) {
+		this.telefonoPedidoRecogerInput = telefonoPedidoRecogerInput;
+	}
+
+
+
+	public JButton getPedidoRecogerBtn() {
+		return pedidoRecogerBtn;
+	}
+
+
+
+	public void setPedidoRecogerBtn(JButton pedidoRecogerBtn) {
+		this.pedidoRecogerBtn = pedidoRecogerBtn;
+	}
+
+
+
 	public JTextField getNombrePedidoExpressInput() {
 		return nombrePedidoExpressInput;
 	}

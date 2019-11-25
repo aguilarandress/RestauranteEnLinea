@@ -64,8 +64,10 @@ public class MainController {
 		this.view.getMenuList().addMouseListener(new EventoTreeSelection(this));
 		this.view.getMenuList().addTreeSelectionListener(new CargarImagenEvento());
 		this.view.getRealizarPedidoVisitaBtn().addActionListener(new RealizarPedidoVisitaListener());
-		this.view.getNumeroTelefonoExpressInput().addKeyListener(new EventoSoloNumeros());
+		this.view.getNumeroTelefonoExpressInput().addKeyListener(new EventoSoloNumerosExpress());
+		this.view.getTelefonoPedidoRecogerInput().addKeyListener(new EventoSoloNumerosRecoger());
 		this.view.getPedidoExpressBtn().addActionListener(new RealizarPedidoExpressListener());
+		this.view.getPedidoRecogerBtn().addActionListener(new RealizarPedidoRecogerListener());
 		
 		this.view.setVisible(true);
 		this.alimentos = new ArrayList<Alimento>();
@@ -74,7 +76,7 @@ public class MainController {
 		
 	}
 	
-	private class EventoSoloNumeros extends KeyAdapter {
+	private class EventoSoloNumerosExpress extends KeyAdapter {
 		
 		/**
 		 * Evento para solo aceptar numeros
@@ -86,6 +88,21 @@ public class MainController {
                view.getNumeroTelefonoExpressInput().setEditable(true);
             } else {
                view.getNumeroTelefonoExpressInput().setEditable(false);
+            }
+         }
+	}
+	
+	private class EventoSoloNumerosRecoger extends KeyAdapter {
+		/**
+		 * Evento para solo aceptar numeros
+		 */
+		public void keyPressed(KeyEvent ke) {
+            String value = view.getTelefonoPedidoRecogerInput().getText().trim();
+            int l = value.length();
+            if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyCode() == 8) {
+               view.getTelefonoPedidoRecogerInput().setEditable(true);
+            } else {
+               view.getTelefonoPedidoRecogerInput().setEditable(false);
             }
          }
 	}
@@ -152,7 +169,9 @@ public class MainController {
 			pedidoExpress.setAlimentos(new HashSet<Alimento>(alimentosPedidos));
 			
 			view.displayMessage(true, "Pedido enviado");
-			view.getNombreVisitaInput().setText("");
+			view.getNombrePedidoExpressInput().setText("");
+			view.getNumeroTelefonoExpressInput().setText("");
+			view.getDireccionPedidoExpressInput().setText("");
 			alimentosPedidos.clear();
 			// Limpiar carrito
 			while(view.getCarritoModel().getRowCount() > 0)
@@ -169,7 +188,39 @@ public class MainController {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			// Revisar que los campos esten llenos
+			if (view.getNombrePedidoRecogerInput().getText().isEmpty() || view.getTelefonoPedidoRecogerInput().getText().isEmpty()) {
+				view.displayMessage(false, "Por favor complete todos los datos");
+				return;
+			}
+			// Revisar que haya productos en el carrito
+			if (alimentosPedidos.isEmpty()) {
+				view.displayMessage(false, "Su carrito se encuentra vacio");
+				return;
+			}
+			// Crear pedido
+			PedidoFactory pedidoFactory = new PedidoFactory();
+			Pedido pedidoNuevo = pedidoFactory.crearPedido(1);
+			PedidoRecoger pedidoRecoger = (PedidoRecoger) pedidoNuevo;
+			// Configurar datos
+			pedidoRecoger.setNombrePersona(view.getNombrePedidoRecogerInput().getText());
+			pedidoRecoger.setFecha(new Date());
+			pedidoRecoger.setNumeroCelular(Integer.parseInt(view.getTelefonoPedidoRecogerInput().getText()));
+			pedidoRecoger.setAlimentos(new HashSet<Alimento>(alimentosPedidos));
 			
+			view.displayMessage(true, "Pedido enviado");
+			
+			view.getNombrePedidoRecogerInput().setText("");
+			view.getTelefonoPedidoRecogerInput().setText("");
+			
+			alimentosPedidos.clear();
+			// Limpiar carrito
+			while(view.getCarritoModel().getRowCount() > 0)
+			{
+				view.getCarritoModel().removeRow(0);
+			}
+			
+			clientSocket.enviarPedido(pedidoRecoger);
 		}
 		
 	}
