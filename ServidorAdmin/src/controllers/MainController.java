@@ -36,6 +36,7 @@ import views.AgregarAlimentoView;
 import views.EditarView;
 import views.MainView;
 import views.PedidosGraficoView;
+import views.PedidosTablaView;
 import server.TCPServer;
 
 /**
@@ -77,6 +78,7 @@ public class MainController {
 		
 		this.view.getVerGraficoBtn().addActionListener(new EventoMostrarChart());
 		this.view.getActualizarPedidosBtn().addActionListener(new EventoActualizarPedidos());
+		this.view.getVerTablaBtn().addActionListener(new EventoVerTabla());
 		
 		// Pone la imagen por defecto
 		this.blanquearImagen();
@@ -452,7 +454,15 @@ public class MainController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			Object[][] datos = {
+					{pedidos.getPedidos().size(),
+					 pedidos.getCantidadEnSitio(),
+					 pedidos.getCantidadExpress(),
+					 pedidos.getCantidadRecoger()
+					}
+			};
+			
+			PedidosTablaView tablaView = new PedidosTablaView(datos);
 			
 		}
 		
