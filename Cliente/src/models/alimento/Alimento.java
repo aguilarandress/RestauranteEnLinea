@@ -43,6 +43,14 @@ public class Alimento implements IConstants, Serializable {
 		}
 	}
 	
+	/**
+	 * Obtiene el estado de habilitado del alimento
+	 * @return Un booleano que representa si esta habilitado o no el alimento
+	 */
+	public boolean getHabilitado() {
+		return this.habilitado;
+	}
+	
 	public String toString() {
 		return this.nombre + " - " + this.precio;
 	}
@@ -53,6 +61,7 @@ public class Alimento implements IConstants, Serializable {
 	 */
 	public Alimento(int pTipoConstant) {
 		tipo = TIPOS[pTipoConstant];
+		habilitado = true;
 	}
 
 	/**

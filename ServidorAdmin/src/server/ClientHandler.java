@@ -72,14 +72,20 @@ public class ClientHandler implements Runnable {
         }
     }
     
+    /**
+     * Envia los alimentos al socket recientemente conectado
+     * @param colaAlimentos La cola de prioridad con los alimentos
+     */
     public void enviarAlimentos(Cola<Alimento> colaAlimentos) {
     	// Obtener elemento de la cola 
     	ArrayList<Alimento> alimentos = new ArrayList<Alimento>();
     	while (!colaAlimentos.isEmpty()) {
     		Alimento alimentoActual = colaAlimentos.dequeue();
-    		System.out.println(alimentoActual.getNombre());
-    		alimentoActual.cargarContenidoImagen();
-    		alimentos.add(alimentoActual);
+    		if (alimentoActual.getHabilitado()) {
+    			System.out.println(alimentoActual.getNombre());
+        		alimentoActual.cargarContenidoImagen();
+        		alimentos.add(alimentoActual);
+    		}
     	}
     	// Volver a encolar los alimentos
     	for (Alimento alimentoActual : alimentos) {

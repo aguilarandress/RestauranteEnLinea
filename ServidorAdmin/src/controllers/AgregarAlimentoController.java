@@ -140,6 +140,7 @@ public class AgregarAlimentoController {
 			// Actualiza el XML & el controlador 
 			CreadorXML.getInstance().AgregarElementoNuevo(nuevoAlimento);
 			mainController.crearCatalogo(mainController.getCatalogo().getAlimentos());
+			mainController.getMainServer().actualizarAlimentos();
 			vista.dispose();
 		}
 		

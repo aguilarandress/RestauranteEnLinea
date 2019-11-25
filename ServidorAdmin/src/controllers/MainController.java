@@ -101,8 +101,15 @@ public class MainController {
 		this.crearCatalogo(alimentos);
 	}
 	
-	
-	
+	/**
+	 * Obtiene la instancia actual del servidor	
+	 * @return El servidor TCP de la aplicacion
+	 */
+	public TCPServer getMainServer() {
+		return mainServer;
+	}
+
+
 	/**
 	 * Retorna el alimento seleccionado
 	 * @return Alimento

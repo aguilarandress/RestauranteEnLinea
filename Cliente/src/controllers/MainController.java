@@ -134,6 +134,8 @@ public class MainController {
 	 * @param alimentos
 	 */
 	public void setAlimentosMenu (ArrayList<Alimento> alimentos) {
+		this.view.getMenuList().setModel(null);
+		
 		DefaultMutableTreeNode catalogo = new DefaultMutableTreeNode("Catalogo");
 		DefaultMutableTreeNode entradas = new DefaultMutableTreeNode("Entradas");
 		DefaultMutableTreeNode platosF = new DefaultMutableTreeNode("Platos Fuertes");

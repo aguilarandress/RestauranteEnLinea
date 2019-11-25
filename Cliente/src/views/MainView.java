@@ -29,6 +29,7 @@ public class MainView extends JFrame {
 	private JTextArea areaDescrip;
 	private JTable carrito;
 	private DefaultTableModel modeloTabla;
+	
 	/**
 	 * Create the frame.
 	 */

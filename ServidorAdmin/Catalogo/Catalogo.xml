@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Catalogo>
-    <Entrada Nombre="Ceviche090000">
-        <Descripcion>Pescado en trozos, tortillas y salsas</Descripcion>
-        <Codigo>ENT-001</Codigo>
-        <Precio>2500.0</Precio>
-        <Racion>1</Racion>
-        <Calorias>254.0</Calorias>
-        <Imagen>../Imagenes/ceviche.jpg</Imagen>
-        <Habilitado>true</Habilitado>
-    </Entrada>
     <Entrada Nombre="Sopa de Mariscos">
         <Descripcion>Variedad de sopas que se preparan cociendo combinaciones distintas de mariscos en caldo, condimentadas con jitomate o chile.</Descripcion>
         <Codigo>ENT-002</Codigo>
@@ -25,7 +16,7 @@
         <Racion>0</Racion>
         <Calorias>90.0</Calorias>
         <Imagen>../Imagenes/quequeChocolate.jpg</Imagen>
-        <Habilitado>true</Habilitado>
+        <Habilitado>false</Habilitado>
     </Entrada>
     <Plato_Fuerte Nombre="Lasaña Boloñesa">
         <Descripcion>Un plato que tiene pasta en láminas intercaladas con carne y bechamel llamado lasaña al horno</Descripcion>
@@ -63,4 +54,13 @@
         <Imagen>../Imagenes/quequeFresa.jpg</Imagen>
         <Habilitado>true</Habilitado>
     </Postre>
+    <Entrada Nombre="MiEntradaXD">
+        <Descripcion>Mi entrada perfecta...</Descripcion>
+        <Codigo>ENT-540</Codigo>
+        <Precio>8000.0</Precio>
+        <Racion>0</Racion>
+        <Calorias>500.0</Calorias>
+        <Imagen>../Imagenes/quequeChocolate.jpg</Imagen>
+        <Habilitado>true</Habilitado>
+    </Entrada>
 </Catalogo>

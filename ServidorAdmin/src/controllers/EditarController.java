@@ -126,6 +126,10 @@ public class EditarController {
 			// Actualizacion de vista principal y XML
 			CreadorXML.getInstance().RecrearCatalogo(mainController.getCatalogo().getAlimentos());
 			mainController.crearCatalogo(mainController.getCatalogo().getAlimentos());
+			
+			// TODO: Enviar a todos los sockets al ser actualizado
+			mainController.getMainServer().actualizarAlimentos();
+			
 			vista.dispose();
 		}	
 	}
@@ -145,6 +149,7 @@ public class EditarController {
 			// Actualiza la vista y XML
 			CreadorXML.getInstance().RecrearCatalogo(mainController.getCatalogo().getAlimentos());
 			mainController.crearCatalogo(mainController.getCatalogo().getAlimentos());
+			mainController.getMainServer().actualizarAlimentos();
 			vista.dispose();
 		}
 		

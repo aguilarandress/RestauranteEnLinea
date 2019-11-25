@@ -8,6 +8,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import controllers.MainController;
+import models.cola.Cola;
+import models.alimento.Alimento;
 
 /**
  * Clase contenedora del servidor TCP
@@ -61,6 +63,15 @@ public class TCPServer extends Thread {
     	for (ClientHandler aClient : clients) {
             aClient.out.println(message);
         }
+    }
+    
+    /**
+     * Le envia a todos los sockets la lista nueva de alimentos
+     */
+    public void actualizarAlimentos() {
+    	for (ClientHandler aClient : clients) {
+    		aClient.enviarAlimentos(this.mainController.getCatalogo().getAlimentos());
+    	}
     }
     
     /**
