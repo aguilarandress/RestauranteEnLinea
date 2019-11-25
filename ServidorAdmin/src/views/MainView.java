@@ -75,10 +75,15 @@ public class MainView extends JFrame {
 	private JButton montoExpressBtn = new JButton("Actualizar monto express");
 	private JButton montoEmpaqueBtn = new JButton("Actualizar monto empaque");
 	
+	// Historial de pedidos
+	private DefaultListModel<String> historialPedidosListModel = new DefaultListModel<String>();
+	private JList historialPedidosList = new JList(historialPedidosListModel);
+	
 	// Pedidos 
 	private JLabel topPedidosLabel, nuncaPedidosLabel;
 	private JButton verGraficoBtn, verTablaBtn, actualizarPedidosBtn;
 	private JList listaTopPedidos, listaNuncaPedidos;
+	private JSeparator separator_1;
 	
 	/**
 	 * Create the frame.
@@ -242,6 +247,22 @@ public class MainView extends JFrame {
 		actualizarPedidosBtn = new JButton("Actualizar Pedidos");
 		actualizarPedidosBtn.setBounds(380, 110, 275, 30);
 		estadisticasPanel.add(actualizarPedidosBtn);
+		
+		JPanel historialPanel = new JPanel();
+		tabbedPane.addTab("Historial Pedidos", null, historialPanel, null);
+		historialPanel.setLayout(null);
+		
+		JLabel lblHistorialDePedidos = new JLabel("Historial de pedidos");
+		lblHistorialDePedidos.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblHistorialDePedidos.setBounds(10, 11, 263, 25);
+		historialPanel.add(lblHistorialDePedidos);
+		
+		separator_1 = new JSeparator();
+		separator_1.setBounds(10, 47, 263, 12);
+		historialPanel.add(separator_1);
+		
+		historialPedidosList.setBounds(166, 70, 366, 296);
+		historialPanel.add(historialPedidosList);
 	}	
 	
 	/**
@@ -352,10 +373,18 @@ public class MainView extends JFrame {
 
 	/**
 	 * Agregar una actividad nueva a la bitacora de conexiones
-	 * @param actividad
+	 * @param actividad Una actividad de conexion
 	 */
 	public void agregarABitacoraConexiones(String actividad) {
 		this.bitacoraConexionesListModel.addElement(actividad);
+	}
+	
+	/**
+	 * Agregar una actividad del pedido al historial de pedidos
+	 * @param actividadPedido Una nueva activdad de pedido
+	 */
+	public void agregarAHistorialDePedidos(String actividadPedido) {
+		this.historialPedidosListModel.addElement(actividadPedido);
 	}
 	
 	

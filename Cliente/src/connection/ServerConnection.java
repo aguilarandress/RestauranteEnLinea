@@ -37,7 +37,12 @@ public class ServerConnection implements Runnable {
 			while (true) {
 				Object inputRecibido = (Object) this.objectInputStream.readUnshared();
 				if (inputRecibido instanceof String) {
-					
+					// Obtener tokens
+					String mensaje = (String) inputRecibido;
+					String tokens[] = mensaje.split(" ");
+					if (tokens[0].equals("costo")) {
+						this.controller.desplegarCosto(tokens[1]);
+					}
 				}
 				else {
 					System.out.println("Alimentos recibidos...");
@@ -59,29 +64,5 @@ public class ServerConnection implements Runnable {
 				e.printStackTrace();
 			}
 		}
-		
-		
-//		try {
-//			while (true) {
-//				// Obtener respuesta del servidor
-//				String serverResponse = in.readLine();
-//				if (serverResponse == null)
-//					break;
-//				System.out.println("Servidor respondio: " + serverResponse);
-//				// Obtener tokens
-//				String[] tokens = serverResponse.split(" ");
-//				if (tokens[0].equals("client")) {
-//					// this.controller.addTextPane(tokens[1]);
-//				}
-//			}
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} finally {
-//			try {
-//				in.close();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
 	}
 }

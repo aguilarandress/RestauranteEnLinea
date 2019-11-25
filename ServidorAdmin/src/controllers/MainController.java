@@ -103,6 +103,23 @@ public class MainController {
 	
 	
 	
+	public ListaPedidos getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(ListaPedidos pedidos) {
+		this.pedidos = pedidos;
+	}
+
+	/**
+	 * Obtiene la instancia actual del servidor	
+	 * @return El servidor TCP de la aplicacion
+	 */
+	public TCPServer getMainServer() {
+		return mainServer;
+	}
+
+
 	/**
 	 * Retorna el alimento seleccionado
 	 * @return Alimento
@@ -133,6 +150,14 @@ public class MainController {
 	 */
 	public void agregarActividadDeConexion(String actividad) {
 		this.view.agregarABitacoraConexiones(actividad);
+	}
+	
+	/**
+	 * Agrega una actividad nueva al historial de pedidos
+	 * @param pedido Un pedido nuevo realizado
+	 */
+	public void agregarActividadPedido(String pedido) {
+		this.view.agregarAHistorialDePedidos(pedido);
 	}
 	
 	/**

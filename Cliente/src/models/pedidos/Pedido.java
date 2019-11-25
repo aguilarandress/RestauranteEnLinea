@@ -1,5 +1,6 @@
 package models.pedidos;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -11,7 +12,11 @@ import models.alimento.Alimento;
  * @author Fabian Vargas
  * @author Andres Aguilar
  */
-public abstract class Pedido {
+public abstract class Pedido implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private HashSet<Alimento> alimentos;
 	private String nombrePersona;
 	private Date fecha;

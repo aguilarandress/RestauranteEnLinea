@@ -8,4 +8,12 @@ package models.pedidos;
  */
 public class PedidoSitio extends Pedido{
 	private int numeroMesa;
+
+	public int getNumeroMesa() {
+		return numeroMesa;
+	}
+
+	public void setNumeroMesa(int numeroMesa) {
+		this.numeroMesa = numeroMesa;
+	}
 }
