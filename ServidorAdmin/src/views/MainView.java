@@ -27,7 +27,9 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
@@ -85,6 +87,9 @@ public class MainView extends JFrame {
 	private JList listaTopPedidos, listaNuncaPedidos;
 	private JSeparator separator_1;
 	
+	// Actividades en el servidor
+	private JList listaActividades;
+	private DefaultListModel<String> listaActividadesModel;
 	/**
 	 * Create the frame.
 	 */
@@ -263,6 +268,21 @@ public class MainView extends JFrame {
 		
 		historialPedidosList.setBounds(166, 70, 366, 296);
 		historialPanel.add(historialPedidosList);
+		
+		JPanel ActividadesPanel = new JPanel();
+		tabbedPane.addTab("Actividades", null, ActividadesPanel, null);
+		ActividadesPanel.setLayout(null);
+		
+		listaActividadesModel = new DefaultListModel<String>();
+		
+		listaActividades = new JList(listaActividadesModel);
+		listaActividades.setBounds(85, 61, 532, 323);
+		ActividadesPanel.add(listaActividades);
+		
+		JLabel lblActividades = new JLabel("Actividades en la aplicacion");
+		lblActividades.setBounds(251, 27, 298, 21);
+		ActividadesPanel.add(lblActividades);
+		
 	}	
 	
 	/**
@@ -272,8 +292,6 @@ public class MainView extends JFrame {
 	public JButton getActualizarPedidosBtn() {
 		return actualizarPedidosBtn;
 	}
-
-
 
 	/**
 	 * Retorna el boton para ver el grafico
@@ -396,8 +414,7 @@ public class MainView extends JFrame {
 	public void displayMessage(boolean success, String message) {
 		JOptionPane.showMessageDialog(this, message, "Mensaje", success ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
 	}
-	
-	
+		
 	/**
 	 * Obtiene el JTree con el catalogo
 	 * @return JTree
@@ -414,12 +431,19 @@ public class MainView extends JFrame {
 		return descripLabel;
 	}
 
-	
 	/**
 	 * Obtiene el label en el que se carga la imagen
 	 * @return JLabel
 	 */
 	public JLabel getImagenLabel() {
 		return imagenLabel;
+	}
+	
+	/**
+	 * Obtiene la lista donde se guardan las actividades del servidor
+	 * @return JList
+	 */
+	public DefaultListModel getlistaActividades() {
+		return this.listaActividadesModel;
 	}
 }

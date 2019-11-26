@@ -31,8 +31,10 @@ public class MainView extends JFrame {
 	private JTree menuTree;
 	private JLabel imagenLabel;
 	private JTextArea areaDescrip;
+	// Carrito de compras
 	private JTable carrito;
 	private DefaultTableModel modeloTabla;
+	JButton btnEliminarDelCarrito;
 	// Pedido en sitio
 	private JTextField nombreVisitaInput;
 	private JButton realizarPedidoVisitaBtn = new JButton("Realizar pedido");
@@ -102,7 +104,7 @@ public class MainView extends JFrame {
 		panelCarrito.setLayout(null);
 		tabbedPane.addTab("Carrito",null, panelCarrito,null);
 		carrito = new JTable();
-		carrito.setBounds(162, 54, 500, 403);
+		carrito.setBounds(41, 54, 500, 403);
 		panelCarrito.add(carrito);
 		modeloTabla = new DefaultTableModel();
 		
@@ -111,12 +113,16 @@ public class MainView extends JFrame {
 		carrito.setModel(modeloTabla);
 		
 		JLabel lblNombrePlatillo = new JLabel("Nombre Platillo:");
-		lblNombrePlatillo.setBounds(216, 25, 117, 16);
+		lblNombrePlatillo.setBounds(101, 25, 117, 16);
 		panelCarrito.add(lblNombrePlatillo);
 		
 		JLabel lblCantidadSeleccionada = new JLabel("Cantidad Seleccionada:");
-		lblCantidadSeleccionada.setBounds(453, 25, 134, 16);
+		lblCantidadSeleccionada.setBounds(314, 25, 134, 16);
 		panelCarrito.add(lblCantidadSeleccionada);
+		
+		btnEliminarDelCarrito = new JButton("Eliminar del carrito");
+		btnEliminarDelCarrito.setBounds(599, 374, 170, 36);
+		panelCarrito.add(btnEliminarDelCarrito);
 		
 		JPanel pedidoVisitaPanel = new JPanel();
 		tabbedPane.addTab("Pedido de visita", null, pedidoVisitaPanel, null);
@@ -357,5 +363,13 @@ public class MainView extends JFrame {
 	
 	public DefaultTableModel getCarritoModel() {
 		return this.modeloTabla;
+	}
+	
+	public JTable getTableCarrito() {
+		return this.carrito;
+	}
+	
+	public JButton getBtnEliminar() {
+		return this.btnEliminarDelCarrito;
 	}
 }

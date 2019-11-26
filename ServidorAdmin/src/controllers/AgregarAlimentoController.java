@@ -141,6 +141,7 @@ public class AgregarAlimentoController {
 			CreadorXML.getInstance().AgregarElementoNuevo(nuevoAlimento);
 			mainController.crearCatalogo(mainController.getCatalogo().getAlimentos());
 			mainController.getMainServer().actualizarAlimentos();
+			mainController.AgregarActividad("Se agrego al menu: " + nuevoAlimento.getNombre() + " ");
 			vista.dispose();
 		}
 		

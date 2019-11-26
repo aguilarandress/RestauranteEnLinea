@@ -23,6 +23,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -69,7 +71,7 @@ public class MainController {
 		this.view.getTelefonoPedidoRecogerInput().addKeyListener(new EventoSoloNumerosRecoger());
 		this.view.getPedidoExpressBtn().addActionListener(new RealizarPedidoExpressListener());
 		this.view.getPedidoRecogerBtn().addActionListener(new RealizarPedidoRecogerListener());
-		
+		this.view.getBtnEliminar().addActionListener(new EventoEliminarCarrito());
 		this.view.setVisible(true);
 		this.alimentos = new ArrayList<Alimento>();
 		this.alimentosPedidos = new ArrayList<Alimento>();
@@ -462,6 +464,43 @@ public class MainController {
 	
 	public void agregarTablaCarrito(String nombre, String cantidad) {
 		String[] parametro = {nombre,cantidad};
+		for(int i = 0; i<view.getCarritoModel().getRowCount();i++) {
+			if(nombre.equals(view.getCarritoModel().getValueAt(i, 0))){
+				String cantidadActual = (String) view.getCarritoModel().getValueAt(i, 1);
+				cantidad = String.valueOf(Integer.parseInt(cantidad) + Integer.parseInt(cantidadActual));
+				view.getCarritoModel().setValueAt(cantidad, i, 1);
+				return;
+			}
+		}
 		view.getCarritoModel().addRow(parametro);
+	}
+	
+	private class EventoEliminarCarrito implements ActionListener {
+
+		@Override	
+		public void actionPerformed(ActionEvent e) {
+	        if (view.getTableCarrito().getSelectedRow() > -1) {
+	        	String cantidad = (String) view.getTableCarrito().getValueAt(view.getTableCarrito().getSelectedRow(), 1);
+	        	String nombreAlimento = (String) view.getTableCarrito().getValueAt(view.getTableCarrito().getSelectedRow(), 0);
+	        	int cantidadEntera = Integer.parseInt(cantidad);
+	        	if(cantidadEntera == 1) {
+	        		view.getCarritoModel().removeRow(view.getTableCarrito().getSelectedRow());
+
+	        	}
+	        	else {
+	        		int cantidadNueva = Integer.parseInt(cantidad) -1;
+	        		view.getTableCarrito().setValueAt(String.valueOf(cantidadNueva), view.getTableCarrito().getSelectedRow(), 1);
+	        	}
+        		for(int i = 0; i< alimentosPedidos.size(); i++) {
+        			Alimento alimentoBorrar = alimentosPedidos.get(i);
+        			if(alimentoBorrar.getNombre().equals(nombreAlimento)) {
+        				alimentosPedidos.remove(i);
+        				return;
+        			}
+        		}
+	        }
+			
+		}
+		
 	}
 }

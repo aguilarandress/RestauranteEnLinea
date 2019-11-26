@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -12,6 +13,7 @@ import models.alimento.Alimento;
 import views.EditarView;
 import views.MainView;
 
+import models.cola.*;
 /**
  * Controlador para editar un platillo
  * @author Kenneth Sanchez
@@ -22,6 +24,7 @@ public class EditarController {
 	EditarView vista;
 	Alimento alimentoSelected;
 	MainController mainController;
+	Cola<Alimento> alimentos;
 	
 	/**
 	 * Metodo constructor
@@ -30,6 +33,7 @@ public class EditarController {
 		vista = new EditarView();
 		mainController = pMainController;
 		alimentoSelected = mainController.getAlimentoSelected();
+		alimentos = mainController.getCatalogo().getAlimentos();
 		
 		// Eventos
 		vista.getActualizarBtn().addActionListener(new EventoActualizar());
@@ -115,6 +119,7 @@ public class EditarController {
 			}
 			
 			// Cambios al alimento
+
 			alimentoSelected.setNombre(nuevoNombre);
 			alimentoSelected.setCalorias(Float.valueOf(nuevasCalorias));
 			alimentoSelected.setPrecio(Float.valueOf(nuevoPrecio));
@@ -129,7 +134,7 @@ public class EditarController {
 			
 			// TODO: Enviar a todos los sockets al ser actualizado
 			mainController.getMainServer().actualizarAlimentos();
-			
+			mainController.AgregarActividad("Se edito en el menu: " + alimentoSelected.getNombre() + " ");
 			vista.dispose();
 		}	
 	}
@@ -150,6 +155,7 @@ public class EditarController {
 			CreadorXML.getInstance().RecrearCatalogo(mainController.getCatalogo().getAlimentos());
 			mainController.crearCatalogo(mainController.getCatalogo().getAlimentos());
 			mainController.getMainServer().actualizarAlimentos();
+			mainController.AgregarActividad("Se elimino en el menu: " + alimentoSelected.getNombre() + " ");
 			vista.dispose();
 		}
 		
