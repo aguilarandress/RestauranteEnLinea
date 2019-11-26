@@ -23,6 +23,11 @@ import models.alimento.Alimento;
 import models.alimento.TipoAlimento;
 import models.cola.Cola;
 
+/**
+ * Clase para crear y leer el xml.
+ * @author Fabián Vargas
+ *
+ */
 public class CreadorXML {
 	private static CreadorXML creadorXML;
 	private static final String path = "Catalogo/Catalogo.xml";
@@ -38,6 +43,10 @@ public class CreadorXML {
 		return creadorXML;
 	}
 	
+	/**
+	 * Modifica el monto express en el xml
+	 * @param montoExpress Monto a colocar
+	 */
 	public void ModificarMontoExpress(String montoExpress) {
 		try
 	    {
@@ -71,6 +80,10 @@ public class CreadorXML {
 	    }
 	}
 	
+	/**
+	 * Modifica el monto de empaque en el xml
+	 * @param montoEmpaque Monto a colocar
+	 */
 	public void ModificarMontoEmpaque(String montoEmpaque) {
 		try
 	    {

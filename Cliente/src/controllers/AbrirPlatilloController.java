@@ -5,7 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import models.alimento.Alimento;
-
+/**
+ * Controlador para la view de la ventana para comprar un platillo
+ * @author Fabian Vargas
+ *
+ */
 public class AbrirPlatilloController {
 	AbrirPlatilloView view;
 	MainController controller;
@@ -25,6 +29,11 @@ public class AbrirPlatilloController {
 		view.getBtnComprar().addActionListener(new EventoComprarBtn());
 	}
 	
+	/**
+	 * Evento boton para comprar platillos
+	 * @author Fabián Vargas
+	 *
+	 */
 	private class EventoComprarBtn implements ActionListener{
 
 		@Override

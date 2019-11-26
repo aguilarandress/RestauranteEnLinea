@@ -1,35 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Catalogo>
-    <Bebida Nombre="Bebida pichuda">
-        <Descripcion>Mi bebida..</Descripcion>
-        <Codigo>BEB-1234</Codigo>
-        <Precio>8000.0</Precio>
-        <Racion>0</Racion>
-        <Calorias>5000.0</Calorias>
-        <Imagen>../Imagenes/quequeChocolate.jpg</Imagen>
-        <Habilitado>true</Habilitado>
-    </Bebida>
-    <Entrada Nombre="holamundo">
-        <Descripcion>xdxd</Descripcion>
-        <Codigo>ENT-9000</Codigo>
+    <Entrada Nombre="Ceviche">
+        <Descripcion>Ceviche de pescado con camarones</Descripcion>
+        <Codigo>ENT-222</Codigo>
         <Precio>80.0</Precio>
         <Racion>0</Racion>
         <Calorias>90.0</Calorias>
-        <Imagen>../Imagenes/quequeChocolate.jpg</Imagen>
+        <Imagen>../Imagenes/ceviche.jpg</Imagen>
         <Habilitado>true</Habilitado>
     </Entrada>
-    <Entrada Nombre="MiEntradaXD">
+    <Entrada Nombre="Sopa de Mariscos">
         <Descripcion>Mi entrada perfecta...</Descripcion>
         <Codigo>ENT-540</Codigo>
         <Precio>8000.0</Precio>
         <Racion>0</Racion>
         <Calorias>500.0</Calorias>
-        <Imagen>../Imagenes/quequeChocolate.jpg</Imagen>
+        <Imagen>../Imagenes/sopaMariscos.jpg</Imagen>
         <Habilitado>true</Habilitado>
     </Entrada>
     <Plato_Fuerte Nombre="Lasaña Boloñesa">
         <Descripcion>Un plato que tiene pasta en láminas intercaladas con carne y bechamel llamado lasaña al horno</Descripcion>
-        <Codigo>PRN-00132413</Codigo>
+        <Codigo>PRN-001</Codigo>
         <Precio>3200.0</Precio>
         <Racion>1</Racion>
         <Calorias>500.0</Calorias>
@@ -45,15 +36,6 @@
         <Imagen>../Imagenes/arrozCamarones.jpg</Imagen>
         <Habilitado>true</Habilitado>
     </Plato_Fuerte>
-    <Postre Nombre="Queque de chocolate">
-        <Descripcion>Queque cubierto de chocolate</Descripcion>
-        <Codigo>PTR-001</Codigo>
-        <Precio>1000.0</Precio>
-        <Racion>1</Racion>
-        <Calorias>789.0</Calorias>
-        <Imagen>../Imagenes/quequeChocolate.jpg</Imagen>
-        <Habilitado>true</Habilitado>
-    </Postre>
     <Postre Nombre="Queque de fresa">
         <Descripcion>Queque cubierto con crema de fresa</Descripcion>
         <Codigo>PTR-002</Codigo>
@@ -63,6 +45,22 @@
         <Imagen>../Imagenes/quequeFresa.jpg</Imagen>
         <Habilitado>true</Habilitado>
     </Postre>
-<MontoExpress>1500</MontoExpress>
-<MontoEmpaque>3000</MontoEmpaque>
+    <Postre Nombre="Queque de chocolate">
+        <Descripcion>Queque cubierto de chocolate</Descripcion>
+        <Codigo>PTR-001</Codigo>
+        <Precio>1000.0</Precio>
+        <Racion>1</Racion>
+        <Calorias>789.0</Calorias>
+        <Imagen>../Imagenes/quequeChocolate.jpg</Imagen>
+        <Habilitado>true</Habilitado>
+    </Postre>
+<Bebida Nombre="Cafe">
+        <Descripcion>Taza de cafe sin leche</Descripcion>
+        <Codigo>BEB-001</Codigo>
+        <Precio>600.0</Precio>
+        <Racion>0</Racion>
+        <Calorias>100.0</Calorias>
+        <Imagen>../Imagenes/cafeTaza.jpg</Imagen>
+        <Habilitado>true</Habilitado>
+    </Bebida>
 </Catalogo>

@@ -281,7 +281,11 @@ public class MainController {
 		}
 	}
 	
-	
+	/**
+	 * Evento de boton para modificar el monto express
+	 * @author Andres Aguilar
+	 *
+	 */
 	private class EventoMontoExpressBtn implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -303,6 +307,11 @@ public class MainController {
 		}
 	}
 	
+	/**
+	 * Evento de boton para modificar el monto de empaque
+	 * @author fabia
+	 *
+	 */
 	private class EventoMontoEmpaqueBtn implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -507,6 +516,10 @@ public class MainController {
 		
 	}
 	
+	/**
+	 * Agrega actividad a la lista de actividades
+	 * @param actividad Actividad a agregar
+	 */
 	public void AgregarActividad(String actividad) {
 		this.view.getlistaActividades().addElement(actividad + formatter.format(new Date()));
 	}

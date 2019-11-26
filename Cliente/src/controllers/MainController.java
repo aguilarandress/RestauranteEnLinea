@@ -79,6 +79,11 @@ public class MainController {
 		
 	}
 	
+	/**
+	 * Evento para unicamente permitir enteros en el numero de telefono en el pedido express
+	 * @author Andres Aguilar
+	 *
+	 */
 	private class EventoSoloNumerosExpress extends KeyAdapter {
 		
 		/**
@@ -95,6 +100,11 @@ public class MainController {
          }
 	}
 	
+	/**
+	 * Evento para unicamente permitir enteros en el numero de telefono en el pedido de recoger
+	 * @author Andres Aguilar
+	 *
+	 */
 	private class EventoSoloNumerosRecoger extends KeyAdapter {
 		/**
 		 * Evento para solo aceptar numeros
@@ -110,6 +120,11 @@ public class MainController {
          }
 	}
 	
+	/**
+	 * Evento boton para realizar pedido de visita
+	 * @author Andres Aguilar
+	 *
+	 */
 	private class RealizarPedidoVisitaListener implements ActionListener {
 
 		@Override
@@ -147,6 +162,12 @@ public class MainController {
 		
 	}
 	
+	
+	/**
+	 * Evento para unicamente permitir enteros en el numero de telefono en el pedido express
+	 * @author Andres Aguilar
+	 *
+	 */
 	private class RealizarPedidoExpressListener implements ActionListener {
 
 		@Override
@@ -187,6 +208,11 @@ public class MainController {
 		
 	}
 	
+	/**
+	 * Evento para unicamente permitir enteros en el numero de telefono en el pedido para recoger
+	 * @author Andres Aguilar
+	 *
+	 */
 	private class RealizarPedidoRecogerListener implements ActionListener {
 
 		@Override
@@ -228,6 +254,11 @@ public class MainController {
 		
 	}
 	
+	/**
+	 * Evento de tab para cargar el menu
+	 * @author Andres Aguilar
+	 *
+	 */
 	private class TabbedPaneChangeListener implements ChangeListener {
 
 		@Override
@@ -336,6 +367,11 @@ public class MainController {
 		this.alimentos = alimentos;
 	}
 	
+	/**
+	 * Evento para cuando la ventana se cierra enviar al servidor una señal
+	 * @author Andres Aguilar
+	 *
+	 */
 	private class CloseWindowEvent implements WindowListener {
 
 		@Override
@@ -387,7 +423,7 @@ public class MainController {
 	
 	/**
 	 * Evento para cargar una imagen
-	 * @author fabia
+	 * @author Fabián Vargas
 	 *
 	 */
 	private class CargarImagenEvento implements TreeSelectionListener{
@@ -410,8 +446,8 @@ public class MainController {
 	
 	/**
 	 * Verifica que la imagen exista
-	 * @param path
-	 * @return
+	 * @param path Path a verificar
+	 * @return boolean
 	 */
 	public boolean verificarImagen(String path) {
         String filepath = path;
@@ -462,6 +498,11 @@ public class MainController {
 		return this.alimentosPedidos;
 	}
 	
+	/**
+	 * Agregar al carrito las compras
+	 * @param nombre Nombre del producto
+	 * @param cantidad Cantidad pedida
+	 */
 	public void agregarTablaCarrito(String nombre, String cantidad) {
 		String[] parametro = {nombre,cantidad};
 		for(int i = 0; i<view.getCarritoModel().getRowCount();i++) {
@@ -475,6 +516,11 @@ public class MainController {
 		view.getCarritoModel().addRow(parametro);
 	}
 	
+	/**
+	 * Evento boton para eliminar producto del carrito
+	 * @author Fabián Vargas
+	 *
+	 */
 	private class EventoEliminarCarrito implements ActionListener {
 
 		@Override	
