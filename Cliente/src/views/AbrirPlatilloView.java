@@ -4,7 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
 import javax.swing.JButton;
+import javax.swing.SpinnerNumberModel;
 
 public class AbrirPlatilloView extends JFrame{
 	JLabel nombreLabel;
@@ -69,6 +71,7 @@ public class AbrirPlatilloView extends JFrame{
 		getContentPane().add(racionPlatillo);
 		
 		spinner = new JSpinner();
+		spinner.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		spinner.setBounds(20, 264, 62, 22);
 		getContentPane().add(spinner);
 		

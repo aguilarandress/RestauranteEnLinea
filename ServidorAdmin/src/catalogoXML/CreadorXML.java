@@ -38,6 +38,71 @@ public class CreadorXML {
 		return creadorXML;
 	}
 	
+	public void ModificarMontoExpress(String montoExpress) {
+		try
+	    {
+	        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+	        Document documento = docBuilder.parse(CreadorXML.path);
+	        Node elementoCatalogo = documento.getFirstChild();
+	        if(documento.getElementsByTagName("MontoExpress").getLength() == 0) {
+	        	Element monto = documento.createElement("MontoExpress");
+	        	monto.appendChild(documento.createTextNode(montoExpress));
+	        	elementoCatalogo.appendChild(monto);
+	        	
+	        }
+	        else {
+	        	documento.getElementsByTagName("MontoExpress").item(0).getChildNodes().item(0).setTextContent(montoExpress);
+	        }
+	        // Escribir el contenido en el XML
+	        DOMSource source = new DOMSource(documento);
+	        StreamResult result = new StreamResult(new File(CreadorXML.path));
+	        
+	        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+	        Transformer transformer = transformerFactory.newTransformer();
+	        // Ordenar el xml
+	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+	        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+	        transformer.transform(source, result);
+	    }
+	    catch(Exception ex)
+	    {
+	        ex.printStackTrace();
+	    }
+	}
+	
+	public void ModificarMontoEmpaque(String montoEmpaque) {
+		try
+	    {
+	        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+	        Document documento = docBuilder.parse(CreadorXML.path);
+	        Node elementoCatalogo = documento.getFirstChild();
+	        if(documento.getElementsByTagName("MontoEmpaque").getLength() == 0) {
+	        	Element monto = documento.createElement("MontoEmpaque");
+	        	monto.appendChild(documento.createTextNode(montoEmpaque));
+	        	elementoCatalogo.appendChild(monto);
+	        	
+	        }
+	        else {
+	        	documento.getElementsByTagName("MontoEmpaque").item(0).getChildNodes().item(0).setTextContent(montoEmpaque);
+	        }
+	        // Escribir el contenido en el XML
+	        DOMSource source = new DOMSource(documento);
+	        StreamResult result = new StreamResult(new File(CreadorXML.path));
+	        
+	        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+	        Transformer transformer = transformerFactory.newTransformer();
+	        // Ordenar el xml
+	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+	        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+	        transformer.transform(source, result);
+	    }
+	    catch(Exception ex)
+	    {
+	        ex.printStackTrace();
+	    }
+	}
 
 	/**
 	 * Crea el catalogo en el xml.

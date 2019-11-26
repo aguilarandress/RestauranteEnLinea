@@ -3,13 +3,11 @@ package controllers;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
@@ -20,7 +18,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
@@ -32,8 +29,6 @@ import models.cola.Cola;
 import models.cola.Nodo;
 import models.pedidos.ListaPedidos;
 import models.catalogo.Catalogo;
-import views.AgregarAlimentoView;
-import views.EditarView;
 import views.MainView;
 import views.PedidosGraficoView;
 import views.PedidosTablaView;
@@ -52,6 +47,7 @@ public class MainController {
 	
 	private Alimento alimentoSelected;
 	private ListaPedidos pedidos;
+	SimpleDateFormat formatter;
 	
 	/**
 	 * Metodo Constructor
@@ -86,6 +82,8 @@ public class MainController {
 		// Cargar alimentos del catalogo
 		this.cargarCatalogo();
 		view.setVisible(true);
+		
+		formatter = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
 	}
 	
 	/**
@@ -295,8 +293,9 @@ public class MainController {
 				Catalogo.setMontoExpress(montoExpress);
 				view.getMontoExpressLabel().setText(montoIngresado);
 				
-				// TODO: Modificar en el XML
 				view.getMontoExpressInput().setText("");
+				CreadorXML.getInstance().ModificarMontoExpress(montoIngresado);
+				
 				view.displayMessage(true, "Monto express modificado");
 			} catch (Exception parseExpcetion) {
 				view.displayMessage(false, "Por favor ingrese un valor valido");
@@ -315,8 +314,8 @@ public class MainController {
 				Catalogo.setMontoEmpaque(montoEmpaque);
 				view.getMontoEmpaqueLabel().setText(montoIngresado);
 				
-				// TODO: Modificar en el XML
 				view.getMontoEmpaqueInput().setText("");
+				CreadorXML.getInstance().ModificarMontoEmpaque(montoIngresado);
 				view.displayMessage(true, "Monto de empaque modificado");
 			} catch (Exception parseExpcetion) {
 				view.displayMessage(false, "Por favor ingrese un valor valido");
@@ -324,6 +323,11 @@ public class MainController {
 		}
 	}
 	
+	/**
+	 * Al seleccionar un elemento del arbol se le muestra su imagen correspondiente
+	 * @author Fabian Vargas
+	 *
+	 */
 	private class EventoSeleccionarCodigoTree implements TreeSelectionListener {
 
 		@Override
@@ -501,5 +505,9 @@ public class MainController {
 			
 		}
 		
+	}
+	
+	public void AgregarActividad(String actividad) {
+		this.view.getlistaActividades().addElement(actividad + formatter.format(new Date()));
 	}
 }

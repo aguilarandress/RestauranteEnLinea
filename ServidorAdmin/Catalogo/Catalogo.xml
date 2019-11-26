@@ -63,4 +63,6 @@
         <Imagen>../Imagenes/quequeFresa.jpg</Imagen>
         <Habilitado>true</Habilitado>
     </Postre>
+<MontoExpress>1500</MontoExpress>
+<MontoEmpaque>3000</MontoEmpaque>
 </Catalogo>
