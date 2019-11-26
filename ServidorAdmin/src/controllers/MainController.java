@@ -293,7 +293,6 @@ public class MainController {
 				Catalogo.setMontoExpress(montoExpress);
 				view.getMontoExpressLabel().setText(montoIngresado);
 				
-				// TODO: Modificar en el XML
 				view.getMontoExpressInput().setText("");
 				CreadorXML.getInstance().ModificarMontoExpress(montoIngresado);
 				
@@ -315,7 +314,6 @@ public class MainController {
 				Catalogo.setMontoEmpaque(montoEmpaque);
 				view.getMontoEmpaqueLabel().setText(montoIngresado);
 				
-				// TODO: Modificar en el XML
 				view.getMontoEmpaqueInput().setText("");
 				CreadorXML.getInstance().ModificarMontoEmpaque(montoIngresado);
 				view.displayMessage(true, "Monto de empaque modificado");
